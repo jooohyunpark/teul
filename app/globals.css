@@ -139,3 +139,17 @@
   color: var(--shiki-dark);
   background-color: var(--shiki-dark-bg);
 }
+
+@utility tap-target {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}

@@ -24,7 +24,7 @@ export function CodeBlockCopy({ text }: { text: string }) {
       size="icon-xs"
       onClick={onCopy}
       aria-label={copied ? "Copied" : "Copy code"}
-      className="size-6 text-muted-foreground hover:text-foreground"
+      className="tap-target size-6 text-muted-foreground hover:text-foreground"
     >
       {copied ? <Check /> : <Copy />}
     </Button>
