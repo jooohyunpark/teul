@@ -8,14 +8,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/site/table"
+import Link from "next/link"
 
 const INSTALL = "npx shadcn@latest add https://teul.dev/registry/teul.json"
 
 export default function Page() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-16 font-sans sm:py-24">
+    <main className="mx-auto min-h-svh max-w-3xl px-6">
       {/* Hero */}
-      <section className="mb-20">
+      <section className="mt-20 mb-20">
         <h1 className="text-4xl font-semibold tracking-tight">Teul</h1>
         <p className="mt-3 text-lg text-muted-foreground">
           An opinionated grid system for React and Tailwind.
@@ -64,7 +65,7 @@ export default function Page() {
       <section className="mt-20">
         <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
 
-        <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Basic 2-column
         </h3>
         <div className="mt-3 rounded-lg border bg-card p-4">
@@ -88,7 +89,7 @@ export default function Page() {
 </Grid>`}</code>
         </pre>
 
-        <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Responsive size and gap
         </h3>
         <div className="mt-3 rounded-lg border bg-card p-4">
@@ -112,7 +113,7 @@ export default function Page() {
 </Grid>`}</code>
         </pre>
 
-        <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Offset / centered content
         </h3>
         <div className="mt-3 rounded-lg border bg-card p-4">
@@ -135,7 +136,7 @@ export default function Page() {
       <section className="mt-20">
         <h2 className="text-2xl font-semibold tracking-tight">API reference</h2>
 
-        <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Grid
         </h3>
         <div className="mt-3 rounded-lg border">
@@ -173,7 +174,7 @@ export default function Page() {
           </Table>
         </div>
 
-        <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Col
         </h3>
         <div className="mt-3 rounded-lg border">
@@ -244,14 +245,11 @@ export default function Page() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-24 flex items-center justify-between border-t pt-6 text-sm text-muted-foreground">
-        <a
-          href="https://github.com/joohyun/teul"
-          className="hover:text-foreground"
-        >
-          GitHub
-        </a>
-        <span>MIT License</span>
+
+      <footer className="mt-24 flex items-center border-t py-6 text-sm text-muted-foreground">
+        <span>
+          By <Link href="https://joohyun.dev">Joohyun Park</Link>
+        </span>
       </footer>
     </main>
   )
