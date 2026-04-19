@@ -1,5 +1,5 @@
 import { Col, Grid } from "@/components/ui/teul"
-import { InstallCommand } from "@/components/install-command"
+import { CodeBlock } from "@/components/site/code-block"
 import {
   Table,
   TableBody,
@@ -16,18 +16,18 @@ export default function Page() {
   return (
     <main className="mx-auto min-h-svh max-w-3xl px-6">
       {/* Hero */}
-      <section className="mt-20 mb-20">
+      <section className="my-20">
         <h1 className="text-4xl font-semibold tracking-tight">Teul</h1>
         <p className="mt-3 text-lg text-muted-foreground">
           An opinionated grid system for React and Tailwind.
         </p>
         <div className="mt-8">
-          <InstallCommand command={INSTALL} />
+          <CodeBlock code={INSTALL} lang="bash" />
         </div>
       </section>
 
       {/* Why */}
-      <section className="mt-20">
+      <section className="my-20">
         <h2 className="text-2xl font-semibold tracking-tight">Why Teul</h2>
         <ul className="mt-6 space-y-3 text-foreground/80">
           <li className="flex gap-3">
@@ -62,7 +62,7 @@ export default function Page() {
       </section>
 
       {/* Examples */}
-      <section className="mt-20">
+      <section className="my-20">
         <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
 
         <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
@@ -82,12 +82,14 @@ export default function Page() {
             </Col>
           </Grid>
         </div>
-        <pre className="mt-2 overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-xs leading-relaxed">
-          <code>{`<Grid gap={4}>
+        <div className="mt-2">
+          <CodeBlock
+            code={`<Grid gap={4}>
   <Col size={8}>Main</Col>
   <Col size={4}>Sidebar</Col>
-</Grid>`}</code>
-        </pre>
+</Grid>`}
+          />
+        </div>
 
         <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Responsive size and gap
@@ -106,12 +108,14 @@ export default function Page() {
             </Col>
           </Grid>
         </div>
-        <pre className="mt-2 overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-xs leading-relaxed">
-          <code>{`<Grid gap={{ xs: 2, md: 6 }}>
+        <div className="mt-2">
+          <CodeBlock
+            code={`<Grid gap={{ xs: 2, md: 6 }}>
   <Col size={{ xs: 12, md: 8 }}>Main</Col>
   <Col size={{ xs: 12, md: 4 }}>Sidebar</Col>
-</Grid>`}</code>
-        </pre>
+</Grid>`}
+          />
+        </div>
 
         <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Offset / centered content
@@ -125,15 +129,17 @@ export default function Page() {
             </Col>
           </Grid>
         </div>
-        <pre className="mt-2 overflow-x-auto rounded-lg border bg-muted p-4 font-mono text-xs leading-relaxed">
-          <code>{`<Grid gap={4}>
+        <div className="mt-2">
+          <CodeBlock
+            code={`<Grid gap={4}>
   <Col size={6} offset={3}>Centered</Col>
-</Grid>`}</code>
-        </pre>
+</Grid>`}
+          />
+        </div>
       </section>
 
       {/* API reference */}
-      <section className="mt-20">
+      <section className="my-20">
         <h2 className="text-2xl font-semibold tracking-tight">API reference</h2>
 
         <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
