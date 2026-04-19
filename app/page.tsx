@@ -84,18 +84,18 @@ export default function Page() {
         <CodePreview>
           <Grid>
             <Col size={{ xs: 12, md: 8 }}>
-              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+              <div className="rounded bg-muted p-4 text-center text-sm">
                 xs: 12, md: 8
               </div>
             </Col>
             <Col size={{ xs: 12, md: 4 }}>
-              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+              <div className="rounded bg-muted p-4 text-center text-sm">
                 xs: 12, md: 4
               </div>
             </Col>
             {(["C", "D"] as const).map((label) => (
               <Col key={label} size={{ xs: 12, sm: 6 }}>
-                <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                <div className="rounded bg-muted p-4 text-center text-sm">
                   xs: 12, sm: 6
                 </div>
               </Col>
@@ -118,7 +118,7 @@ export default function Page() {
           <Grid gap={{ xs: 2, sm: 4, md: 8 }}>
             {(["A", "B", "C"] as const).map((label) => (
               <Col key={label} size={4}>
-                <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                <div className="rounded bg-muted p-4 text-center text-sm">
                   {label}
                 </div>
               </Col>
@@ -146,19 +146,19 @@ export default function Page() {
                   </div>
                 </Col>
                 <Col size={6}>
-                  <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                  <div className="rounded bg-muted p-4 text-center text-sm">
                     Top right
                   </div>
                 </Col>
                 <Col size={12}>
-                  <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                  <div className="rounded bg-muted p-4 text-center text-sm">
                     Bottom
                   </div>
                 </Col>
               </Grid>
             </Col>
             <Col size={{ xs: 12, md: 4 }}>
-              <div className="flex h-full items-center justify-center rounded bg-muted px-3 py-6 text-center text-sm">
+              <div className="flex h-full items-center justify-center rounded bg-muted p-4 text-center text-sm">
                 Sidebar
               </div>
             </Col>
@@ -182,16 +182,28 @@ export default function Page() {
         <h3>Offset / centered content</h3>
         <CodePreview>
           <Grid gap={4}>
-            <Col size={6} offset={3}>
-              <div className="rounded bg-muted px-3 py-4 text-center text-sm">
-                Centered
+            <Col size={{ xs: 12, sm: 6 }} offset={{ sm: 3 }}>
+              <div className="rounded bg-muted p-4 text-center text-sm">
+                sm offset: 3
+              </div>
+            </Col>
+            <Col size={{ xs: 12, md: 4 }} offset={{ md: 1 }}>
+              <div className="rounded bg-muted p-4 text-center text-sm">
+                md offset: 1
+              </div>
+            </Col>
+            <Col size={{ xs: 12, lg: 4 }} offset={{ lg: 2 }}>
+              <div className="rounded bg-muted p-4 text-center text-sm">
+                lg offset: 2
               </div>
             </Col>
           </Grid>
         </CodePreview>
         <CodeBlock
           code={`<Grid gap={4}>
-  <Col size={6} offset={3}>Centered</Col>
+  <Col size={{ xs: 12, sm: 6 }} offset={{ sm: 3 }}>...</Col>
+  <Col size={{ xs: 12, md: 4 }} offset={{ md: 1 }}>...</Col>
+  <Col size={{ xs: 12, lg: 4 }} offset={{ lg: 2 }}>...</Col>
 </Grid>`}
         />
       </Section>
