@@ -4,7 +4,7 @@ import * as React from "react"
 import { Check, Copy } from "lucide-react"
 import { Button } from "@/components/site/button"
 
-export function CodeBlockCopy({ text }: { text: string }) {
+export function CodeBlockCopyButton({ text }: { text: string }) {
   const [copied, setCopied] = React.useState(false)
 
   async function onCopy() {

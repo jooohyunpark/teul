@@ -1,5 +1,6 @@
 import { Col, Grid } from "@/components/ui/teul"
 import { CodeBlock } from "@/components/site/code-block"
+import { CodePreview } from "@/components/site/code-preview"
 import { Section } from "@/components/site/section"
 import {
   Table,
@@ -35,11 +36,9 @@ export default function Page() {
               <strong className="font-medium text-foreground">
                 Grid classes get buried as layouts grow.
               </strong>{" "}
-              <code className="font-mono">grid-cols-12</code>,{" "}
-              <code className="font-mono">col-span-*</code>,{" "}
-              <code className="font-mono">col-start-*</code>, responsive
-              variants — all stacked next to every other utility, hard to scan
-              and harder to maintain.
+              <code>grid-cols-12</code>, <code>col-span-*</code>,{" "}
+              <code>col-start-*</code>, responsive variants — all stacked next
+              to every other utility, hard to scan and harder to maintain.
             </li>
             <li>
               <strong className="font-medium text-foreground">
@@ -53,7 +52,7 @@ export default function Page() {
                 Containers and items look the same.
               </strong>{" "}
               A grid is two concepts — the layout and what fills it — but in
-              Tailwind they’re expressed identically, with no visual separation.
+              Tailwind they’re expressed identically, with no mental separation.
             </li>
           </ul>
         </div>
@@ -84,7 +83,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Basic 2-column
         </h3>
-        <div className="rounded-lg border bg-card p-4">
+        <CodePreview>
           <Grid gap={4}>
             <Col size={8}>
               <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
@@ -97,7 +96,7 @@ export default function Page() {
               </div>
             </Col>
           </Grid>
-        </div>
+        </CodePreview>
         <CodeBlock
           code={`<Grid>
   <Col size={8}>Main</Col>
@@ -108,7 +107,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           All 12 column sizes
         </h3>
-        <div className="space-y-2 rounded-lg border bg-card p-4">
+        <CodePreview className="space-y-2">
           {([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const).map((n) => (
             <Grid key={n} gap={2}>
               <Col size={n}>
@@ -118,7 +117,7 @@ export default function Page() {
               </Col>
             </Grid>
           ))}
-        </div>
+        </CodePreview>
         <CodeBlock
           code={`<Grid gap={2}>
   <Col size={1}>size=1</Col>
@@ -132,7 +131,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Responsive size and gap
         </h3>
-        <div className="rounded-lg border bg-card p-4">
+        <CodePreview>
           <Grid gap={{ xs: 2, md: 4 }}>
             {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
               <Col key={label} size={{ xs: 12, sm: 6, lg: 4 }}>
@@ -142,7 +141,7 @@ export default function Page() {
               </Col>
             ))}
           </Grid>
-        </div>
+        </CodePreview>
         <CodeBlock
           code={`<Grid gap={{ xs: 2, md: 4 }}>
   {items.map((item) => (
@@ -156,7 +155,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Separate row and column gaps
         </h3>
-        <div className="rounded-lg border bg-card p-4">
+        <CodePreview>
           <Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
             {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
               <Col key={label} size={{ xs: 6, md: 4 }}>
@@ -166,7 +165,7 @@ export default function Page() {
               </Col>
             ))}
           </Grid>
-        </div>
+        </CodePreview>
         <CodeBlock
           code={`<Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
   {items.map((item) => (
@@ -180,7 +179,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Offset / centered content
         </h3>
-        <div className="rounded-lg border bg-card p-4">
+        <CodePreview>
           <Grid gap={4}>
             <Col size={6} offset={3}>
               <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
@@ -188,7 +187,7 @@ export default function Page() {
               </div>
             </Col>
           </Grid>
-        </div>
+        </CodePreview>
         <CodeBlock
           code={`<Grid gap={4}>
   <Col size={6} offset={3}>Centered</Col>

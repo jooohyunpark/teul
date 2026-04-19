@@ -1,5 +1,5 @@
 import { codeToHtml } from "shiki"
-import { CodeBlockCopy } from "@/components/site/code-block-copy"
+import { CodeBlockCopyButton } from "@/components/site/code-block-copy-button"
 
 export async function CodeBlock({
   code,
@@ -19,11 +19,11 @@ export async function CodeBlock({
 
   return (
     <div className="group relative">
-      <div className="absolute right-4 top-4 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
-        <CodeBlockCopy text={code} />
+      <div className="absolute top-4 right-4 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+        <CodeBlockCopyButton text={code} />
       </div>
       <div
-        className="overflow-x-auto rounded-lg border text-xs leading-relaxed [&_pre]:!bg-transparent [&_pre]:p-4 [&_code]:font-mono"
+        className="overflow-x-auto rounded-sm border bg-card text-xs leading-relaxed [&_code]:font-mono [&_pre]:bg-transparent! [&_pre]:p-4"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
