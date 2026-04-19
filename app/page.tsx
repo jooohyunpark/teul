@@ -135,6 +135,50 @@ export default function Page() {
       </Section>
 
       <Section>
+        <h3>Nested grids</h3>
+        <CodePreview>
+          <Grid>
+            <Col size={{ xs: 12, md: 8 }}>
+              <Grid gap={4}>
+                <Col size={6}>
+                  <div className="rounded bg-muted p-4 text-center text-sm">
+                    Top left
+                  </div>
+                </Col>
+                <Col size={6}>
+                  <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                    Top right
+                  </div>
+                </Col>
+                <Col size={12}>
+                  <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                    Bottom
+                  </div>
+                </Col>
+              </Grid>
+            </Col>
+            <Col size={{ xs: 12, md: 4 }}>
+              <div className="flex h-full items-center justify-center rounded bg-muted px-3 py-6 text-center text-sm">
+                Sidebar
+              </div>
+            </Col>
+          </Grid>
+        </CodePreview>
+        <CodeBlock
+          code={`<Grid>
+  <Col size={{ xs: 12, md: 8 }}>
+    <Grid gap={4}>
+      <Col size={6}>Top left</Col>
+      <Col size={6}>Top right</Col>
+      <Col size={12}>Bottom</Col>
+    </Grid>
+  </Col>
+  <Col size={{ xs: 12, md: 4 }}>Sidebar</Col>
+</Grid>`}
+        />
+      </Section>
+
+      <Section>
         <h3>Offset / centered content</h3>
         <CodePreview>
           <Grid gap={4}>
