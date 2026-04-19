@@ -81,67 +81,47 @@ export default function Page() {
         <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
 
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Even divisions
-        </h3>
-        <CodePreview className="space-y-4">
-          {([1, 2, 3, 4, 6, 12] as const).map((cols) => (
-            <Grid key={cols} gap={2} rowGap={2}>
-              {Array.from({ length: cols }, (_, i) => (
-                <Col key={i} size={(12 / cols) as 12 | 6 | 4 | 3 | 2 | 1}>
-                  <div className="rounded bg-muted p-3 text-center text-xs">
-                    {12 / cols}
-                  </div>
-                </Col>
-              ))}
-            </Grid>
-          ))}
-        </CodePreview>
-      </Section>
-
-      <Section>
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Basic 2-column
+          Responsive size
         </h3>
         <CodePreview>
-          <Grid gap={4}>
-            <Col size={8}>
-              <div className="rounded bg-muted px-3 py-4 text-center text-sm">
-                Main
+          <Grid>
+            <Col size={{ xs: 12, md: 8 }}>
+              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                xs: 12, md: 8
               </div>
             </Col>
-            <Col size={4}>
-              <div className="rounded bg-muted px-3 py-4 text-center text-sm">
-                Sidebar
+            <Col size={{ xs: 12, md: 4 }}>
+              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                xs: 12, md: 4
               </div>
             </Col>
+            {(["C", "D"] as const).map((label) => (
+              <Col key={label} size={{ xs: 12, sm: 6 }}>
+                <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                  xs: 12, sm: 6
+                </div>
+              </Col>
+            ))}
           </Grid>
         </CodePreview>
         <CodeBlock
           code={`<Grid>
-  <Col size={8}>Main</Col>
-  <Col size={4}>Sidebar</Col>
+  <Col size={{ xs: 12, md: 8 }}>...</Col>
+  <Col size={{ xs: 12, md: 4 }}>...</Col>
+  <Col size={{ xs: 12, sm: 6 }}>...</Col>
+  <Col size={{ xs: 12, sm: 6 }}>...</Col>
 </Grid>`}
         />
       </Section>
 
       <Section>
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Responsive size and gap
+          Responsive gap
         </h3>
         <CodePreview>
-          <Grid rowGap={{ xs: 2, md: 4 }}>
-            <Col size={{ xs: 12, md: 8 }}>
-              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
-                A
-              </div>
-            </Col>
-            <Col size={{ xs: 12, md: 4 }}>
-              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
-                B
-              </div>
-            </Col>
-            {(["C", "D", "E"] as const).map((label) => (
-              <Col key={label} size={{ xs: 12, sm: 4 }}>
+          <Grid gap={{ xs: 2, md: 6 }}>
+            {(["A", "B", "C"] as const).map((label) => (
+              <Col key={label} size={4}>
                 <div className="rounded bg-muted px-3 py-6 text-center text-sm">
                   {label}
                 </div>
@@ -150,12 +130,10 @@ export default function Page() {
           </Grid>
         </CodePreview>
         <CodeBlock
-          code={`<Grid gap={{ xs: 2, md: 4 }}>
-  <Col size={{ xs: 12, md: 8 }}>A</Col>
-  <Col size={{ xs: 12, md: 4 }}>B</Col>
-  <Col size={{ xs: 12, sm: 4 }}>C</Col>
-  <Col size={{ xs: 12, sm: 4 }}>D</Col>
-  <Col size={{ xs: 12, sm: 4 }}>E</Col>
+          code={`<Grid gap={{ xs: 2, md: 6 }}>
+  <Col size={4}>A</Col>
+  <Col size={4}>B</Col>
+  <Col size={4}>C</Col>
 </Grid>`}
         />
       </Section>
