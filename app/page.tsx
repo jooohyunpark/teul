@@ -81,6 +81,25 @@ export default function Page() {
         <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
 
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+          Even divisions
+        </h3>
+        <CodePreview className="space-y-4">
+          {([1, 2, 3, 4, 6, 12] as const).map((cols) => (
+            <Grid key={cols} gap={2} rowGap={2}>
+              {Array.from({ length: cols }, (_, i) => (
+                <Col key={i} size={(12 / cols) as 12 | 6 | 4 | 3 | 2 | 1}>
+                  <div className="rounded bg-muted p-3 text-center text-xs">
+                    {12 / cols}
+                  </div>
+                </Col>
+              ))}
+            </Grid>
+          ))}
+        </CodePreview>
+      </Section>
+
+      <Section>
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Basic 2-column
         </h3>
         <CodePreview>
@@ -103,38 +122,26 @@ export default function Page() {
   <Col size={4}>Sidebar</Col>
 </Grid>`}
         />
+      </Section>
 
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          All 12 column sizes
-        </h3>
-        <CodePreview className="space-y-2">
-          {([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const).map((n) => (
-            <Grid key={n} gap={2}>
-              <Col size={n}>
-                <div className="rounded bg-muted px-3 py-2 text-center text-xs">
-                  size={n}
-                </div>
-              </Col>
-            </Grid>
-          ))}
-        </CodePreview>
-        <CodeBlock
-          code={`<Grid gap={2}>
-  <Col size={1}>size=1</Col>
-</Grid>
-<Grid gap={2}>
-  <Col size={2}>size=2</Col>
-</Grid>
-{/* ...through size={12} */}`}
-        />
-
+      <Section>
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Responsive size and gap
         </h3>
         <CodePreview>
-          <Grid gap={{ xs: 2, md: 4 }}>
-            {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
-              <Col key={label} size={{ xs: 12, sm: 6, lg: 4 }}>
+          <Grid rowGap={{ xs: 2, md: 4 }}>
+            <Col size={{ xs: 12, md: 8 }}>
+              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                A
+              </div>
+            </Col>
+            <Col size={{ xs: 12, md: 4 }}>
+              <div className="rounded bg-muted px-3 py-6 text-center text-sm">
+                B
+              </div>
+            </Col>
+            {(["C", "D", "E"] as const).map((label) => (
+              <Col key={label} size={{ xs: 12, sm: 4 }}>
                 <div className="rounded bg-muted px-3 py-6 text-center text-sm">
                   {label}
                 </div>
@@ -144,14 +151,16 @@ export default function Page() {
         </CodePreview>
         <CodeBlock
           code={`<Grid gap={{ xs: 2, md: 4 }}>
-  {items.map((item) => (
-    <Col key={item.id} size={{ xs: 12, sm: 6, lg: 4 }}>
-      <Card {...item} />
-    </Col>
-  ))}
+  <Col size={{ xs: 12, md: 8 }}>A</Col>
+  <Col size={{ xs: 12, md: 4 }}>B</Col>
+  <Col size={{ xs: 12, sm: 4 }}>C</Col>
+  <Col size={{ xs: 12, sm: 4 }}>D</Col>
+  <Col size={{ xs: 12, sm: 4 }}>E</Col>
 </Grid>`}
         />
+      </Section>
 
+      <Section>
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Separate row and column gaps
         </h3>
@@ -175,7 +184,9 @@ export default function Page() {
   ))}
 </Grid>`}
         />
+      </Section>
 
+      <Section>
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Offset / centered content
         </h3>
@@ -224,14 +235,14 @@ export default function Page() {
                 <TableCell className="font-mono text-xs">
                   ResponsiveValue&lt;GapScale&gt;
                 </TableCell>
-                <TableCell>Vertical gap override</TableCell>
+                <TableCell>Vertical gap. Defaults to 12 (48px).</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">colGap</TableCell>
                 <TableCell className="font-mono text-xs">
                   ResponsiveValue&lt;GapScale&gt;
                 </TableCell>
-                <TableCell>Horizontal gap override</TableCell>
+                <TableCell>Horizontal gap. Defaults to 8 (32px).</TableCell>
               </TableRow>
             </TableBody>
           </Table>

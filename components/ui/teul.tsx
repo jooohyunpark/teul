@@ -20,13 +20,16 @@ export type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
 export type ColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
 export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Shorthand gap applied to both axes. */
+  /** Shorthand gap applied to both axes. Overrides axis defaults. */
   gap?: ResponsiveValue<GapScale>
-  /** Vertical gap between rows. Overrides `gap` on the row axis. */
+  /** Vertical gap between rows. Defaults to 12 (48px). Overrides `gap` on the row axis. */
   rowGap?: ResponsiveValue<GapScale>
-  /** Horizontal gap between columns. Overrides `gap` on the column axis. */
+  /** Horizontal gap between columns. Defaults to 8 (32px). Overrides `gap` on the column axis. */
   colGap?: ResponsiveValue<GapScale>
 }
+
+const DEFAULT_ROW_GAP: GapScale = 12
+const DEFAULT_COL_GAP: GapScale = 8
 
 export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Number of columns to span (1–12). */
@@ -188,69 +191,6 @@ const offsetMap: Record<Breakpoint, Record<ColSize, string>> = {
   },
 }
 
-const gapMap: Record<Breakpoint, Record<GapScale, string>> = {
-  xs: {
-    0: "gap-0",
-    1: "gap-1",
-    2: "gap-2",
-    3: "gap-3",
-    4: "gap-4",
-    5: "gap-5",
-    6: "gap-6",
-    8: "gap-8",
-    10: "gap-10",
-    12: "gap-12",
-  },
-  sm: {
-    0: "sm:gap-0",
-    1: "sm:gap-1",
-    2: "sm:gap-2",
-    3: "sm:gap-3",
-    4: "sm:gap-4",
-    5: "sm:gap-5",
-    6: "sm:gap-6",
-    8: "sm:gap-8",
-    10: "sm:gap-10",
-    12: "sm:gap-12",
-  },
-  md: {
-    0: "md:gap-0",
-    1: "md:gap-1",
-    2: "md:gap-2",
-    3: "md:gap-3",
-    4: "md:gap-4",
-    5: "md:gap-5",
-    6: "md:gap-6",
-    8: "md:gap-8",
-    10: "md:gap-10",
-    12: "md:gap-12",
-  },
-  lg: {
-    0: "lg:gap-0",
-    1: "lg:gap-1",
-    2: "lg:gap-2",
-    3: "lg:gap-3",
-    4: "lg:gap-4",
-    5: "lg:gap-5",
-    6: "lg:gap-6",
-    8: "lg:gap-8",
-    10: "lg:gap-10",
-    12: "lg:gap-12",
-  },
-  xl: {
-    0: "xl:gap-0",
-    1: "xl:gap-1",
-    2: "xl:gap-2",
-    3: "xl:gap-3",
-    4: "xl:gap-4",
-    5: "xl:gap-5",
-    6: "xl:gap-6",
-    8: "xl:gap-8",
-    10: "xl:gap-10",
-    12: "xl:gap-12",
-  },
-}
-
 const rowGapMap: Record<Breakpoint, Record<GapScale, string>> = {
   xs: {
     0: "gap-y-0",
@@ -394,6 +334,42 @@ function resolveResponsive<T extends string | number>(
     .join(" ")
 }
 
+// Resolves one gap axis by cascading: axis-specific prop wins, else `gap`
+// shorthand, else the axis default. Emits a class only at breakpoints where
+// the effective value changes, leveraging Tailwind's mobile-first inheritance.
+function resolveGapAxis(
+  shorthand: ResponsiveValue<GapScale> | undefined,
+  axis: ResponsiveValue<GapScale> | undefined,
+  fallback: GapScale,
+  map: Record<Breakpoint, Record<GapScale, string>>,
+): string {
+  const s: Partial<Record<Breakpoint, GapScale>> =
+    shorthand === undefined
+      ? {}
+      : typeof shorthand === "object"
+        ? shorthand
+        : { xs: shorthand }
+  const a: Partial<Record<Breakpoint, GapScale>> =
+    axis === undefined
+      ? {}
+      : typeof axis === "object"
+        ? axis
+        : { xs: axis }
+
+  const classes: string[] = []
+  let current: GapScale = fallback
+  let last: GapScale | undefined
+  for (const bp of BREAKPOINTS) {
+    if (a[bp] !== undefined) current = a[bp]!
+    else if (s[bp] !== undefined) current = s[bp]!
+    if (current !== last) {
+      classes.push(map[bp][current])
+      last = current
+    }
+  }
+  return classes.join(" ")
+}
+
 // --- Components ---
 
 /**
@@ -412,9 +388,8 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       ref={ref}
       className={cn(
         "grid grid-cols-12",
-        resolveResponsive(gap, gapMap),
-        resolveResponsive(rowGap, rowGapMap),
-        resolveResponsive(colGap, colGapMap),
+        resolveGapAxis(gap, rowGap, DEFAULT_ROW_GAP, rowGapMap),
+        resolveGapAxis(gap, colGap, DEFAULT_COL_GAP, colGapMap),
         className,
       )}
       {...props}
