@@ -86,12 +86,12 @@ export default function Page() {
         <CodePreview>
           <Grid gap={4}>
             <Col size={8}>
-              <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
+              <div className="rounded bg-muted px-3 py-4 text-center text-sm">
                 Main
               </div>
             </Col>
             <Col size={4}>
-              <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
+              <div className="rounded bg-muted px-3 py-4 text-center text-sm">
                 Sidebar
               </div>
             </Col>
@@ -111,7 +111,7 @@ export default function Page() {
           {([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const).map((n) => (
             <Grid key={n} gap={2}>
               <Col size={n}>
-                <div className="rounded-md bg-muted px-3 py-2 text-center text-xs">
+                <div className="rounded bg-muted px-3 py-2 text-center text-xs">
                   size={n}
                 </div>
               </Col>
@@ -135,7 +135,7 @@ export default function Page() {
           <Grid gap={{ xs: 2, md: 4 }}>
             {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
               <Col key={label} size={{ xs: 12, sm: 6, lg: 4 }}>
-                <div className="rounded-md bg-muted px-3 py-6 text-center text-sm">
+                <div className="rounded bg-muted px-3 py-6 text-center text-sm">
                   {label}
                 </div>
               </Col>
@@ -159,7 +159,7 @@ export default function Page() {
           <Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
             {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
               <Col key={label} size={{ xs: 6, md: 4 }}>
-                <div className="rounded-md bg-muted px-3 py-6 text-center text-sm">
+                <div className="rounded bg-muted px-3 py-6 text-center text-sm">
                   {label}
                 </div>
               </Col>
@@ -182,7 +182,7 @@ export default function Page() {
         <CodePreview>
           <Grid gap={4}>
             <Col size={6} offset={3}>
-              <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
+              <div className="rounded bg-muted px-3 py-4 text-center text-sm">
                 Centered
               </div>
             </Col>
@@ -202,7 +202,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Grid
         </h3>
-        <div className="rounded-lg border">
+        <div className="rounded border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -240,7 +240,7 @@ export default function Page() {
         <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Col
         </h3>
-        <div className="rounded-lg border">
+        <div className="rounded border">
           <Table>
             <TableHeader>
               <TableRow>

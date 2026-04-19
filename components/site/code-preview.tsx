@@ -5,5 +5,5 @@ export function CodePreview({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("rounded-sm border p-6", className)} {...props} />
+  return <div className={cn("rounded border p-6", className)} {...props} />
 }
