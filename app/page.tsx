@@ -19,7 +19,7 @@ export default function Page() {
   return (
     <main className="mx-auto min-h-svh max-w-3xl px-6 py-10">
       <Section>
-        <h1 className="text-4xl font-semibold tracking-tight">Teul</h1>
+        <h1>Teul</h1>
         <p className="text-muted-foreground">
           An opinionated grid system for React and Tailwind.
         </p>
@@ -27,7 +27,7 @@ export default function Page() {
 
       {/* Why */}
       <Section>
-        <h2 className="text-2xl font-semibold tracking-tight">Why Teul</h2>
+        <h2>Why Teul</h2>
 
         <div className="space-y-4">
           <p className="text-muted-foreground">Teul solves three problems:</p>
@@ -66,7 +66,7 @@ export default function Page() {
 
       {/* Installation */}
       <Section>
-        <h2 className="text-2xl font-semibold tracking-tight">Installation</h2>
+        <h2>Installation</h2>
         <p>Add the component with the shadcn CLI.</p>
         <CodeBlock code={INSTALL} lang="bash" />
         <p>Then import and use.</p>
@@ -78,11 +78,9 @@ export default function Page() {
 
       {/* Examples */}
       <Section>
-        <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
+        <h2>Examples</h2>
 
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Responsive size
-        </h3>
+        <h3>Responsive size</h3>
         <CodePreview>
           <Grid>
             <Col size={{ xs: 12, md: 8 }}>
@@ -115,11 +113,9 @@ export default function Page() {
       </Section>
 
       <Section>
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Responsive gap
-        </h3>
+        <h3>Responsive gap</h3>
         <CodePreview>
-          <Grid gap={{ xs: 2, md: 6 }}>
+          <Grid gap={{ xs: 2, sm: 4, md: 8 }}>
             {(["A", "B", "C"] as const).map((label) => (
               <Col key={label} size={4}>
                 <div className="rounded bg-muted px-3 py-6 text-center text-sm">
@@ -130,7 +126,7 @@ export default function Page() {
           </Grid>
         </CodePreview>
         <CodeBlock
-          code={`<Grid gap={{ xs: 2, md: 6 }}>
+          code={`<Grid gap={{ xs: 2, sm: 4, md: 8 }}>
   <Col size={4}>A</Col>
   <Col size={4}>B</Col>
   <Col size={4}>C</Col>
@@ -139,35 +135,7 @@ export default function Page() {
       </Section>
 
       <Section>
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Separate row and column gaps
-        </h3>
-        <CodePreview>
-          <Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
-            {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
-              <Col key={label} size={{ xs: 6, md: 4 }}>
-                <div className="rounded bg-muted px-3 py-6 text-center text-sm">
-                  {label}
-                </div>
-              </Col>
-            ))}
-          </Grid>
-        </CodePreview>
-        <CodeBlock
-          code={`<Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
-  {items.map((item) => (
-    <Col key={item.id} size={{ xs: 6, md: 4 }}>
-      <Card {...item} />
-    </Col>
-  ))}
-</Grid>`}
-        />
-      </Section>
-
-      <Section>
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Offset / centered content
-        </h3>
+        <h3>Offset / centered content</h3>
         <CodePreview>
           <Grid gap={4}>
             <Col size={6} offset={3}>
@@ -186,89 +154,85 @@ export default function Page() {
 
       {/* API reference */}
       <Section>
-        <h2 className="text-2xl font-semibold tracking-tight">API reference</h2>
+        <h2>API reference</h2>
 
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Grid
-        </h3>
-        <div className="rounded border">
+        <p className="text-muted-foreground">
+          Breakpoint is{" "}
+          <code className="font-mono">
+            &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; |
+            &quot;xl&quot;
+          </code>
+          .
+        </p>
+
+        <div className="space-y-2">
+          <h3>Grid</h3>
+          <p className="text-muted-foreground">
+            GapScale is{" "}
+            <code className="font-mono">
+              0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
+            </code>
+            .
+          </p>
+        </div>
+
+        <div className="rounded border text-muted-foreground">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Prop</TableHead>
-                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-mono">gap</TableCell>
-                <TableCell className="font-mono text-xs">
-                  ResponsiveValue&lt;GapScale&gt;
-                </TableCell>
-                <TableCell>Shorthand for both axes</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell className="font-mono">rowGap</TableCell>
-                <TableCell className="font-mono text-xs">
-                  ResponsiveValue&lt;GapScale&gt;
-                </TableCell>
-                <TableCell>Vertical gap. Defaults to 12 (48px).</TableCell>
+                <TableCell className="font-mono text-xs">12 (48px)</TableCell>
+                <TableCell>Vertical gap</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">colGap</TableCell>
-                <TableCell className="font-mono text-xs">
-                  ResponsiveValue&lt;GapScale&gt;
-                </TableCell>
-                <TableCell>Horizontal gap. Defaults to 8 (32px).</TableCell>
+                <TableCell className="font-mono text-xs">8 (32px)</TableCell>
+                <TableCell>Horizontal gap</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">gap</TableCell>
+                <TableCell className="text-muted-foreground">—</TableCell>
+                <TableCell>Shorthand for both axes</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
+      </Section>
 
-        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
-          Col
-        </h3>
+      <Section>
+        <div className="space-y-2">
+          <h3>Col</h3>
+        </div>
         <div className="rounded border">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Prop</TableHead>
-                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
                 <TableCell className="font-mono">size</TableCell>
-                <TableCell className="font-mono text-xs">
-                  ResponsiveValue&lt;ColSize&gt;
-                </TableCell>
+                <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Columns to span (1–12)</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">offset</TableCell>
-                <TableCell className="font-mono text-xs">
-                  ResponsiveValue&lt;ColSize&gt;
-                </TableCell>
+                <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Leading empty columns (0-indexed)</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
-
-        <p className="text-sm text-muted-foreground">
-          <code className="font-mono">Breakpoint</code> is{" "}
-          <code className="font-mono">
-            &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; |
-            &quot;xl&quot;
-          </code>
-          . <code className="font-mono">GapScale</code> is{" "}
-          <code className="font-mono">
-            0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-          </code>
-          .
-        </p>
       </Section>
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">

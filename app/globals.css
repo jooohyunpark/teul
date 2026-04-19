@@ -131,20 +131,35 @@
   }
 }
 
+h1 {
+  @apply text-4xl font-semibold tracking-tight;
+}
+h2 {
+  @apply text-2xl font-semibold tracking-tight;
+}
+h3 {
+  @apply text-lg font-semibold tracking-wide;
+}
+h4 {
+  @apply font-semibold tracking-wide;
+}
+
 .shiki {
   color: var(--shiki-light);
   background-color: var(--shiki-light-bg);
-}
-.shiki span {
-  color: var(--shiki-light);
+
+  span {
+    color: var(--shiki-light);
+  }
 }
 
 [data-theme="dark"] .shiki {
   color: var(--shiki-dark);
   background-color: var(--shiki-dark-bg);
-}
-[data-theme="dark"] .shiki span {
-  color: var(--shiki-dark);
+
+  span {
+    color: var(--shiki-dark);
+  }
 }
 
 @utility tap-target {
