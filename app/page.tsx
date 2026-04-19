@@ -1,5 +1,6 @@
 import { Col, Grid } from "@/components/ui/teul"
 import { CodeBlock } from "@/components/site/code-block"
+import { Section } from "@/components/site/section"
 import {
   Table,
   TableBody,
@@ -15,61 +16,75 @@ const INSTALL = "npx shadcn@latest add https://teul.dev/registry/teul.json"
 
 export default function Page() {
   return (
-    <main className="mx-auto min-h-svh max-w-3xl px-6">
-      {/* Hero */}
-      <section className="my-20">
+    <main className="mx-auto min-h-svh max-w-3xl px-6 py-10">
+      <Section>
         <h1 className="text-4xl font-semibold tracking-tight">Teul</h1>
-        <p className="mt-3 text-lg text-muted-foreground">
+        <p className="text-muted-foreground">
           An opinionated grid system for React and Tailwind.
         </p>
-        <div className="mt-8">
-          <CodeBlock code={INSTALL} lang="bash" />
-        </div>
-      </section>
+      </Section>
 
       {/* Why */}
-      <section className="my-20">
+      <Section>
         <h2 className="text-2xl font-semibold tracking-tight">Why Teul</h2>
-        <ul className="mt-6 space-y-3 text-foreground/80">
-          <li className="flex gap-3">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-            <span>
-              Type-safe responsive props. Autocomplete for every breakpoint, no
-              template strings.
-            </span>
-          </li>
-          <li className="flex gap-3">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-            <span>
-              No config changes. Drop it in any Tailwind project and it just
-              works.
-            </span>
-          </li>
-          <li className="flex gap-3">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-            <span>
-              Zero runtime cost. Static class maps compile to plain Tailwind
-              utilities.
-            </span>
-          </li>
-          <li className="flex gap-3">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-            <span>
-              You own the code. Copy-paste once, modify freely, ship without a
-              dependency.
-            </span>
-          </li>
-        </ul>
-      </section>
+
+        <div className="space-y-4">
+          <p className="text-muted-foreground">Teul solves three problems:</p>
+          <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
+            <li>
+              <strong className="font-medium text-foreground">
+                Grid classes get buried as layouts grow.
+              </strong>{" "}
+              <code className="font-mono">grid-cols-12</code>,{" "}
+              <code className="font-mono">col-span-*</code>,{" "}
+              <code className="font-mono">col-start-*</code>, responsive
+              variants — all stacked next to every other utility, hard to scan
+              and harder to maintain.
+            </li>
+            <li>
+              <strong className="font-medium text-foreground">
+                Offsets are awkward in Tailwind.
+              </strong>{" "}
+              <code>col-start-*</code> is 1-indexed and doesn’t read like an
+              offset. Intent gets lost in the math.
+            </li>
+            <li>
+              <strong className="font-medium text-foreground">
+                Containers and items look the same.
+              </strong>{" "}
+              A grid is two concepts — the layout and what fills it — but in
+              Tailwind they’re expressed identically, with no visual separation.
+            </li>
+          </ul>
+        </div>
+
+        <p className="text-muted-foreground">
+          The result is an opinionated grid component with a clear split:{" "}
+          <code>Grid</code> for containers, <code>Col</code> for items.
+          Type-safe responsive props, plain Tailwind output, no config to touch.
+        </p>
+      </Section>
+
+      {/* Installation */}
+      <Section>
+        <h2 className="text-2xl font-semibold tracking-tight">Installation</h2>
+        <p>Add the component with the shadcn CLI.</p>
+        <CodeBlock code={INSTALL} lang="bash" />
+        <p>Then import and use.</p>
+        <CodeBlock
+          code={`import { Col, Grid } from "@/components/ui/teul"`}
+          lang="tsx"
+        />
+      </Section>
 
       {/* Examples */}
-      <section className="my-20">
+      <Section>
         <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
 
-        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Basic 2-column
         </h3>
-        <div className="mt-3 rounded-lg border bg-card p-4">
+        <div className="rounded-lg border bg-card p-4">
           <Grid gap={4}>
             <Col size={8}>
               <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
@@ -83,45 +98,89 @@ export default function Page() {
             </Col>
           </Grid>
         </div>
-        <div className="mt-2">
-          <CodeBlock
-            code={`<Grid gap={4}>
+        <CodeBlock
+          code={`<Grid>
   <Col size={8}>Main</Col>
   <Col size={4}>Sidebar</Col>
 </Grid>`}
-          />
-        </div>
+        />
 
-        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+          All 12 column sizes
+        </h3>
+        <div className="space-y-2 rounded-lg border bg-card p-4">
+          {([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const).map((n) => (
+            <Grid key={n} gap={2}>
+              <Col size={n}>
+                <div className="rounded-md bg-muted px-3 py-2 text-center text-xs">
+                  size={n}
+                </div>
+              </Col>
+            </Grid>
+          ))}
+        </div>
+        <CodeBlock
+          code={`<Grid gap={2}>
+  <Col size={1}>size=1</Col>
+</Grid>
+<Grid gap={2}>
+  <Col size={2}>size=2</Col>
+</Grid>
+{/* ...through size={12} */}`}
+        />
+
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Responsive size and gap
         </h3>
-        <div className="mt-3 rounded-lg border bg-card p-4">
-          <Grid gap={{ xs: 2, md: 6 }}>
-            <Col size={{ xs: 12, md: 8 }}>
-              <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
-                Main
-              </div>
-            </Col>
-            <Col size={{ xs: 12, md: 4 }}>
-              <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
-                Sidebar
-              </div>
-            </Col>
+        <div className="rounded-lg border bg-card p-4">
+          <Grid gap={{ xs: 2, md: 4 }}>
+            {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
+              <Col key={label} size={{ xs: 12, sm: 6, lg: 4 }}>
+                <div className="rounded-md bg-muted px-3 py-6 text-center text-sm">
+                  {label}
+                </div>
+              </Col>
+            ))}
           </Grid>
         </div>
-        <div className="mt-2">
-          <CodeBlock
-            code={`<Grid gap={{ xs: 2, md: 6 }}>
-  <Col size={{ xs: 12, md: 8 }}>Main</Col>
-  <Col size={{ xs: 12, md: 4 }}>Sidebar</Col>
+        <CodeBlock
+          code={`<Grid gap={{ xs: 2, md: 4 }}>
+  {items.map((item) => (
+    <Col key={item.id} size={{ xs: 12, sm: 6, lg: 4 }}>
+      <Card {...item} />
+    </Col>
+  ))}
 </Grid>`}
-          />
-        </div>
+        />
 
-        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+          Separate row and column gaps
+        </h3>
+        <div className="rounded-lg border bg-card p-4">
+          <Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
+            {(["A", "B", "C", "D", "E", "F"] as const).map((label) => (
+              <Col key={label} size={{ xs: 6, md: 4 }}>
+                <div className="rounded-md bg-muted px-3 py-6 text-center text-sm">
+                  {label}
+                </div>
+              </Col>
+            ))}
+          </Grid>
+        </div>
+        <CodeBlock
+          code={`<Grid rowGap={{ xs: 2, md: 6 }} colGap={{ xs: 1, md: 4 }}>
+  {items.map((item) => (
+    <Col key={item.id} size={{ xs: 6, md: 4 }}>
+      <Card {...item} />
+    </Col>
+  ))}
+</Grid>`}
+        />
+
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Offset / centered content
         </h3>
-        <div className="mt-3 rounded-lg border bg-card p-4">
+        <div className="rounded-lg border bg-card p-4">
           <Grid gap={4}>
             <Col size={6} offset={3}>
               <div className="rounded-md bg-muted px-3 py-4 text-center text-sm">
@@ -130,23 +189,21 @@ export default function Page() {
             </Col>
           </Grid>
         </div>
-        <div className="mt-2">
-          <CodeBlock
-            code={`<Grid gap={4}>
+        <CodeBlock
+          code={`<Grid gap={4}>
   <Col size={6} offset={3}>Centered</Col>
 </Grid>`}
-          />
-        </div>
-      </section>
+        />
+      </Section>
 
       {/* API reference */}
-      <section className="my-20">
+      <Section>
         <h2 className="text-2xl font-semibold tracking-tight">API reference</h2>
 
-        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Grid
         </h3>
-        <div className="mt-3 rounded-lg border">
+        <div className="rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -181,10 +238,10 @@ export default function Page() {
           </Table>
         </div>
 
-        <h3 className="mt-8 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+        <h3 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           Col
         </h3>
-        <div className="mt-3 rounded-lg border">
+        <div className="rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -212,7 +269,7 @@ export default function Page() {
           </Table>
         </div>
 
-        <p className="mt-6 text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           <code className="font-mono">Breakpoint</code> is{" "}
           <code className="font-mono">
             &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; |
@@ -224,36 +281,9 @@ export default function Page() {
           </code>
           .
         </p>
-      </section>
+      </Section>
 
-      {/* Philosophy */}
-      <section className="mt-20">
-        <h2 className="text-2xl font-semibold tracking-tight">Philosophy</h2>
-        <div className="mt-6 space-y-4 text-foreground/80">
-          <p>
-            <strong className="text-foreground">
-              Copy-paste, not install.
-            </strong>{" "}
-            Your grid is one file in your repo. No version pinning, no upgrade
-            anxiety, no transitive dependencies.
-          </p>
-          <p>
-            <strong className="text-foreground">Twelve columns only.</strong>{" "}
-            Every extra configuration knob is a decision you&apos;d have to make
-            again at every call site. 12 is the answer most of the time;
-            hardcode it and move on.
-          </p>
-          <p>
-            <strong className="text-foreground">No npm package.</strong> A grid
-            is a hundred lines of JSX. Taking a dependency for a hundred lines
-            of JSX is how you end up with 300 packages in node_modules.
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-
-      <footer className="mt-24 flex items-center justify-between border-t pt-4 pb-8 text-sm text-muted-foreground">
+      <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
         <span>
           By <Link href="https://joohyun.dev">Joohyun Park</Link>
         </span>

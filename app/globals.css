@@ -126,6 +126,9 @@
   html {
     @apply font-sans;
   }
+  :not(pre) > code {
+    @apply rounded bg-muted px-1.5 py-0.5 text-[0.875em] text-foreground;
+  }
 }
 
 .shiki,
