@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/site/table"
+import { ThemeToggle } from "@/components/site/theme-toggle"
 import Link from "next/link"
 
 const INSTALL = "npx shadcn@latest add https://teul.dev/registry/teul.json"
@@ -252,10 +253,11 @@ export default function Page() {
 
       {/* Footer */}
 
-      <footer className="mt-24 flex items-center border-t py-6 text-sm text-muted-foreground">
+      <footer className="mt-24 flex items-center justify-between border-t pt-4 pb-8 text-sm text-muted-foreground">
         <span>
           By <Link href="https://joohyun.dev">Joohyun Park</Link>
         </span>
+        <ThemeToggle />
       </footer>
     </main>
   )

@@ -19,7 +19,7 @@ export async function CodeBlock({
 
   return (
     <div className="group relative">
-      <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+      <div className="absolute right-3 top-3.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
         <CodeBlockCopy text={code} />
       </div>
       <div
