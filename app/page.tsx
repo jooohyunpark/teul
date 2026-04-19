@@ -10,10 +10,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/site/table"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/site/tabs"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import Link from "next/link"
 
-const INSTALL = "npx shadcn@latest add https://teul.dev/registry/teul.json"
+const REGISTRY_URL = "https://teul.dev/registry/teul.json"
+const INSTALL_COMMANDS = [
+  { name: "pnpm", command: `pnpm dlx shadcn@latest add ${REGISTRY_URL}` },
+  { name: "npm", command: `npx shadcn@latest add ${REGISTRY_URL}` },
+  { name: "yarn", command: `yarn dlx shadcn@latest add ${REGISTRY_URL}` },
+  { name: "bun", command: `bunx shadcn@latest add ${REGISTRY_URL}` },
+] as const
 
 export default function Page() {
   return (
@@ -68,7 +80,20 @@ export default function Page() {
       <Section>
         <h2>Installation</h2>
         <p>Add the component with the shadcn CLI.</p>
-        <CodeBlock code={INSTALL} lang="bash" />
+        <Tabs defaultValue="pnpm">
+          <TabsList variant="line">
+            {INSTALL_COMMANDS.map(({ name }) => (
+              <TabsTrigger key={name} value={name}>
+                {name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {INSTALL_COMMANDS.map(({ name, command }) => (
+            <TabsContent key={name} value={name}>
+              <CodeBlock code={command} lang="bash" />
+            </TabsContent>
+          ))}
+        </Tabs>
         <p>Then import and use.</p>
         <CodeBlock
           code={`import { Col, Grid } from "@/components/ui/teul"`}

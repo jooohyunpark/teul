@@ -18,12 +18,12 @@ export async function CodeBlock({
   })
 
   return (
-    <div className="group relative">
-      <div className="absolute top-4 right-4 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+    <div className="relative">
+      <div className="absolute top-4 right-4">
         <CodeBlockCopyButton text={code} />
       </div>
       <div
-        className="overflow-x-auto rounded border bg-card text-xs leading-relaxed [&_code]:font-mono [&_pre]:bg-transparent! [&_pre]:p-4"
+        className="overflow-x-auto rounded border bg-card text-sm leading-relaxed [&_code]:font-mono [&_pre]:bg-transparent! [&_pre]:p-4"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>

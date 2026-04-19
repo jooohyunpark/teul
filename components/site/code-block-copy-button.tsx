@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Check, Copy } from "lucide-react"
 import { Button } from "@/components/site/button"
+import { cn } from "@/lib/utils"
 
 export function CodeBlockCopyButton({ text }: { text: string }) {
   const [copied, setCopied] = React.useState(false)
@@ -21,12 +22,25 @@ export function CodeBlockCopyButton({ text }: { text: string }) {
     <Button
       type="button"
       variant="ghost"
-      size="icon-xs"
+      size="icon-sm"
       onClick={onCopy}
       aria-label={copied ? "Copied" : "Copy code"}
       className="tap-target size-6 text-muted-foreground hover:text-foreground"
     >
-      {copied ? <Check /> : <Copy />}
+      <span className="grid">
+        <Copy
+          className={cn(
+            "col-start-1 row-start-1 scale-100 blur-none transition-[opacity,scale,filter] duration-150 ease-out",
+            copied && "scale-90 opacity-0 blur-[2px]",
+          )}
+        />
+        <Check
+          className={cn(
+            "col-start-1 row-start-1 scale-100 blur-none transition-[opacity,scale,filter] duration-150 ease-out",
+            !copied && "scale-90 opacity-0 blur-[2px]",
+          )}
+        />
+      </span>
     </Button>
   )
 }
