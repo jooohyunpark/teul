@@ -32,7 +32,14 @@ const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
 
 export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Number of columns to span (1–12). */
+  /**
+   * Number of columns to span (1–12).
+   *
+   * Mobile-first: include `xs` when using the object form, otherwise the
+   * column has no span below the smallest declared breakpoint and falls
+   * back to the CSS grid default (one cell). Prefer `{ xs: 12, md: 6 }`
+   * over `{ md: 6 }`.
+   */
   size?: ResponsiveValue<ColSize>
   /** Leading empty columns. `offset={2}` starts the column at grid line 3. */
   offset?: ResponsiveValue<ColSize>

@@ -3,7 +3,7 @@
 An opinionated 12-column grid system for React and Tailwind.
 
 ```bash
-npx shadcn@latest add https://teul.dev/registry/teul.json
+npx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 ```
 
 ## Why Teul

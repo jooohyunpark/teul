@@ -19,7 +19,7 @@ import {
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import Link from "next/link"
 
-const REGISTRY_URL = "https://teul.dev/registry/teul.json"
+const REGISTRY_URL = "https://teul.joohyun.dev/registry/teul.json"
 const INSTALL_COMMANDS = [
   { name: "pnpm", command: `pnpm dlx shadcn@latest add ${REGISTRY_URL}` },
   { name: "npm", command: `npx shadcn@latest add ${REGISTRY_URL}` },
@@ -237,31 +237,37 @@ export default function Page() {
       <Section>
         <h2>API reference</h2>
 
+        <dl className="space-y-1 font-mono text-muted-foreground">
+          <div className="flex flex-wrap gap-x-2">
+            <dt>Breakpoint</dt>
+            <dd>
+              = &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; |
+              &quot;lg&quot; | &quot;xl&quot;
+            </dd>
+          </div>
+          <div className="flex flex-wrap gap-x-2">
+            <dt>GapScale</dt>
+            <dd>= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12</dd>
+          </div>
+          <div className="flex flex-wrap gap-x-2">
+            <dt>ColSize</dt>
+            <dd>= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12</dd>
+          </div>
+        </dl>
+
         <p className="text-muted-foreground">
-          Breakpoint is{" "}
-          <code className="font-mono">
-            &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; |
-            &quot;xl&quot;
-          </code>
-          .
+          Every prop below also accepts a per-breakpoint object, e.g.{" "}
+          <code className="font-mono">{`{ md: 4, lg: 6 }`}</code>.
         </p>
 
-        <div className="space-y-2">
-          <h3>Grid</h3>
-          <p className="text-muted-foreground">
-            GapScale is{" "}
-            <code className="font-mono">
-              0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-            </code>
-            .
-          </p>
-        </div>
+        <h3>Grid</h3>
 
         <div className="rounded border text-muted-foreground">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
                 <TableHead>Default</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
@@ -269,16 +275,19 @@ export default function Page() {
             <TableBody>
               <TableRow>
                 <TableCell className="font-mono">rowGap</TableCell>
+                <TableCell className="font-mono text-xs">GapScale</TableCell>
                 <TableCell className="font-mono text-xs">12 (48px)</TableCell>
                 <TableCell>Vertical gap</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">colGap</TableCell>
+                <TableCell className="font-mono text-xs">GapScale</TableCell>
                 <TableCell className="font-mono text-xs">8 (32px)</TableCell>
                 <TableCell>Horizontal gap</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">gap</TableCell>
+                <TableCell className="font-mono text-xs">GapScale</TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Shorthand for both axes</TableCell>
               </TableRow>
@@ -288,14 +297,13 @@ export default function Page() {
       </Section>
 
       <Section>
-        <div className="space-y-2">
-          <h3>Col</h3>
-        </div>
+        <h3>Col</h3>
         <div className="rounded border">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
                 <TableHead>Default</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
@@ -303,11 +311,13 @@ export default function Page() {
             <TableBody>
               <TableRow>
                 <TableCell className="font-mono">size</TableCell>
+                <TableCell className="font-mono text-xs">ColSize</TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Columns to span (1–12)</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">offset</TableCell>
+                <TableCell className="font-mono text-xs">ColSize</TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Leading empty columns (0-indexed)</TableCell>
               </TableRow>

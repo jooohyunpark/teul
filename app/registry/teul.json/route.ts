@@ -22,7 +22,6 @@ export function GET() {
         path: "components/ui/teul.tsx",
         content: source,
         type: "registry:ui",
-        target: "components/ui/teul.tsx",
       },
     ],
   })

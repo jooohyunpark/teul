@@ -19,28 +19,33 @@ export function CodeBlockCopyButton({ text }: { text: string }) {
   }
 
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon-sm"
-      onClick={onCopy}
-      aria-label={copied ? "Copied" : "Copy code"}
-      className="tap-target size-6 text-muted-foreground hover:text-foreground"
-    >
-      <span className="grid">
-        <Copy
-          className={cn(
-            "col-start-1 row-start-1 scale-100 blur-none transition-[opacity,scale,filter] duration-150 ease-out",
-            copied && "scale-90 opacity-0 blur-[2px]",
-          )}
-        />
-        <Check
-          className={cn(
-            "col-start-1 row-start-1 scale-100 blur-none transition-[opacity,scale,filter] duration-150 ease-out",
-            !copied && "scale-90 opacity-0 blur-[2px]",
-          )}
-        />
+    <>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon-sm"
+        onClick={onCopy}
+        aria-label={copied ? "Copied" : "Copy code"}
+        className="tap-target size-6 text-muted-foreground hover:text-foreground"
+      >
+        <span className="grid">
+          <Copy
+            className={cn(
+              "col-start-1 row-start-1 scale-100 blur-none transition-[opacity,scale,filter] duration-150 ease-out",
+              copied && "scale-90 opacity-0 blur-[2px]",
+            )}
+          />
+          <Check
+            className={cn(
+              "col-start-1 row-start-1 scale-100 blur-none transition-[opacity,scale,filter] duration-150 ease-out",
+              !copied && "scale-90 opacity-0 blur-[2px]",
+            )}
+          />
+        </span>
+      </Button>
+      <span role="status" aria-live="polite" className="sr-only">
+        {copied ? "Copied" : ""}
       </span>
-    </Button>
+    </>
   )
 }
