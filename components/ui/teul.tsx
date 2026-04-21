@@ -7,6 +7,17 @@ export type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 export type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
 export type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
+export interface GridProps extends React.ComponentProps<"div"> {
+  gap?: ResponsiveValue<GapScale>
+  rowGap?: ResponsiveValue<GapScale>
+  colGap?: ResponsiveValue<GapScale>
+}
+
+export interface GridColProps extends React.ComponentProps<"div"> {
+  size?: ResponsiveValue<GridColSize>
+  offset?: ResponsiveValue<GridColSize>
+}
+
 const BREAKPOINTS = ["xs", "sm", "md", "lg", "xl", "2xl"] as const
 const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
@@ -346,11 +357,16 @@ function resolveResponsive<T extends string | number>(
 ): string {
   if (value === undefined) return ""
   if (typeof value !== "object") return map.xs[value]
-  return BREAKPOINTS.map((bp) =>
-    value[bp] !== undefined ? map[bp][value[bp] as T] : "",
-  )
-    .filter(Boolean)
-    .join(" ")
+  const classes: string[] = []
+  let last: T | undefined
+  for (const bp of BREAKPOINTS) {
+    const v = value[bp]
+    if (v !== undefined && v !== last) {
+      classes.push(map[bp][v])
+      last = v
+    }
+  }
+  return classes.join(" ")
 }
 
 function resolveGapAxis(
@@ -385,11 +401,7 @@ function Grid({
   colGap,
   className,
   ...props
-}: React.ComponentProps<"div"> & {
-  gap?: ResponsiveValue<GapScale>
-  rowGap?: ResponsiveValue<GapScale>
-  colGap?: ResponsiveValue<GapScale>
-}) {
+}: GridProps) {
   return (
     <div
       data-slot="grid"
@@ -409,10 +421,7 @@ function GridCol({
   offset,
   className,
   ...props
-}: React.ComponentProps<"div"> & {
-  size?: ResponsiveValue<GridColSize>
-  offset?: ResponsiveValue<GridColSize>
-}) {
+}: GridColProps) {
   return (
     <div
       data-slot="grid-col"
