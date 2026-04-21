@@ -42,37 +42,40 @@ export default function Page() {
         <h2>Why Teul</h2>
 
         <div className="space-y-4">
-          <p className="text-muted-foreground">Teul solves three problems:</p>
+          <p className="text-muted-foreground">
+            Three things Tailwind makes harder than it should:
+          </p>
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
               <strong className="font-medium text-foreground">
-                Grid classes get buried as layouts grow.
+                Column sizing gets lost in the utility string.
               </strong>{" "}
-              <code>grid-cols-12</code>, <code>col-span-*</code>,{" "}
-              <code>col-start-*</code>, responsive variants — all stacked next
-              to every other utility, hard to scan and harder to maintain.
+              Span and start classes pile up next to every other utility, and
+              each breakpoint multiplies them.
             </li>
             <li>
               <strong className="font-medium text-foreground">
-                Offsets are awkward in Tailwind.
+                Offsets don’t read like offsets.
               </strong>{" "}
-              <code>col-start-*</code> is 1-indexed and doesn’t read like an
-              offset. Intent gets lost in the math.
+              <code>col-start-*</code> is 1-indexed and describes a position,
+              not a shift — so intent gets lost in the math.
             </li>
             <li>
               <strong className="font-medium text-foreground">
                 Containers and items look the same.
               </strong>{" "}
-              A grid is two concepts — the layout and what fills it — but in
-              Tailwind they’re expressed identically, with no mental separation.
+              A grid is two concepts — structure and contents — but in
+              Tailwind both are just <code>&lt;div&gt;</code>s with class
+              strings.
             </li>
           </ul>
         </div>
 
         <p className="text-muted-foreground">
-          The result is an opinionated grid component with a clear split:{" "}
-          <code>Grid</code> for containers, <code>GridCol</code> for items.
-          Type-safe responsive props, plain Tailwind output, no config to touch.
+          The result is a 12-column grid component: <code>Grid</code> for
+          containers, <code>GridCol</code> for items. Type-safe responsive
+          props, plain Tailwind output, copy-paste install — no runtime, no
+          dependencies, no config.
         </p>
       </Section>
 
