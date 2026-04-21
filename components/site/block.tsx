@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-export function Section({
+export function Block({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {

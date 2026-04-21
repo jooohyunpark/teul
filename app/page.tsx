@@ -1,7 +1,7 @@
 import { Grid, GridCol } from "@/components/ui/teul"
 import { CodeBlock } from "@/components/site/code-block"
 import { CodePreview } from "@/components/site/code-preview"
-import { Section } from "@/components/site/section"
+import { Block } from "@/components/site/block"
 import {
   Table,
   TableBody,
@@ -30,15 +30,15 @@ const INSTALL_COMMANDS = [
 export default function Page() {
   return (
     <main className="mx-auto min-h-svh max-w-3xl px-6 py-10">
-      <Section>
+      <Block>
         <h1>Teul</h1>
         <p className="text-muted-foreground">
           An opinionated grid system for React and Tailwind.
         </p>
-      </Section>
+      </Block>
 
       {/* Why */}
-      <Section>
+      <Block>
         <h2>Why Teul</h2>
 
         <div className="space-y-4">
@@ -64,9 +64,9 @@ export default function Page() {
               <strong className="font-medium text-foreground">
                 Containers and items look the same.
               </strong>{" "}
-              A grid is two concepts — structure and contents — but in
-              Tailwind both are just <code>&lt;div&gt;</code>s with class
-              strings.
+              A grid is two concepts — structure and contents — but in Tailwind,
+              both are just <code>&lt;div&gt;</code>s with class strings — no
+              component boundary to signal which is which.
             </li>
           </ul>
         </div>
@@ -77,12 +77,14 @@ export default function Page() {
           props, plain Tailwind output, copy-paste install — no runtime, no
           dependencies, no config.
         </p>
-      </Section>
+      </Block>
 
       {/* Installation */}
-      <Section>
+      <Block>
         <h2>Installation</h2>
-        <p>Add the component with the shadcn CLI.</p>
+        <p className="text-muted-foreground">
+          Add Teul to your project via the shadcn CLI.
+        </p>
         <Tabs defaultValue="pnpm">
           <TabsList variant="line">
             {INSTALL_COMMANDS.map(({ name }) => (
@@ -97,34 +99,34 @@ export default function Page() {
             </TabsContent>
           ))}
         </Tabs>
-        <p>Then import and use.</p>
+        <p className="text-muted-foreground">Then import and start building.</p>
         <CodeBlock
           code={`import { Grid, GridCol } from "@/components/ui/teul"`}
           lang="tsx"
         />
-      </Section>
+      </Block>
 
       {/* Examples */}
-      <Section>
+      <Block>
         <h2>Examples</h2>
 
         <h3>Responsive size</h3>
         <CodePreview>
           <Grid>
-            <GridCol size={{ md: 8 }}>
+            <GridCol size={{ base: 12, md: 8 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
-                md: 8
+                base: 12 · md: 8
               </div>
             </GridCol>
-            <GridCol size={{ md: 4 }}>
+            <GridCol size={{ base: 12, md: 4 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
-                md: 4
+                base: 12 · md: 4
               </div>
             </GridCol>
             {(["C", "D"] as const).map((label) => (
-              <GridCol key={label} size={{ sm: 6 }}>
+              <GridCol key={label} size={{ base: 12, md: 6 }}>
                 <div className="rounded bg-muted p-4 text-center text-sm">
-                  sm: 6
+                  base: 12 · md: 6
                 </div>
               </GridCol>
             ))}
@@ -132,15 +134,15 @@ export default function Page() {
         </CodePreview>
         <CodeBlock
           code={`<Grid>
-  <GridCol size={{ md: 8 }}>...</GridCol>
-  <GridCol size={{ md: 4 }}>...</GridCol>
-  <GridCol size={{ sm: 6 }}>...</GridCol>
-  <GridCol size={{ sm: 6 }}>...</GridCol>
+  <GridCol size={{ base: 12, md: 8 }}>...</GridCol>
+  <GridCol size={{ base: 12, md: 4 }}>...</GridCol>
+  <GridCol size={{ base: 12, md: 6 }}>...</GridCol>
+  <GridCol size={{ base: 12, md: 6 }}>...</GridCol>
 </Grid>`}
         />
-      </Section>
+      </Block>
 
-      <Section>
+      <Block>
         <h3>Responsive gap</h3>
         <CodePreview>
           <Grid gap={{ base: 2, sm: 4, md: 8 }}>
@@ -160,9 +162,9 @@ export default function Page() {
   <GridCol size={4}>C</GridCol>
 </Grid>`}
         />
-      </Section>
+      </Block>
 
-      <Section>
+      <Block>
         <h3>Nested grids</h3>
         <CodePreview>
           <Grid>
@@ -204,9 +206,9 @@ export default function Page() {
   <GridCol size={{ md: 4 }}>Sidebar</GridCol>
 </Grid>`}
         />
-      </Section>
+      </Block>
 
-      <Section>
+      <Block>
         <h3>Offset / centered content</h3>
         <CodePreview>
           <Grid gap={4}>
@@ -234,38 +236,28 @@ export default function Page() {
   <GridCol size={{ lg: 4 }} offset={{ lg: 2 }}>...</GridCol>
 </Grid>`}
         />
-      </Section>
+      </Block>
 
       {/* API reference */}
-      <Section>
+      <Block>
         <h2>API reference</h2>
 
-        <dl className="space-y-1 font-mono text-muted-foreground">
-          <div className="flex flex-wrap gap-x-2">
-            <dt>Breakpoint</dt>
-            <dd>
-              = &quot;base&quot; | &quot;sm&quot; | &quot;md&quot; |
-              &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;
-            </dd>
-          </div>
-          <div className="flex flex-wrap gap-x-2">
-            <dt>GapScale</dt>
-            <dd>= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12</dd>
-          </div>
-          <div className="flex flex-wrap gap-x-2">
-            <dt>GridColSize</dt>
-            <dd>= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12</dd>
-          </div>
-        </dl>
+        <CodeBlock
+          lang="ts"
+          code={`type Breakpoint  = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
+type GapScale    = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
+type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
+        />
 
         <p className="text-muted-foreground">
-          Every prop below also accepts a per-breakpoint object, e.g.{" "}
-          <code className="font-mono">{`{ md: 4, lg: 6 }`}</code>.
+          Every prop accepts a single value or a per-breakpoint object (e.g.{" "}
+          <code>{`{ md: 4, lg: 6 }`}</code>). <code>GapScale</code> follows
+          Tailwind’s spacing scale.
         </p>
 
         <h3>Grid</h3>
 
-        <div className="rounded border text-muted-foreground">
+        <div className="rounded border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -277,29 +269,45 @@ export default function Page() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-mono">rowGap</TableCell>
-                <TableCell className="font-mono text-xs">GapScale</TableCell>
-                <TableCell className="font-mono text-xs">12 (48px)</TableCell>
+                <TableCell>
+                  <code>rowGap</code>
+                </TableCell>
+                <TableCell>
+                  <code>GapScale</code>
+                </TableCell>
+                <TableCell>
+                  <code>12</code>
+                </TableCell>
                 <TableCell>Vertical gap</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono">colGap</TableCell>
-                <TableCell className="font-mono text-xs">GapScale</TableCell>
-                <TableCell className="font-mono text-xs">8 (32px)</TableCell>
+                <TableCell>
+                  <code>colGap</code>
+                </TableCell>
+                <TableCell>
+                  <code>GapScale</code>
+                </TableCell>
+                <TableCell>
+                  <code>8</code>
+                </TableCell>
                 <TableCell>Horizontal gap</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono">gap</TableCell>
-                <TableCell className="font-mono text-xs">GapScale</TableCell>
+                <TableCell>
+                  <code>gap</code>
+                </TableCell>
+                <TableCell>
+                  <code>GapScale</code>
+                </TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Shorthand for both axes</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
-      </Section>
+      </Block>
 
-      <Section>
+      <Block>
         <h3>GridCol</h3>
         <div className="rounded border">
           <Table>
@@ -313,21 +321,29 @@ export default function Page() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-mono">size</TableCell>
-                <TableCell className="font-mono text-xs">GridColSize</TableCell>
+                <TableCell>
+                  <code>size</code>
+                </TableCell>
+                <TableCell>
+                  <code>GridColSize</code>
+                </TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Columns to span (1–12)</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono">offset</TableCell>
-                <TableCell className="font-mono text-xs">GridColSize</TableCell>
+                <TableCell>
+                  <code>offset</code>
+                </TableCell>
+                <TableCell>
+                  <code>GridColSize</code>
+                </TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
-                <TableCell>Shifts the column by N leading columns</TableCell>
+                <TableCell>Empty columns before the item</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
-      </Section>
+      </Block>
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
         <span>
