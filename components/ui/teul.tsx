@@ -1,332 +1,344 @@
 import * as React from "react"
+
 import { cn } from "@/lib/utils"
 
-// --- Types ---
-
-/** Tailwind breakpoint keys. `xs` = no prefix (mobile-first base). */
-export type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl"
-
-/**
- * A single value applied at every breakpoint, or a partial record of
- * per-breakpoint values. Mobile-first: `xs` is the base, and each larger
- * breakpoint overrides it when set.
- */
+export type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
 export type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
-
-/** Supported spacing scale for `gap`, `rowGap`, `colGap`. */
 export type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-
-/** Column span values. The grid is fixed at 12 columns. */
 export type ColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
-export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Shorthand gap applied to both axes. Overrides axis defaults. */
-  gap?: ResponsiveValue<GapScale>
-  /** Vertical gap between rows. Defaults to 12 (48px). Overrides `gap` on the row axis. */
-  rowGap?: ResponsiveValue<GapScale>
-  /** Horizontal gap between columns. Defaults to 8 (32px). Overrides `gap` on the column axis. */
-  colGap?: ResponsiveValue<GapScale>
-}
-
+const BREAKPOINTS = ["xs", "sm", "md", "lg", "xl", "2xl"] as const
 const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
 
-export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * Number of columns to span (1–12).
-   *
-   * Mobile-first: include `xs` when using the object form, otherwise the
-   * column has no span below the smallest declared breakpoint and falls
-   * back to the CSS grid default (one cell). Prefer `{ xs: 12, md: 6 }`
-   * over `{ md: 6 }`.
-   */
-  size?: ResponsiveValue<ColSize>
-  /** Leading empty columns. `offset={2}` starts the column at grid line 3. */
-  offset?: ResponsiveValue<ColSize>
-}
-
-// --- Class maps ---
-//
-// Tailwind's JIT compiler only picks up class names that appear as complete
-// string literals in the source. These maps enumerate every class we might
-// render so the compiler sees each one verbatim.
+const WIDTH_CALC =
+  "w-[calc(var(--size)/12*(100%+var(--col-gap))-var(--col-gap))]"
+const OFFSET_CALC =
+  "ml-[calc(var(--offset)/12*(100%+var(--col-gap)))]"
 
 const sizeMap: Record<Breakpoint, Record<ColSize, string>> = {
   xs: {
-    1: "col-span-1",
-    2: "col-span-2",
-    3: "col-span-3",
-    4: "col-span-4",
-    5: "col-span-5",
-    6: "col-span-6",
-    7: "col-span-7",
-    8: "col-span-8",
-    9: "col-span-9",
-    10: "col-span-10",
-    11: "col-span-11",
-    12: "col-span-12",
+    1: "[--size:1]",
+    2: "[--size:2]",
+    3: "[--size:3]",
+    4: "[--size:4]",
+    5: "[--size:5]",
+    6: "[--size:6]",
+    7: "[--size:7]",
+    8: "[--size:8]",
+    9: "[--size:9]",
+    10: "[--size:10]",
+    11: "[--size:11]",
+    12: "[--size:12]",
   },
   sm: {
-    1: "sm:col-span-1",
-    2: "sm:col-span-2",
-    3: "sm:col-span-3",
-    4: "sm:col-span-4",
-    5: "sm:col-span-5",
-    6: "sm:col-span-6",
-    7: "sm:col-span-7",
-    8: "sm:col-span-8",
-    9: "sm:col-span-9",
-    10: "sm:col-span-10",
-    11: "sm:col-span-11",
-    12: "sm:col-span-12",
+    1: "sm:[--size:1]",
+    2: "sm:[--size:2]",
+    3: "sm:[--size:3]",
+    4: "sm:[--size:4]",
+    5: "sm:[--size:5]",
+    6: "sm:[--size:6]",
+    7: "sm:[--size:7]",
+    8: "sm:[--size:8]",
+    9: "sm:[--size:9]",
+    10: "sm:[--size:10]",
+    11: "sm:[--size:11]",
+    12: "sm:[--size:12]",
   },
   md: {
-    1: "md:col-span-1",
-    2: "md:col-span-2",
-    3: "md:col-span-3",
-    4: "md:col-span-4",
-    5: "md:col-span-5",
-    6: "md:col-span-6",
-    7: "md:col-span-7",
-    8: "md:col-span-8",
-    9: "md:col-span-9",
-    10: "md:col-span-10",
-    11: "md:col-span-11",
-    12: "md:col-span-12",
+    1: "md:[--size:1]",
+    2: "md:[--size:2]",
+    3: "md:[--size:3]",
+    4: "md:[--size:4]",
+    5: "md:[--size:5]",
+    6: "md:[--size:6]",
+    7: "md:[--size:7]",
+    8: "md:[--size:8]",
+    9: "md:[--size:9]",
+    10: "md:[--size:10]",
+    11: "md:[--size:11]",
+    12: "md:[--size:12]",
   },
   lg: {
-    1: "lg:col-span-1",
-    2: "lg:col-span-2",
-    3: "lg:col-span-3",
-    4: "lg:col-span-4",
-    5: "lg:col-span-5",
-    6: "lg:col-span-6",
-    7: "lg:col-span-7",
-    8: "lg:col-span-8",
-    9: "lg:col-span-9",
-    10: "lg:col-span-10",
-    11: "lg:col-span-11",
-    12: "lg:col-span-12",
+    1: "lg:[--size:1]",
+    2: "lg:[--size:2]",
+    3: "lg:[--size:3]",
+    4: "lg:[--size:4]",
+    5: "lg:[--size:5]",
+    6: "lg:[--size:6]",
+    7: "lg:[--size:7]",
+    8: "lg:[--size:8]",
+    9: "lg:[--size:9]",
+    10: "lg:[--size:10]",
+    11: "lg:[--size:11]",
+    12: "lg:[--size:12]",
   },
   xl: {
-    1: "xl:col-span-1",
-    2: "xl:col-span-2",
-    3: "xl:col-span-3",
-    4: "xl:col-span-4",
-    5: "xl:col-span-5",
-    6: "xl:col-span-6",
-    7: "xl:col-span-7",
-    8: "xl:col-span-8",
-    9: "xl:col-span-9",
-    10: "xl:col-span-10",
-    11: "xl:col-span-11",
-    12: "xl:col-span-12",
+    1: "xl:[--size:1]",
+    2: "xl:[--size:2]",
+    3: "xl:[--size:3]",
+    4: "xl:[--size:4]",
+    5: "xl:[--size:5]",
+    6: "xl:[--size:6]",
+    7: "xl:[--size:7]",
+    8: "xl:[--size:8]",
+    9: "xl:[--size:9]",
+    10: "xl:[--size:10]",
+    11: "xl:[--size:11]",
+    12: "xl:[--size:12]",
+  },
+  "2xl": {
+    1: "2xl:[--size:1]",
+    2: "2xl:[--size:2]",
+    3: "2xl:[--size:3]",
+    4: "2xl:[--size:4]",
+    5: "2xl:[--size:5]",
+    6: "2xl:[--size:6]",
+    7: "2xl:[--size:7]",
+    8: "2xl:[--size:8]",
+    9: "2xl:[--size:9]",
+    10: "2xl:[--size:10]",
+    11: "2xl:[--size:11]",
+    12: "2xl:[--size:12]",
   },
 }
 
-// `offset` is 0-indexed: offset={N} maps to col-start-(N+1).
 const offsetMap: Record<Breakpoint, Record<ColSize, string>> = {
   xs: {
-    1: "col-start-2",
-    2: "col-start-3",
-    3: "col-start-4",
-    4: "col-start-5",
-    5: "col-start-6",
-    6: "col-start-7",
-    7: "col-start-8",
-    8: "col-start-9",
-    9: "col-start-10",
-    10: "col-start-11",
-    11: "col-start-12",
-    12: "col-start-13",
+    1: "[--offset:1]",
+    2: "[--offset:2]",
+    3: "[--offset:3]",
+    4: "[--offset:4]",
+    5: "[--offset:5]",
+    6: "[--offset:6]",
+    7: "[--offset:7]",
+    8: "[--offset:8]",
+    9: "[--offset:9]",
+    10: "[--offset:10]",
+    11: "[--offset:11]",
+    12: "[--offset:12]",
   },
   sm: {
-    1: "sm:col-start-2",
-    2: "sm:col-start-3",
-    3: "sm:col-start-4",
-    4: "sm:col-start-5",
-    5: "sm:col-start-6",
-    6: "sm:col-start-7",
-    7: "sm:col-start-8",
-    8: "sm:col-start-9",
-    9: "sm:col-start-10",
-    10: "sm:col-start-11",
-    11: "sm:col-start-12",
-    12: "sm:col-start-13",
+    1: "sm:[--offset:1]",
+    2: "sm:[--offset:2]",
+    3: "sm:[--offset:3]",
+    4: "sm:[--offset:4]",
+    5: "sm:[--offset:5]",
+    6: "sm:[--offset:6]",
+    7: "sm:[--offset:7]",
+    8: "sm:[--offset:8]",
+    9: "sm:[--offset:9]",
+    10: "sm:[--offset:10]",
+    11: "sm:[--offset:11]",
+    12: "sm:[--offset:12]",
   },
   md: {
-    1: "md:col-start-2",
-    2: "md:col-start-3",
-    3: "md:col-start-4",
-    4: "md:col-start-5",
-    5: "md:col-start-6",
-    6: "md:col-start-7",
-    7: "md:col-start-8",
-    8: "md:col-start-9",
-    9: "md:col-start-10",
-    10: "md:col-start-11",
-    11: "md:col-start-12",
-    12: "md:col-start-13",
+    1: "md:[--offset:1]",
+    2: "md:[--offset:2]",
+    3: "md:[--offset:3]",
+    4: "md:[--offset:4]",
+    5: "md:[--offset:5]",
+    6: "md:[--offset:6]",
+    7: "md:[--offset:7]",
+    8: "md:[--offset:8]",
+    9: "md:[--offset:9]",
+    10: "md:[--offset:10]",
+    11: "md:[--offset:11]",
+    12: "md:[--offset:12]",
   },
   lg: {
-    1: "lg:col-start-2",
-    2: "lg:col-start-3",
-    3: "lg:col-start-4",
-    4: "lg:col-start-5",
-    5: "lg:col-start-6",
-    6: "lg:col-start-7",
-    7: "lg:col-start-8",
-    8: "lg:col-start-9",
-    9: "lg:col-start-10",
-    10: "lg:col-start-11",
-    11: "lg:col-start-12",
-    12: "lg:col-start-13",
+    1: "lg:[--offset:1]",
+    2: "lg:[--offset:2]",
+    3: "lg:[--offset:3]",
+    4: "lg:[--offset:4]",
+    5: "lg:[--offset:5]",
+    6: "lg:[--offset:6]",
+    7: "lg:[--offset:7]",
+    8: "lg:[--offset:8]",
+    9: "lg:[--offset:9]",
+    10: "lg:[--offset:10]",
+    11: "lg:[--offset:11]",
+    12: "lg:[--offset:12]",
   },
   xl: {
-    1: "xl:col-start-2",
-    2: "xl:col-start-3",
-    3: "xl:col-start-4",
-    4: "xl:col-start-5",
-    5: "xl:col-start-6",
-    6: "xl:col-start-7",
-    7: "xl:col-start-8",
-    8: "xl:col-start-9",
-    9: "xl:col-start-10",
-    10: "xl:col-start-11",
-    11: "xl:col-start-12",
-    12: "xl:col-start-13",
+    1: "xl:[--offset:1]",
+    2: "xl:[--offset:2]",
+    3: "xl:[--offset:3]",
+    4: "xl:[--offset:4]",
+    5: "xl:[--offset:5]",
+    6: "xl:[--offset:6]",
+    7: "xl:[--offset:7]",
+    8: "xl:[--offset:8]",
+    9: "xl:[--offset:9]",
+    10: "xl:[--offset:10]",
+    11: "xl:[--offset:11]",
+    12: "xl:[--offset:12]",
+  },
+  "2xl": {
+    1: "2xl:[--offset:1]",
+    2: "2xl:[--offset:2]",
+    3: "2xl:[--offset:3]",
+    4: "2xl:[--offset:4]",
+    5: "2xl:[--offset:5]",
+    6: "2xl:[--offset:6]",
+    7: "2xl:[--offset:7]",
+    8: "2xl:[--offset:8]",
+    9: "2xl:[--offset:9]",
+    10: "2xl:[--offset:10]",
+    11: "2xl:[--offset:11]",
+    12: "2xl:[--offset:12]",
   },
 }
 
 const rowGapMap: Record<Breakpoint, Record<GapScale, string>> = {
   xs: {
-    0: "gap-y-0",
-    1: "gap-y-1",
-    2: "gap-y-2",
-    3: "gap-y-3",
-    4: "gap-y-4",
-    5: "gap-y-5",
-    6: "gap-y-6",
-    8: "gap-y-8",
-    10: "gap-y-10",
-    12: "gap-y-12",
+    0: "[--row-gap:0px]",
+    1: "[--row-gap:calc(var(--spacing)*1)]",
+    2: "[--row-gap:calc(var(--spacing)*2)]",
+    3: "[--row-gap:calc(var(--spacing)*3)]",
+    4: "[--row-gap:calc(var(--spacing)*4)]",
+    5: "[--row-gap:calc(var(--spacing)*5)]",
+    6: "[--row-gap:calc(var(--spacing)*6)]",
+    8: "[--row-gap:calc(var(--spacing)*8)]",
+    10: "[--row-gap:calc(var(--spacing)*10)]",
+    12: "[--row-gap:calc(var(--spacing)*12)]",
   },
   sm: {
-    0: "sm:gap-y-0",
-    1: "sm:gap-y-1",
-    2: "sm:gap-y-2",
-    3: "sm:gap-y-3",
-    4: "sm:gap-y-4",
-    5: "sm:gap-y-5",
-    6: "sm:gap-y-6",
-    8: "sm:gap-y-8",
-    10: "sm:gap-y-10",
-    12: "sm:gap-y-12",
+    0: "sm:[--row-gap:0px]",
+    1: "sm:[--row-gap:calc(var(--spacing)*1)]",
+    2: "sm:[--row-gap:calc(var(--spacing)*2)]",
+    3: "sm:[--row-gap:calc(var(--spacing)*3)]",
+    4: "sm:[--row-gap:calc(var(--spacing)*4)]",
+    5: "sm:[--row-gap:calc(var(--spacing)*5)]",
+    6: "sm:[--row-gap:calc(var(--spacing)*6)]",
+    8: "sm:[--row-gap:calc(var(--spacing)*8)]",
+    10: "sm:[--row-gap:calc(var(--spacing)*10)]",
+    12: "sm:[--row-gap:calc(var(--spacing)*12)]",
   },
   md: {
-    0: "md:gap-y-0",
-    1: "md:gap-y-1",
-    2: "md:gap-y-2",
-    3: "md:gap-y-3",
-    4: "md:gap-y-4",
-    5: "md:gap-y-5",
-    6: "md:gap-y-6",
-    8: "md:gap-y-8",
-    10: "md:gap-y-10",
-    12: "md:gap-y-12",
+    0: "md:[--row-gap:0px]",
+    1: "md:[--row-gap:calc(var(--spacing)*1)]",
+    2: "md:[--row-gap:calc(var(--spacing)*2)]",
+    3: "md:[--row-gap:calc(var(--spacing)*3)]",
+    4: "md:[--row-gap:calc(var(--spacing)*4)]",
+    5: "md:[--row-gap:calc(var(--spacing)*5)]",
+    6: "md:[--row-gap:calc(var(--spacing)*6)]",
+    8: "md:[--row-gap:calc(var(--spacing)*8)]",
+    10: "md:[--row-gap:calc(var(--spacing)*10)]",
+    12: "md:[--row-gap:calc(var(--spacing)*12)]",
   },
   lg: {
-    0: "lg:gap-y-0",
-    1: "lg:gap-y-1",
-    2: "lg:gap-y-2",
-    3: "lg:gap-y-3",
-    4: "lg:gap-y-4",
-    5: "lg:gap-y-5",
-    6: "lg:gap-y-6",
-    8: "lg:gap-y-8",
-    10: "lg:gap-y-10",
-    12: "lg:gap-y-12",
+    0: "lg:[--row-gap:0px]",
+    1: "lg:[--row-gap:calc(var(--spacing)*1)]",
+    2: "lg:[--row-gap:calc(var(--spacing)*2)]",
+    3: "lg:[--row-gap:calc(var(--spacing)*3)]",
+    4: "lg:[--row-gap:calc(var(--spacing)*4)]",
+    5: "lg:[--row-gap:calc(var(--spacing)*5)]",
+    6: "lg:[--row-gap:calc(var(--spacing)*6)]",
+    8: "lg:[--row-gap:calc(var(--spacing)*8)]",
+    10: "lg:[--row-gap:calc(var(--spacing)*10)]",
+    12: "lg:[--row-gap:calc(var(--spacing)*12)]",
   },
   xl: {
-    0: "xl:gap-y-0",
-    1: "xl:gap-y-1",
-    2: "xl:gap-y-2",
-    3: "xl:gap-y-3",
-    4: "xl:gap-y-4",
-    5: "xl:gap-y-5",
-    6: "xl:gap-y-6",
-    8: "xl:gap-y-8",
-    10: "xl:gap-y-10",
-    12: "xl:gap-y-12",
+    0: "xl:[--row-gap:0px]",
+    1: "xl:[--row-gap:calc(var(--spacing)*1)]",
+    2: "xl:[--row-gap:calc(var(--spacing)*2)]",
+    3: "xl:[--row-gap:calc(var(--spacing)*3)]",
+    4: "xl:[--row-gap:calc(var(--spacing)*4)]",
+    5: "xl:[--row-gap:calc(var(--spacing)*5)]",
+    6: "xl:[--row-gap:calc(var(--spacing)*6)]",
+    8: "xl:[--row-gap:calc(var(--spacing)*8)]",
+    10: "xl:[--row-gap:calc(var(--spacing)*10)]",
+    12: "xl:[--row-gap:calc(var(--spacing)*12)]",
+  },
+  "2xl": {
+    0: "2xl:[--row-gap:0px]",
+    1: "2xl:[--row-gap:calc(var(--spacing)*1)]",
+    2: "2xl:[--row-gap:calc(var(--spacing)*2)]",
+    3: "2xl:[--row-gap:calc(var(--spacing)*3)]",
+    4: "2xl:[--row-gap:calc(var(--spacing)*4)]",
+    5: "2xl:[--row-gap:calc(var(--spacing)*5)]",
+    6: "2xl:[--row-gap:calc(var(--spacing)*6)]",
+    8: "2xl:[--row-gap:calc(var(--spacing)*8)]",
+    10: "2xl:[--row-gap:calc(var(--spacing)*10)]",
+    12: "2xl:[--row-gap:calc(var(--spacing)*12)]",
   },
 }
 
 const colGapMap: Record<Breakpoint, Record<GapScale, string>> = {
   xs: {
-    0: "gap-x-0",
-    1: "gap-x-1",
-    2: "gap-x-2",
-    3: "gap-x-3",
-    4: "gap-x-4",
-    5: "gap-x-5",
-    6: "gap-x-6",
-    8: "gap-x-8",
-    10: "gap-x-10",
-    12: "gap-x-12",
+    0: "[--col-gap:0px]",
+    1: "[--col-gap:calc(var(--spacing)*1)]",
+    2: "[--col-gap:calc(var(--spacing)*2)]",
+    3: "[--col-gap:calc(var(--spacing)*3)]",
+    4: "[--col-gap:calc(var(--spacing)*4)]",
+    5: "[--col-gap:calc(var(--spacing)*5)]",
+    6: "[--col-gap:calc(var(--spacing)*6)]",
+    8: "[--col-gap:calc(var(--spacing)*8)]",
+    10: "[--col-gap:calc(var(--spacing)*10)]",
+    12: "[--col-gap:calc(var(--spacing)*12)]",
   },
   sm: {
-    0: "sm:gap-x-0",
-    1: "sm:gap-x-1",
-    2: "sm:gap-x-2",
-    3: "sm:gap-x-3",
-    4: "sm:gap-x-4",
-    5: "sm:gap-x-5",
-    6: "sm:gap-x-6",
-    8: "sm:gap-x-8",
-    10: "sm:gap-x-10",
-    12: "sm:gap-x-12",
+    0: "sm:[--col-gap:0px]",
+    1: "sm:[--col-gap:calc(var(--spacing)*1)]",
+    2: "sm:[--col-gap:calc(var(--spacing)*2)]",
+    3: "sm:[--col-gap:calc(var(--spacing)*3)]",
+    4: "sm:[--col-gap:calc(var(--spacing)*4)]",
+    5: "sm:[--col-gap:calc(var(--spacing)*5)]",
+    6: "sm:[--col-gap:calc(var(--spacing)*6)]",
+    8: "sm:[--col-gap:calc(var(--spacing)*8)]",
+    10: "sm:[--col-gap:calc(var(--spacing)*10)]",
+    12: "sm:[--col-gap:calc(var(--spacing)*12)]",
   },
   md: {
-    0: "md:gap-x-0",
-    1: "md:gap-x-1",
-    2: "md:gap-x-2",
-    3: "md:gap-x-3",
-    4: "md:gap-x-4",
-    5: "md:gap-x-5",
-    6: "md:gap-x-6",
-    8: "md:gap-x-8",
-    10: "md:gap-x-10",
-    12: "md:gap-x-12",
+    0: "md:[--col-gap:0px]",
+    1: "md:[--col-gap:calc(var(--spacing)*1)]",
+    2: "md:[--col-gap:calc(var(--spacing)*2)]",
+    3: "md:[--col-gap:calc(var(--spacing)*3)]",
+    4: "md:[--col-gap:calc(var(--spacing)*4)]",
+    5: "md:[--col-gap:calc(var(--spacing)*5)]",
+    6: "md:[--col-gap:calc(var(--spacing)*6)]",
+    8: "md:[--col-gap:calc(var(--spacing)*8)]",
+    10: "md:[--col-gap:calc(var(--spacing)*10)]",
+    12: "md:[--col-gap:calc(var(--spacing)*12)]",
   },
   lg: {
-    0: "lg:gap-x-0",
-    1: "lg:gap-x-1",
-    2: "lg:gap-x-2",
-    3: "lg:gap-x-3",
-    4: "lg:gap-x-4",
-    5: "lg:gap-x-5",
-    6: "lg:gap-x-6",
-    8: "lg:gap-x-8",
-    10: "lg:gap-x-10",
-    12: "lg:gap-x-12",
+    0: "lg:[--col-gap:0px]",
+    1: "lg:[--col-gap:calc(var(--spacing)*1)]",
+    2: "lg:[--col-gap:calc(var(--spacing)*2)]",
+    3: "lg:[--col-gap:calc(var(--spacing)*3)]",
+    4: "lg:[--col-gap:calc(var(--spacing)*4)]",
+    5: "lg:[--col-gap:calc(var(--spacing)*5)]",
+    6: "lg:[--col-gap:calc(var(--spacing)*6)]",
+    8: "lg:[--col-gap:calc(var(--spacing)*8)]",
+    10: "lg:[--col-gap:calc(var(--spacing)*10)]",
+    12: "lg:[--col-gap:calc(var(--spacing)*12)]",
   },
   xl: {
-    0: "xl:gap-x-0",
-    1: "xl:gap-x-1",
-    2: "xl:gap-x-2",
-    3: "xl:gap-x-3",
-    4: "xl:gap-x-4",
-    5: "xl:gap-x-5",
-    6: "xl:gap-x-6",
-    8: "xl:gap-x-8",
-    10: "xl:gap-x-10",
-    12: "xl:gap-x-12",
+    0: "xl:[--col-gap:0px]",
+    1: "xl:[--col-gap:calc(var(--spacing)*1)]",
+    2: "xl:[--col-gap:calc(var(--spacing)*2)]",
+    3: "xl:[--col-gap:calc(var(--spacing)*3)]",
+    4: "xl:[--col-gap:calc(var(--spacing)*4)]",
+    5: "xl:[--col-gap:calc(var(--spacing)*5)]",
+    6: "xl:[--col-gap:calc(var(--spacing)*6)]",
+    8: "xl:[--col-gap:calc(var(--spacing)*8)]",
+    10: "xl:[--col-gap:calc(var(--spacing)*10)]",
+    12: "xl:[--col-gap:calc(var(--spacing)*12)]",
+  },
+  "2xl": {
+    0: "2xl:[--col-gap:0px]",
+    1: "2xl:[--col-gap:calc(var(--spacing)*1)]",
+    2: "2xl:[--col-gap:calc(var(--spacing)*2)]",
+    3: "2xl:[--col-gap:calc(var(--spacing)*3)]",
+    4: "2xl:[--col-gap:calc(var(--spacing)*4)]",
+    5: "2xl:[--col-gap:calc(var(--spacing)*5)]",
+    6: "2xl:[--col-gap:calc(var(--spacing)*6)]",
+    8: "2xl:[--col-gap:calc(var(--spacing)*8)]",
+    10: "2xl:[--col-gap:calc(var(--spacing)*10)]",
+    12: "2xl:[--col-gap:calc(var(--spacing)*12)]",
   },
 }
-
-// --- Resolver ---
-
-const BREAKPOINTS = ["xs", "sm", "md", "lg", "xl"] as const
 
 function resolveResponsive<T extends string | number>(
   value: ResponsiveValue<T> | undefined,
@@ -341,34 +353,24 @@ function resolveResponsive<T extends string | number>(
     .join(" ")
 }
 
-// Resolves one gap axis by cascading: axis-specific prop wins, else `gap`
-// shorthand, else the axis default. Emits a class only at breakpoints where
-// the effective value changes, leveraging Tailwind's mobile-first inheritance.
 function resolveGapAxis(
   shorthand: ResponsiveValue<GapScale> | undefined,
   axis: ResponsiveValue<GapScale> | undefined,
   fallback: GapScale,
   map: Record<Breakpoint, Record<GapScale, string>>,
 ): string {
-  const s: Partial<Record<Breakpoint, GapScale>> =
-    shorthand === undefined
-      ? {}
-      : typeof shorthand === "object"
-        ? shorthand
-        : { xs: shorthand }
-  const a: Partial<Record<Breakpoint, GapScale>> =
-    axis === undefined
-      ? {}
-      : typeof axis === "object"
-        ? axis
-        : { xs: axis }
+  const toRecord = (
+    v: ResponsiveValue<GapScale> | undefined,
+  ): Partial<Record<Breakpoint, GapScale>> =>
+    v === undefined ? {} : typeof v === "object" ? v : { xs: v }
+  const s = toRecord(shorthand)
+  const a = toRecord(axis)
 
   const classes: string[] = []
   let current: GapScale = fallback
   let last: GapScale | undefined
   for (const bp of BREAKPOINTS) {
-    if (a[bp] !== undefined) current = a[bp]!
-    else if (s[bp] !== undefined) current = s[bp]!
+    current = a[bp] ?? s[bp] ?? current
     if (current !== last) {
       classes.push(map[bp][current])
       last = current
@@ -377,49 +379,54 @@ function resolveGapAxis(
   return classes.join(" ")
 }
 
-// --- Components ---
-
-/**
- * A 12-column CSS Grid container. Children are expected to be `<Col>`.
- *
- * ```tsx
- * <Grid gap={{ xs: 2, md: 6 }}>
- *   <Col size={{ xs: 12, md: 8 }}>Main</Col>
- *   <Col size={{ xs: 12, md: 4 }}>Sidebar</Col>
- * </Grid>
- * ```
- */
-export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
-  ({ gap, rowGap, colGap, className, ...props }, ref) => (
+function Grid({
+  gap,
+  rowGap,
+  colGap,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & {
+  gap?: ResponsiveValue<GapScale>
+  rowGap?: ResponsiveValue<GapScale>
+  colGap?: ResponsiveValue<GapScale>
+}) {
+  return (
     <div
-      ref={ref}
+      data-slot="grid"
       className={cn(
-        "grid grid-cols-12",
+        "flex flex-wrap gap-x-(--col-gap) gap-y-(--row-gap)",
         resolveGapAxis(gap, rowGap, DEFAULT_ROW_GAP, rowGapMap),
         resolveGapAxis(gap, colGap, DEFAULT_COL_GAP, colGapMap),
         className,
       )}
       {...props}
     />
-  ),
-)
-Grid.displayName = "Grid"
+  )
+}
 
-/**
- * A grid cell that spans `size` columns (out of 12). `offset` skips N
- * leading columns — `offset={2}` starts at grid column line 3.
- */
-export const Col = React.forwardRef<HTMLDivElement, ColProps>(
-  ({ size, offset, className, ...props }, ref) => (
+function Col({
+  size,
+  offset,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & {
+  size?: ResponsiveValue<ColSize>
+  offset?: ResponsiveValue<ColSize>
+}) {
+  return (
     <div
-      ref={ref}
+      data-slot="col"
       className={cn(
+        "grow-0",
+        size !== undefined && WIDTH_CALC,
+        offset !== undefined && OFFSET_CALC,
         resolveResponsive(size, sizeMap),
         resolveResponsive(offset, offsetMap),
         className,
       )}
       {...props}
     />
-  ),
-)
-Col.displayName = "Col"
+  )
+}
+
+export { Grid, Col }
