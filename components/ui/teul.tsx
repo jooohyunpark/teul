@@ -12,9 +12,9 @@ const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
 
 const WIDTH_CALC =
-  "w-[calc(var(--size)/12*(100%+var(--col-gap))-var(--col-gap))]"
+  "w-[calc(var(--size,12)/12*(100%+var(--col-gap,0px))-var(--col-gap,0px))]"
 const OFFSET_CALC =
-  "ml-[calc(var(--offset)/12*(100%+var(--col-gap)))]"
+  "ml-[calc(var(--offset,0)/12*(100%+var(--col-gap,0px)))]"
 
 const sizeMap: Record<Breakpoint, Record<ColSize, string>> = {
   xs: {
@@ -417,7 +417,7 @@ function Col({
     <div
       data-slot="col"
       className={cn(
-        "grow-0",
+        "flex-none",
         size !== undefined && WIDTH_CALC,
         offset !== undefined && OFFSET_CALC,
         resolveResponsive(size, sizeMap),
