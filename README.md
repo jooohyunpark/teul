@@ -3,7 +3,8 @@
 An opinionated 12-column grid system for React and Tailwind.
 
 ```bash
-npx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
+pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
+# or: npx / yarn dlx / bunx
 ```
 
 ## Why Teul
@@ -37,9 +38,9 @@ import { Grid, GridCol } from "@/components/ui/teul"
 ### Responsive
 
 ```tsx
-<Grid gap={{ xs: 2, md: 6 }}>
-  <GridCol size={{ xs: 12, md: 8 }}>Main</GridCol>
-  <GridCol size={{ xs: 12, md: 4 }}>Sidebar</GridCol>
+<Grid gap={{ base: 2, md: 6 }}>
+  <GridCol size={{ md: 8 }}>Main</GridCol>
+  <GridCol size={{ md: 4 }}>Sidebar</GridCol>
 </Grid>
 ```
 
@@ -55,27 +56,29 @@ import { Grid, GridCol } from "@/components/ui/teul"
 
 ### `<Grid>`
 
-| Prop     | Type                        | Notes                   |
-| -------- | --------------------------- | ----------------------- |
-| `gap`    | `ResponsiveValue<GapScale>` | Shorthand for both axes |
-| `rowGap` | `ResponsiveValue<GapScale>` | Vertical gap override   |
-| `colGap` | `ResponsiveValue<GapScale>` | Horizontal gap override |
+| Prop     | Type                        | Default     | Notes                   |
+| -------- | --------------------------- | ----------- | ----------------------- |
+| `rowGap` | `ResponsiveValue<GapScale>` | `12` (48px) | Vertical gap            |
+| `colGap` | `ResponsiveValue<GapScale>` | `8` (32px)  | Horizontal gap          |
+| `gap`    | `ResponsiveValue<GapScale>` | —           | Shorthand for both axes |
 
 ### `<GridCol>`
 
-| Prop     | Type                       | Notes                             |
-| -------- | -------------------------- | --------------------------------- |
-| `size`   | `ResponsiveValue<GridColSize>` | Columns to span (1–12)            |
-| `offset` | `ResponsiveValue<GridColSize>` | Shifts the column by N leading columns |
+| Prop     | Type                           | Default | Notes                                  |
+| -------- | ------------------------------ | ------- | -------------------------------------- |
+| `size`   | `ResponsiveValue<GridColSize>` | —       | Columns to span (1–12)                 |
+| `offset` | `ResponsiveValue<GridColSize>` | —       | Shifts the column by N leading columns |
 
 Where:
 
 ```ts
-type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
+type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
 type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ```
+
+`base` is the unprefixed default — values apply until `sm` (640px) takes over. `size` defaults to `12`, so `size={{ md: 6 }}` means full width on mobile, half from `md` up.
 
 ## License
 

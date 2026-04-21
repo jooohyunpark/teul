@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-export type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
+export type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 export type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 export type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
 export type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
@@ -18,7 +18,7 @@ export interface GridColProps extends React.ComponentProps<"div"> {
   offset?: ResponsiveValue<GridColSize>
 }
 
-const BREAKPOINTS = ["xs", "sm", "md", "lg", "xl", "2xl"] as const
+const BREAKPOINTS = ["base", "sm", "md", "lg", "xl", "2xl"] as const
 const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
 
@@ -28,7 +28,7 @@ const OFFSET_CALC =
   "ml-[calc(var(--grid-offset,0)/12*(100%+var(--grid-col-gap,0px)))]"
 
 const sizeMap: Record<Breakpoint, Record<GridColSize, string>> = {
-  xs: {
+  base: {
     1: "[--grid-size:1]",
     2: "[--grid-size:2]",
     3: "[--grid-size:3]",
@@ -115,7 +115,7 @@ const sizeMap: Record<Breakpoint, Record<GridColSize, string>> = {
 }
 
 const offsetMap: Record<Breakpoint, Record<GridColSize, string>> = {
-  xs: {
+  base: {
     1: "[--grid-offset:1]",
     2: "[--grid-offset:2]",
     3: "[--grid-offset:3]",
@@ -202,7 +202,7 @@ const offsetMap: Record<Breakpoint, Record<GridColSize, string>> = {
 }
 
 const rowGapMap: Record<Breakpoint, Record<GapScale, string>> = {
-  xs: {
+  base: {
     0: "[--grid-row-gap:0px]",
     1: "[--grid-row-gap:calc(var(--spacing)*1)]",
     2: "[--grid-row-gap:calc(var(--spacing)*2)]",
@@ -277,7 +277,7 @@ const rowGapMap: Record<Breakpoint, Record<GapScale, string>> = {
 }
 
 const colGapMap: Record<Breakpoint, Record<GapScale, string>> = {
-  xs: {
+  base: {
     0: "[--grid-col-gap:0px]",
     1: "[--grid-col-gap:calc(var(--spacing)*1)]",
     2: "[--grid-col-gap:calc(var(--spacing)*2)]",
@@ -356,7 +356,7 @@ function resolveResponsive<T extends string | number>(
   map: Record<Breakpoint, Record<T, string>>,
 ): string {
   if (value === undefined) return ""
-  if (typeof value !== "object") return map.xs[value]
+  if (typeof value !== "object") return map.base[value]
   const classes: string[] = []
   let last: T | undefined
   for (const bp of BREAKPOINTS) {
@@ -378,7 +378,7 @@ function resolveGapAxis(
   const toRecord = (
     v: ResponsiveValue<GapScale> | undefined,
   ): Partial<Record<Breakpoint, GapScale>> =>
-    v === undefined ? {} : typeof v === "object" ? v : { xs: v }
+    v === undefined ? {} : typeof v === "object" ? v : { base: v }
   const s = toRecord(shorthand)
   const a = toRecord(axis)
 
@@ -427,7 +427,7 @@ function GridCol({
       data-slot="grid-col"
       className={cn(
         "flex-none",
-        size !== undefined && WIDTH_CALC,
+        WIDTH_CALC,
         offset !== undefined && OFFSET_CALC,
         resolveResponsive(size, sizeMap),
         resolveResponsive(offset, offsetMap),

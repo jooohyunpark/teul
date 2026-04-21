@@ -111,20 +111,20 @@ export default function Page() {
         <h3>Responsive size</h3>
         <CodePreview>
           <Grid>
-            <GridCol size={{ xs: 12, md: 8 }}>
+            <GridCol size={{ md: 8 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
-                xs: 12, md: 8
+                md: 8
               </div>
             </GridCol>
-            <GridCol size={{ xs: 12, md: 4 }}>
+            <GridCol size={{ md: 4 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
-                xs: 12, md: 4
+                md: 4
               </div>
             </GridCol>
             {(["C", "D"] as const).map((label) => (
-              <GridCol key={label} size={{ xs: 12, sm: 6 }}>
+              <GridCol key={label} size={{ sm: 6 }}>
                 <div className="rounded bg-muted p-4 text-center text-sm">
-                  xs: 12, sm: 6
+                  sm: 6
                 </div>
               </GridCol>
             ))}
@@ -132,10 +132,10 @@ export default function Page() {
         </CodePreview>
         <CodeBlock
           code={`<Grid>
-  <GridCol size={{ xs: 12, md: 8 }}>...</GridCol>
-  <GridCol size={{ xs: 12, md: 4 }}>...</GridCol>
-  <GridCol size={{ xs: 12, sm: 6 }}>...</GridCol>
-  <GridCol size={{ xs: 12, sm: 6 }}>...</GridCol>
+  <GridCol size={{ md: 8 }}>...</GridCol>
+  <GridCol size={{ md: 4 }}>...</GridCol>
+  <GridCol size={{ sm: 6 }}>...</GridCol>
+  <GridCol size={{ sm: 6 }}>...</GridCol>
 </Grid>`}
         />
       </Section>
@@ -143,7 +143,7 @@ export default function Page() {
       <Section>
         <h3>Responsive gap</h3>
         <CodePreview>
-          <Grid gap={{ xs: 2, sm: 4, md: 8 }}>
+          <Grid gap={{ base: 2, sm: 4, md: 8 }}>
             {(["A", "B", "C"] as const).map((label) => (
               <GridCol key={label} size={4}>
                 <div className="rounded bg-muted p-4 text-center text-sm">
@@ -154,7 +154,7 @@ export default function Page() {
           </Grid>
         </CodePreview>
         <CodeBlock
-          code={`<Grid gap={{ xs: 2, sm: 4, md: 8 }}>
+          code={`<Grid gap={{ base: 2, sm: 4, md: 8 }}>
   <GridCol size={4}>A</GridCol>
   <GridCol size={4}>B</GridCol>
   <GridCol size={4}>C</GridCol>
@@ -166,7 +166,7 @@ export default function Page() {
         <h3>Nested grids</h3>
         <CodePreview>
           <Grid>
-            <GridCol size={{ xs: 12, md: 8 }}>
+            <GridCol size={{ md: 8 }}>
               <Grid gap={4}>
                 <GridCol size={6}>
                   <div className="rounded bg-muted p-4 text-center text-sm">
@@ -185,7 +185,7 @@ export default function Page() {
                 </GridCol>
               </Grid>
             </GridCol>
-            <GridCol size={{ xs: 12, md: 4 }}>
+            <GridCol size={{ md: 4 }}>
               <div className="flex h-full items-center justify-center rounded bg-muted p-4 text-center text-sm">
                 Sidebar
               </div>
@@ -194,14 +194,14 @@ export default function Page() {
         </CodePreview>
         <CodeBlock
           code={`<Grid>
-  <GridCol size={{ xs: 12, md: 8 }}>
+  <GridCol size={{ md: 8 }}>
     <Grid gap={4}>
       <GridCol size={6}>Top left</GridCol>
       <GridCol size={6}>Top right</GridCol>
       <GridCol size={12}>Bottom</GridCol>
     </Grid>
   </GridCol>
-  <GridCol size={{ xs: 12, md: 4 }}>Sidebar</GridCol>
+  <GridCol size={{ md: 4 }}>Sidebar</GridCol>
 </Grid>`}
         />
       </Section>
@@ -210,17 +210,17 @@ export default function Page() {
         <h3>Offset / centered content</h3>
         <CodePreview>
           <Grid gap={4}>
-            <GridCol size={{ xs: 12, sm: 6 }} offset={{ sm: 3 }}>
+            <GridCol size={{ sm: 6 }} offset={{ sm: 3 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 sm offset: 3
               </div>
             </GridCol>
-            <GridCol size={{ xs: 12, md: 4 }} offset={{ md: 1 }}>
+            <GridCol size={{ md: 4 }} offset={{ md: 1 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 md offset: 1
               </div>
             </GridCol>
-            <GridCol size={{ xs: 12, lg: 4 }} offset={{ lg: 2 }}>
+            <GridCol size={{ lg: 4 }} offset={{ lg: 2 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 lg offset: 2
               </div>
@@ -229,9 +229,9 @@ export default function Page() {
         </CodePreview>
         <CodeBlock
           code={`<Grid gap={4}>
-  <GridCol size={{ xs: 12, sm: 6 }} offset={{ sm: 3 }}>...</GridCol>
-  <GridCol size={{ xs: 12, md: 4 }} offset={{ md: 1 }}>...</GridCol>
-  <GridCol size={{ xs: 12, lg: 4 }} offset={{ lg: 2 }}>...</GridCol>
+  <GridCol size={{ sm: 6 }} offset={{ sm: 3 }}>...</GridCol>
+  <GridCol size={{ md: 4 }} offset={{ md: 1 }}>...</GridCol>
+  <GridCol size={{ lg: 4 }} offset={{ lg: 2 }}>...</GridCol>
 </Grid>`}
         />
       </Section>
@@ -244,7 +244,7 @@ export default function Page() {
           <div className="flex flex-wrap gap-x-2">
             <dt>Breakpoint</dt>
             <dd>
-              = &quot;xs&quot; | &quot;sm&quot; | &quot;md&quot; |
+              = &quot;base&quot; | &quot;sm&quot; | &quot;md&quot; |
               &quot;lg&quot; | &quot;xl&quot; | &quot;2xl&quot;
             </dd>
           </div>
