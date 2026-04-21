@@ -16,21 +16,21 @@ npx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 ## Prerequisites
 
 - React 18+
-- Tailwind CSS 3.4+ (Tailwind v4 works too)
+- Tailwind CSS v4 (uses the `--spacing` theme token)
 - The [shadcn CLI](https://ui.shadcn.com/docs/cli)
 
 ## Usage
 
 ```tsx
-import { Grid, Col } from "@/components/ui/teul"
+import { Grid, GridCol } from "@/components/ui/teul"
 ```
 
 ### Basic
 
 ```tsx
 <Grid gap={4}>
-  <Col size={8}>Main</Col>
-  <Col size={4}>Sidebar</Col>
+  <GridCol size={8}>Main</GridCol>
+  <GridCol size={4}>Sidebar</GridCol>
 </Grid>
 ```
 
@@ -38,8 +38,8 @@ import { Grid, Col } from "@/components/ui/teul"
 
 ```tsx
 <Grid gap={{ xs: 2, md: 6 }}>
-  <Col size={{ xs: 12, md: 8 }}>Main</Col>
-  <Col size={{ xs: 12, md: 4 }}>Sidebar</Col>
+  <GridCol size={{ xs: 12, md: 8 }}>Main</GridCol>
+  <GridCol size={{ xs: 12, md: 4 }}>Sidebar</GridCol>
 </Grid>
 ```
 
@@ -47,7 +47,7 @@ import { Grid, Col } from "@/components/ui/teul"
 
 ```tsx
 <Grid gap={4}>
-  <Col size={6} offset={3}>Centered</Col>
+  <GridCol size={6} offset={3}>Centered</GridCol>
 </Grid>
 ```
 
@@ -61,20 +61,20 @@ import { Grid, Col } from "@/components/ui/teul"
 | `rowGap` | `ResponsiveValue<GapScale>` | Vertical gap override   |
 | `colGap` | `ResponsiveValue<GapScale>` | Horizontal gap override |
 
-### `<Col>`
+### `<GridCol>`
 
 | Prop     | Type                       | Notes                             |
 | -------- | -------------------------- | --------------------------------- |
-| `size`   | `ResponsiveValue<ColSize>` | Columns to span (1–12)            |
-| `offset` | `ResponsiveValue<ColSize>` | Leading empty columns (0-indexed) |
+| `size`   | `ResponsiveValue<GridColSize>` | Columns to span (1–12)            |
+| `offset` | `ResponsiveValue<GridColSize>` | Shifts the column by N leading columns |
 
 Where:
 
 ```ts
-type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl"
+type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
 type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-type ColSize  = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ```
 
 ## License
