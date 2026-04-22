@@ -1,4 +1,4 @@
-import { Grid, GridCol } from "@/components/ui/teul"
+import { Grid, GridItem } from "@/components/ui/teul"
 import { CodeBlock } from "@/components/site/code-block"
 import { CodePreview } from "@/components/site/code-preview"
 import { Block } from "@/components/site/block"
@@ -37,6 +37,19 @@ export default function Page() {
         </p>
       </Block>
 
+      {/* Dev: 12-column ruler */}
+      <Block>
+        <Grid>
+          {Array.from({ length: 12 }, (_, i) => (
+            <GridItem key={i} size={1}>
+              <div className="rounded bg-muted p-2 text-center text-xs tabular-nums">
+                {i + 1}
+              </div>
+            </GridItem>
+          ))}
+        </Grid>
+      </Block>
+
       {/* Why */}
       <Block>
         <h2>Why Teul</h2>
@@ -73,7 +86,7 @@ export default function Page() {
 
         <p className="text-muted-foreground">
           The result is a 12-column grid component: <code>Grid</code> for
-          containers, <code>GridCol</code> for items. Type-safe responsive
+          containers, <code>GridItem</code> for items. Type-safe responsive
           props, plain Tailwind output, copy-paste install — no runtime, no
           dependencies, no config.
         </p>
@@ -101,7 +114,7 @@ export default function Page() {
         </Tabs>
         <p className="text-muted-foreground">Then import and start building.</p>
         <CodeBlock
-          code={`import { Grid, GridCol } from "@/components/ui/teul"`}
+          code={`import { Grid, GridItem } from "@/components/ui/teul"`}
           lang="tsx"
         />
       </Block>
@@ -113,31 +126,31 @@ export default function Page() {
         <h3>Responsive size</h3>
         <CodePreview>
           <Grid>
-            <GridCol size={{ base: 12, md: 8 }}>
+            <GridItem size={{ base: 12, md: 8 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 base: 12 · md: 8
               </div>
-            </GridCol>
-            <GridCol size={{ base: 12, md: 4 }}>
+            </GridItem>
+            <GridItem size={{ base: 12, md: 4 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 base: 12 · md: 4
               </div>
-            </GridCol>
+            </GridItem>
             {(["C", "D"] as const).map((label) => (
-              <GridCol key={label} size={{ base: 12, md: 6 }}>
+              <GridItem key={label} size={{ base: 12, md: 6 }}>
                 <div className="rounded bg-muted p-4 text-center text-sm">
                   base: 12 · md: 6
                 </div>
-              </GridCol>
+              </GridItem>
             ))}
           </Grid>
         </CodePreview>
         <CodeBlock
           code={`<Grid>
-  <GridCol size={{ base: 12, md: 8 }}>...</GridCol>
-  <GridCol size={{ base: 12, md: 4 }}>...</GridCol>
-  <GridCol size={{ base: 12, md: 6 }}>...</GridCol>
-  <GridCol size={{ base: 12, md: 6 }}>...</GridCol>
+  <GridItem size={{ base: 12, md: 8 }}>...</GridItem>
+  <GridItem size={{ base: 12, md: 4 }}>...</GridItem>
+  <GridItem size={{ base: 12, md: 6 }}>...</GridItem>
+  <GridItem size={{ base: 12, md: 6 }}>...</GridItem>
 </Grid>`}
         />
       </Block>
@@ -147,19 +160,19 @@ export default function Page() {
         <CodePreview>
           <Grid gap={{ base: 2, sm: 4, md: 8 }}>
             {(["A", "B", "C"] as const).map((label) => (
-              <GridCol key={label} size={4}>
+              <GridItem key={label} size={4}>
                 <div className="rounded bg-muted p-4 text-center text-sm">
                   {label}
                 </div>
-              </GridCol>
+              </GridItem>
             ))}
           </Grid>
         </CodePreview>
         <CodeBlock
           code={`<Grid gap={{ base: 2, sm: 4, md: 8 }}>
-  <GridCol size={4}>A</GridCol>
-  <GridCol size={4}>B</GridCol>
-  <GridCol size={4}>C</GridCol>
+  <GridItem size={4}>A</GridItem>
+  <GridItem size={4}>B</GridItem>
+  <GridItem size={4}>C</GridItem>
 </Grid>`}
         />
       </Block>
@@ -168,42 +181,42 @@ export default function Page() {
         <h3>Nested grids</h3>
         <CodePreview>
           <Grid>
-            <GridCol size={{ md: 8 }}>
+            <GridItem size={{ md: 8 }}>
               <Grid gap={4}>
-                <GridCol size={6}>
+                <GridItem size={6}>
                   <div className="rounded bg-muted p-4 text-center text-sm">
                     Top left
                   </div>
-                </GridCol>
-                <GridCol size={6}>
+                </GridItem>
+                <GridItem size={6}>
                   <div className="rounded bg-muted p-4 text-center text-sm">
                     Top right
                   </div>
-                </GridCol>
-                <GridCol size={12}>
+                </GridItem>
+                <GridItem size={12}>
                   <div className="rounded bg-muted p-4 text-center text-sm">
                     Bottom
                   </div>
-                </GridCol>
+                </GridItem>
               </Grid>
-            </GridCol>
-            <GridCol size={{ md: 4 }}>
+            </GridItem>
+            <GridItem size={{ md: 4 }}>
               <div className="flex h-full items-center justify-center rounded bg-muted p-4 text-center text-sm">
                 Sidebar
               </div>
-            </GridCol>
+            </GridItem>
           </Grid>
         </CodePreview>
         <CodeBlock
           code={`<Grid>
-  <GridCol size={{ md: 8 }}>
+  <GridItem size={{ md: 8 }}>
     <Grid gap={4}>
-      <GridCol size={6}>Top left</GridCol>
-      <GridCol size={6}>Top right</GridCol>
-      <GridCol size={12}>Bottom</GridCol>
+      <GridItem size={6}>Top left</GridItem>
+      <GridItem size={6}>Top right</GridItem>
+      <GridItem size={12}>Bottom</GridItem>
     </Grid>
-  </GridCol>
-  <GridCol size={{ md: 4 }}>Sidebar</GridCol>
+  </GridItem>
+  <GridItem size={{ md: 4 }}>Sidebar</GridItem>
 </Grid>`}
         />
       </Block>
@@ -212,28 +225,28 @@ export default function Page() {
         <h3>Offset / centered content</h3>
         <CodePreview>
           <Grid gap={4}>
-            <GridCol size={{ sm: 6 }} offset={{ sm: 3 }}>
+            <GridItem size={{ sm: 6 }} offset={{ sm: 3 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 sm offset: 3
               </div>
-            </GridCol>
-            <GridCol size={{ md: 4 }} offset={{ md: 1 }}>
+            </GridItem>
+            <GridItem size={{ md: 4 }} offset={{ md: 1 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 md offset: 1
               </div>
-            </GridCol>
-            <GridCol size={{ lg: 4 }} offset={{ lg: 2 }}>
+            </GridItem>
+            <GridItem size={{ lg: 4 }} offset={{ lg: 2 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 lg offset: 2
               </div>
-            </GridCol>
+            </GridItem>
           </Grid>
         </CodePreview>
         <CodeBlock
           code={`<Grid gap={4}>
-  <GridCol size={{ sm: 6 }} offset={{ sm: 3 }}>...</GridCol>
-  <GridCol size={{ md: 4 }} offset={{ md: 1 }}>...</GridCol>
-  <GridCol size={{ lg: 4 }} offset={{ lg: 2 }}>...</GridCol>
+  <GridItem size={{ sm: 6 }} offset={{ sm: 3 }}>...</GridItem>
+  <GridItem size={{ md: 4 }} offset={{ md: 1 }}>...</GridItem>
+  <GridItem size={{ lg: 4 }} offset={{ lg: 2 }}>...</GridItem>
 </Grid>`}
         />
       </Block>
@@ -246,7 +259,7 @@ export default function Page() {
           lang="ts"
           code={`type Breakpoint  = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 type GapScale    = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
+type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
         />
 
         <p className="text-muted-foreground">
@@ -308,7 +321,7 @@ type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
       </Block>
 
       <Block>
-        <h3>GridCol</h3>
+        <h3>GridItem</h3>
         <div className="rounded border">
           <Table>
             <TableHeader>
@@ -325,7 +338,7 @@ type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
                   <code>size</code>
                 </TableCell>
                 <TableCell>
-                  <code>GridColSize</code>
+                  <code>GridItemSize</code>
                 </TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Columns to span (1–12)</TableCell>
@@ -335,7 +348,7 @@ type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
                   <code>offset</code>
                 </TableCell>
                 <TableCell>
-                  <code>GridColSize</code>
+                  <code>GridItemSize</code>
                 </TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
                 <TableCell>Empty columns before the item</TableCell>

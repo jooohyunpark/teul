@@ -23,15 +23,15 @@ pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 ## Usage
 
 ```tsx
-import { Grid, GridCol } from "@/components/ui/teul"
+import { Grid, GridItem } from "@/components/ui/teul"
 ```
 
 ### Basic
 
 ```tsx
 <Grid gap={4}>
-  <GridCol size={8}>Main</GridCol>
-  <GridCol size={4}>Sidebar</GridCol>
+  <GridItem size={8}>Main</GridItem>
+  <GridItem size={4}>Sidebar</GridItem>
 </Grid>
 ```
 
@@ -39,8 +39,8 @@ import { Grid, GridCol } from "@/components/ui/teul"
 
 ```tsx
 <Grid gap={{ base: 2, md: 6 }}>
-  <GridCol size={{ md: 8 }}>Main</GridCol>
-  <GridCol size={{ md: 4 }}>Sidebar</GridCol>
+  <GridItem size={{ md: 8 }}>Main</GridItem>
+  <GridItem size={{ md: 4 }}>Sidebar</GridItem>
 </Grid>
 ```
 
@@ -48,7 +48,7 @@ import { Grid, GridCol } from "@/components/ui/teul"
 
 ```tsx
 <Grid gap={4}>
-  <GridCol size={6} offset={3}>Centered</GridCol>
+  <GridItem size={6} offset={3}>Centered</GridItem>
 </Grid>
 ```
 
@@ -62,12 +62,12 @@ import { Grid, GridCol } from "@/components/ui/teul"
 | `colGap` | `ResponsiveValue<GapScale>` | `8` (32px)  | Horizontal gap          |
 | `gap`    | `ResponsiveValue<GapScale>` | —           | Shorthand for both axes |
 
-### `<GridCol>`
+### `<GridItem>`
 
 | Prop     | Type                           | Default | Notes                                  |
 | -------- | ------------------------------ | ------- | -------------------------------------- |
-| `size`   | `ResponsiveValue<GridColSize>` | —       | Columns to span (1–12)                 |
-| `offset` | `ResponsiveValue<GridColSize>` | —       | Shifts the column by N leading columns |
+| `size`   | `ResponsiveValue<GridItemSize>` | —       | Columns to span (1–12)                 |
+| `offset` | `ResponsiveValue<GridItemSize>` | —       | Shifts the column by N leading columns |
 
 Where:
 
@@ -75,7 +75,7 @@ Where:
 type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ```
 
 `base` is the unprefixed default — values apply until `sm` (640px) takes over. `size` defaults to `12`, so `size={{ md: 6 }}` means full width on mobile, half from `md` up.

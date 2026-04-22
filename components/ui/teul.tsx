@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 export type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 export type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 export type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-export type GridColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+export type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
 export interface GridProps extends React.ComponentProps<"div"> {
   gap?: ResponsiveValue<GapScale>
@@ -13,9 +13,9 @@ export interface GridProps extends React.ComponentProps<"div"> {
   colGap?: ResponsiveValue<GapScale>
 }
 
-export interface GridColProps extends React.ComponentProps<"div"> {
-  size?: ResponsiveValue<GridColSize>
-  offset?: ResponsiveValue<GridColSize>
+export interface GridItemProps extends React.ComponentProps<"div"> {
+  size?: ResponsiveValue<GridItemSize>
+  offset?: ResponsiveValue<GridItemSize>
 }
 
 const BREAKPOINTS = ["base", "sm", "md", "lg", "xl", "2xl"] as const
@@ -27,7 +27,7 @@ const WIDTH_CALC =
 const OFFSET_CALC =
   "ml-[calc(var(--grid-offset,0)/12*(100%+var(--grid-col-gap,0px)))]"
 
-const sizeMap: Record<Breakpoint, Record<GridColSize, string>> = {
+const sizeMap: Record<Breakpoint, Record<GridItemSize, string>> = {
   base: {
     1: "[--grid-size:1]",
     2: "[--grid-size:2]",
@@ -114,7 +114,7 @@ const sizeMap: Record<Breakpoint, Record<GridColSize, string>> = {
   },
 }
 
-const offsetMap: Record<Breakpoint, Record<GridColSize, string>> = {
+const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
   base: {
     1: "[--grid-offset:1]",
     2: "[--grid-offset:2]",
@@ -416,15 +416,15 @@ function Grid({
   )
 }
 
-function GridCol({
+function GridItem({
   size,
   offset,
   className,
   ...props
-}: GridColProps) {
+}: GridItemProps) {
   return (
     <div
-      data-slot="grid-col"
+      data-slot="grid-item"
       className={cn(
         "flex-none",
         WIDTH_CALC,
@@ -438,4 +438,4 @@ function GridCol({
   )
 }
 
-export { Grid, GridCol }
+export { Grid, GridItem }
