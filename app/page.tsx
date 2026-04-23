@@ -37,20 +37,6 @@ export default function Page() {
         </p>
       </Block>
 
-      {/* Dev: 12-column ruler */}
-      <Block>
-        <Grid>
-          {Array.from({ length: 12 }, (_, i) => (
-            <GridItem key={i} size={1}>
-              <div className="rounded bg-muted p-2 text-center text-xs tabular-nums">
-                {i + 1}
-              </div>
-            </GridItem>
-          ))}
-        </Grid>
-      </Block>
-
-      {/* Why */}
       <Block>
         <h2>Why Teul</h2>
 
@@ -119,7 +105,6 @@ export default function Page() {
         />
       </Block>
 
-      {/* Examples */}
       <Block>
         <h2>Examples</h2>
 
@@ -222,9 +207,45 @@ export default function Page() {
       </Block>
 
       <Block>
+        <h3>Reordering</h3>
+        <p className="text-muted-foreground">
+          Teul leaves visual order to Tailwind&rsquo;s <code>order-*</code>{" "}
+          utilities. Pass them via <code>className</code> — they accept the same
+          responsive prefixes (<code>sm:</code>, <code>md:</code>, &hellip;) as
+          everything else.
+        </p>
+        <CodePreview>
+          <Grid rowGap={4}>
+            <GridItem size={{ base: 12, md: 4 }} className="md:order-3">
+              <div className="rounded bg-muted p-4 text-center text-sm">
+                1st in DOM · 3rd on md
+              </div>
+            </GridItem>
+            <GridItem size={{ base: 12, md: 4 }} className="md:order-1">
+              <div className="rounded bg-muted p-4 text-center text-sm">
+                2nd in DOM · 1st on md
+              </div>
+            </GridItem>
+            <GridItem size={{ base: 12, md: 4 }} className="md:order-2">
+              <div className="rounded bg-muted p-4 text-center text-sm">
+                3rd in DOM · 2nd on md
+              </div>
+            </GridItem>
+          </Grid>
+        </CodePreview>
+        <CodeBlock
+          code={`<Grid gap={4}>
+  <GridItem size={4} className="md:order-3">...</GridItem>
+  <GridItem size={4} className="md:order-1">...</GridItem>
+  <GridItem size={4} className="md:order-2">...</GridItem>
+</Grid>`}
+        />
+      </Block>
+
+      <Block>
         <h3>Offset / centered content</h3>
         <CodePreview>
-          <Grid gap={4}>
+          <Grid rowGap={4}>
             <GridItem size={{ sm: 6 }} offset={{ sm: 3 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 sm offset: 3
@@ -251,7 +272,6 @@ export default function Page() {
         />
       </Block>
 
-      {/* API reference */}
       <Block>
         <h2>API reference</h2>
 
@@ -356,11 +376,20 @@ type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
             </TableBody>
           </Table>
         </div>
+        <p className="text-muted-foreground">
+          For visual reordering, pass Tailwind&rsquo;s <code>order-*</code>{" "}
+          utilities via <code>className</code> (e.g.{" "}
+          <code>className=&quot;md:order-1&quot;</code>).
+        </p>
       </Block>
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
         <span>
           By <Link href="https://joohyun.dev">Joohyun Park</Link>
+          <span className="mx-2">·</span>
+          <Link href="/notes" className="hover:text-foreground">
+            Notes
+          </Link>
         </span>
         <ThemeToggle />
       </footer>

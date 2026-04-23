@@ -23,10 +23,10 @@ export function CodeBlockCopyButton({ text }: { text: string }) {
       <Button
         type="button"
         variant="ghost"
-        size="icon-sm"
+        size="icon"
         onClick={onCopy}
         aria-label={copied ? "Copied" : "Copy code"}
-        className="tap-target size-6 text-muted-foreground hover:text-foreground"
+        className="tap-target text-muted-foreground hover:text-foreground"
       >
         <span className="grid">
           <Copy

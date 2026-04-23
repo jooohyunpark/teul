@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 export type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 export type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 export type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-export type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+export type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
 export interface GridProps extends React.ComponentProps<"div"> {
   gap?: ResponsiveValue<GapScale>
@@ -18,16 +18,24 @@ export interface GridItemProps extends React.ComponentProps<"div"> {
   offset?: ResponsiveValue<GridItemSize>
 }
 
-const BREAKPOINTS = ["base", "sm", "md", "lg", "xl", "2xl"] as const
+const BREAKPOINTS = [
+  "base",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+] as const satisfies readonly Breakpoint[]
+const DEFAULT_SIZE: GridItemSize = 12
 const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
 
 const WIDTH_CALC =
-  "w-[calc(var(--grid-size,12)/12*(100%+var(--grid-col-gap,0px))-var(--grid-col-gap,0px))]"
+  "w-[calc(var(--grid-size)/12*(100%+var(--grid-col-gap,0px))-var(--grid-col-gap,0px))]"
 const OFFSET_CALC =
-  "ml-[calc(var(--grid-offset,0)/12*(100%+var(--grid-col-gap,0px)))]"
+  "ml-[calc(var(--grid-offset)/12*(100%+var(--grid-col-gap,0px)))]"
 
-const sizeMap: Record<Breakpoint, Record<GridItemSize, string>> = {
+const sizeMap: Record<Breakpoint, Record<Exclude<GridItemSize, 0>, string>> = {
   base: {
     1: "[--grid-size:1]",
     2: "[--grid-size:2]",
@@ -114,8 +122,27 @@ const sizeMap: Record<Breakpoint, Record<GridItemSize, string>> = {
   },
 }
 
+const hiddenMap: Record<Breakpoint, string> = {
+  base: "hidden",
+  sm: "sm:hidden",
+  md: "md:hidden",
+  lg: "lg:hidden",
+  xl: "xl:hidden",
+  "2xl": "2xl:hidden",
+}
+
+const blockMap: Record<Breakpoint, string> = {
+  base: "block",
+  sm: "sm:block",
+  md: "md:block",
+  lg: "lg:block",
+  xl: "xl:block",
+  "2xl": "2xl:block",
+}
+
 const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
   base: {
+    0: "[--grid-offset:0]",
     1: "[--grid-offset:1]",
     2: "[--grid-offset:2]",
     3: "[--grid-offset:3]",
@@ -130,6 +157,7 @@ const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
     12: "[--grid-offset:12]",
   },
   sm: {
+    0: "sm:[--grid-offset:0]",
     1: "sm:[--grid-offset:1]",
     2: "sm:[--grid-offset:2]",
     3: "sm:[--grid-offset:3]",
@@ -144,6 +172,7 @@ const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
     12: "sm:[--grid-offset:12]",
   },
   md: {
+    0: "md:[--grid-offset:0]",
     1: "md:[--grid-offset:1]",
     2: "md:[--grid-offset:2]",
     3: "md:[--grid-offset:3]",
@@ -158,6 +187,7 @@ const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
     12: "md:[--grid-offset:12]",
   },
   lg: {
+    0: "lg:[--grid-offset:0]",
     1: "lg:[--grid-offset:1]",
     2: "lg:[--grid-offset:2]",
     3: "lg:[--grid-offset:3]",
@@ -172,6 +202,7 @@ const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
     12: "lg:[--grid-offset:12]",
   },
   xl: {
+    0: "xl:[--grid-offset:0]",
     1: "xl:[--grid-offset:1]",
     2: "xl:[--grid-offset:2]",
     3: "xl:[--grid-offset:3]",
@@ -186,6 +217,7 @@ const offsetMap: Record<Breakpoint, Record<GridItemSize, string>> = {
     12: "xl:[--grid-offset:12]",
   },
   "2xl": {
+    0: "2xl:[--grid-offset:0]",
     1: "2xl:[--grid-offset:1]",
     2: "2xl:[--grid-offset:2]",
     3: "2xl:[--grid-offset:3]",
@@ -351,22 +383,30 @@ const colGapMap: Record<Breakpoint, Record<GapScale, string>> = {
   },
 }
 
+function toRecord<T>(
+  v: ResponsiveValue<T> | undefined,
+): Partial<Record<Breakpoint, T>> {
+  if (v === undefined) return {}
+  if (typeof v === "object" && v !== null)
+    return v as Partial<Record<Breakpoint, T>>
+  return { base: v as T }
+}
+
 function resolveResponsive<T extends string | number>(
   value: ResponsiveValue<T> | undefined,
   map: Record<Breakpoint, Record<T, string>>,
 ): string {
-  if (value === undefined) return ""
-  if (typeof value !== "object") return map.base[value]
-  const classes: string[] = []
+  const r = toRecord(value)
+  const out: string[] = []
   let last: T | undefined
   for (const bp of BREAKPOINTS) {
-    const v = value[bp]
+    const v = r[bp]
     if (v !== undefined && v !== last) {
-      classes.push(map[bp][v])
+      out.push(map[bp][v])
       last = v
     }
   }
-  return classes.join(" ")
+  return out.join(" ")
 }
 
 function resolveGapAxis(
@@ -375,33 +415,40 @@ function resolveGapAxis(
   fallback: GapScale,
   map: Record<Breakpoint, Record<GapScale, string>>,
 ): string {
-  const toRecord = (
-    v: ResponsiveValue<GapScale> | undefined,
-  ): Partial<Record<Breakpoint, GapScale>> =>
-    v === undefined ? {} : typeof v === "object" ? v : { base: v }
   const s = toRecord(shorthand)
   const a = toRecord(axis)
-
-  const classes: string[] = []
+  const out: string[] = []
   let current: GapScale = fallback
   let last: GapScale | undefined
   for (const bp of BREAKPOINTS) {
     current = a[bp] ?? s[bp] ?? current
     if (current !== last) {
-      classes.push(map[bp][current])
+      out.push(map[bp][current])
       last = current
     }
   }
-  return classes.join(" ")
+  return out.join(" ")
 }
 
-function Grid({
-  gap,
-  rowGap,
-  colGap,
-  className,
-  ...props
-}: GridProps) {
+function resolveSize(value: ResponsiveValue<GridItemSize> | undefined): string {
+  const r = toRecord(value)
+  const out: string[] = []
+  let last: GridItemSize | undefined
+  for (const bp of BREAKPOINTS) {
+    const v = bp === "base" ? (r.base ?? DEFAULT_SIZE) : r[bp]
+    if (v === undefined || v === last) continue
+    if (v === 0) {
+      out.push(hiddenMap[bp])
+    } else {
+      out.push(sizeMap[bp][v])
+      if (last === 0) out.push(blockMap[bp])
+    }
+    last = v
+  }
+  return out.join(" ")
+}
+
+function Grid({ gap, rowGap, colGap, className, ...props }: GridProps) {
   return (
     <div
       data-slot="grid"
@@ -416,20 +463,15 @@ function Grid({
   )
 }
 
-function GridItem({
-  size,
-  offset,
-  className,
-  ...props
-}: GridItemProps) {
+function GridItem({ size, offset, className, ...props }: GridItemProps) {
   return (
     <div
       data-slot="grid-item"
       className={cn(
-        "flex-none",
+        "min-w-0",
         WIDTH_CALC,
         offset !== undefined && OFFSET_CALC,
-        resolveResponsive(size, sizeMap),
+        resolveSize(size),
         resolveResponsive(offset, offsetMap),
         className,
       )}
