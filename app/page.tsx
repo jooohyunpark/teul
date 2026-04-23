@@ -71,10 +71,16 @@ export default function Page() {
         </div>
 
         <p className="text-muted-foreground">
-          The result is a 12-column grid component: <code>Grid</code> for
-          containers, <code>GridItem</code> for items. Type-safe responsive
-          props, plain Tailwind output, copy-paste install — no runtime, no
-          dependencies, no config.
+          The result is a 12-column grid component{" "}
+          <Link
+            href="/grid-problem"
+            className="underline underline-offset-4 hover:text-foreground"
+          >
+            built on flexbox
+          </Link>
+          : <code>Grid</code> for containers, <code>GridItem</code> for items.
+          Type-safe responsive props, plain Tailwind output, copy-paste install
+          — no runtime, no dependencies, no config.
         </p>
       </Block>
 
@@ -386,10 +392,6 @@ type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
         <span>
           By <Link href="https://joohyun.dev">Joohyun Park</Link>
-          <span className="mx-2">·</span>
-          <Link href="/notes" className="hover:text-foreground">
-            Notes
-          </Link>
         </span>
         <ThemeToggle />
       </footer>
