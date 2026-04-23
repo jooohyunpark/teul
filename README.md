@@ -16,7 +16,7 @@ pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 
 ## Prerequisites
 
-- React 18+
+- React 19+
 - Tailwind CSS v4 (uses the `--spacing` theme token)
 - The [shadcn CLI](https://ui.shadcn.com/docs/cli)
 
@@ -64,8 +64,8 @@ import { Grid, GridItem } from "@/components/ui/teul"
 
 ### `<GridItem>`
 
-| Prop     | Type                           | Default | Notes                                  |
-| -------- | ------------------------------ | ------- | -------------------------------------- |
+| Prop     | Type                            | Default | Notes                                  |
+| -------- | ------------------------------- | ------- | -------------------------------------- |
 | `size`   | `ResponsiveValue<GridItemSize>` | —       | Columns to span (1–12)                 |
 | `offset` | `ResponsiveValue<GridItemSize>` | —       | Shifts the column by N leading columns |
 

@@ -29,7 +29,7 @@ const INSTALL_COMMANDS = [
 
 export default function Page() {
   return (
-    <main className="mx-auto min-h-svh max-w-3xl px-6 py-10">
+    <div>
       <Block>
         <h1>Teul</h1>
         <p className="text-muted-foreground">
@@ -395,6 +395,6 @@ type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
         </span>
         <ThemeToggle />
       </footer>
-    </main>
+    </div>
   )
 }

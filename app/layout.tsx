@@ -50,7 +50,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <main className="mx-auto min-h-svh max-w-3xl px-6 py-10">
+            {children}
+          </main>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

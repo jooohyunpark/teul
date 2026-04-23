@@ -3,10 +3,8 @@ import type { Metadata } from "next"
 import { ArrowLeft } from "lucide-react"
 
 import { Block } from "@/components/site/block"
-import { CodeBlock } from "@/components/site/code-block"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { Grid, GridItem } from "@/components/ui/teul"
-import { Button } from "@/components/site/button"
 
 export const metadata: Metadata = {
   title: "On twelve columns — Teul",
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function NotesPage() {
   return (
-    <main className="mx-auto min-h-svh max-w-3xl px-6 py-10">
+    <div>
       <Link href="/">
         <ArrowLeft className="size-4" />
       </Link>
@@ -70,7 +68,7 @@ export default function NotesPage() {
       </Block>
 
       <Block>
-        <h2>The first problem</h2>
+        <h2>Why it happens</h2>
         <p>
           Every item overflows horizontally. You can see the twelve tracks in
           the inspector, and the items &mdash; sized to span twelve &mdash; are
@@ -87,46 +85,19 @@ export default function NotesPage() {
         </p>
         <p>
           The usual patch is <code>repeat(12, minmax(0, 1fr))</code>: force the
-          tracks to shrink below their content. That stops the overflow. It also
-          reveals a second problem.
+          tracks to shrink below their content. That stops the overflow, but
+          items still get crushed and their content spills out anyway.
         </p>
       </Block>
 
       <Block>
-        <h2>The bigger problem</h2>
+        <h2>The fix</h2>
         <p>
-          On mobile you usually don&rsquo;t want twelve columns at all &mdash;
-          you want one. Items stack. Tailwind gives you breakpoint-prefixed span
-          utilities (<code>col-span-12 md:col-span-8</code>) and CSS Grid can
-          express that. But the grid still has twelve live tracks underneath,
-          calculating widths, subject to every item&rsquo;s content.
-        </p>
-        <p>
-          And then there&rsquo;s gap. A <code>24px</code> gap across eleven
-          boundaries eats <code>264px</code> of your <code>390px</code> viewport
-          &mdash; leaving <code>126px</code> for the actual content. The grid
-          you asked for ends up fighting you.
-        </p>
-      </Block>
-
-      <Block>
-        <h2>The switch</h2>
-        <p>I rewrote the primitive with flex-wrap and percentage widths.</p>
-        <CodeBlock
-          code={`<div className="flex flex-wrap gap-x-8 gap-y-12">
-  <div className="w-[calc(8/12*100%)] min-w-0">...</div>
-  <div className="w-[calc(4/12*100%)] min-w-0">...</div>
-</div>`}
-        />
-        <p>
-          Each item declares its own width as a percentage. Items wrap. At{" "}
-          <code>{`size={12}`}</code> the item takes 100% of the row and the next
-          one wraps underneath &mdash; which is exactly what you want on mobile.
-        </p>
-        <p>
-          There are no intrinsic track sizings, no <code>minmax</code>{" "}
-          negotiations, no twelve phantom columns. <code>min-width: 0</code> on
-          each item cuts the min-content problem at the root.
+          Teul rewrites the primitive with <code>flex-wrap</code> and percentage
+          widths. Each item declares its own width; items that don&rsquo;t fit
+          wrap to the next row. <code>min-width: 0</code> cuts the min-content
+          problem at the root. No intrinsic track sizing, no <code>minmax</code>{" "}
+          negotiations, no twelve phantom columns.
         </p>
 
         <figure className="space-y-2">
@@ -149,65 +120,12 @@ export default function NotesPage() {
         </figure>
       </Block>
 
-      <Block>
-        <h2>The gap math</h2>
-        <p>
-          The one subtlety is making widths sum to 100% when gap is involved.
-          Teul&rsquo;s width calc is:
-        </p>
-        <CodeBlock
-          lang="css"
-          code={`width: calc(
-  var(--grid-size) / 12 * (100% + var(--grid-col-gap))
-  - var(--grid-col-gap)
-);`}
-        />
-        <p>
-          The &ldquo;plus gap, minus gap&rdquo; isn&rsquo;t a hack. It&rsquo;s
-          the equation for <em>N</em> items across a row with (<em>N</em>
-          &minus;1) gaps between them, solved per-item. Two{" "}
-          <code>{`size={6}`}</code> items side-by-side sum to{" "}
-          <code>(100% + G) &minus; 2G + G = 100%</code>. Three{" "}
-          <code>{`size={4}`}</code>, same. The gap is paid for once, by the row
-          &mdash; never by the track.
-        </p>
-      </Block>
-
-      <Block>
-        <h2>Why a component at all</h2>
-        <p>
-          At that point the layout works, but the ergonomics are still noisy.
-          You write the calc once and the class strings three or four times per
-          item, once per breakpoint.{" "}
-          <code>col-span-12 md:col-span-8 lg:col-span-6</code> crowds the
-          utility string next to color, padding, typography.
-        </p>
-        <p>
-          Teul&rsquo;s <code>{`<GridItem size={{ base: 12, md: 8 }}>`}</code>{" "}
-          reads like intent. You name the thing, not its mechanism. And because
-          the output is still plain Tailwind classes, the scanner ships what it
-          needs and nothing more &mdash; no runtime, no CSS-in-JS, no config.
-        </p>
-      </Block>
-
-      <Block>
-        <h2>In short</h2>
-        <p>
-          CSS Grid is great, and I still reach for it when I need
-          two-dimensional alignment &mdash; named areas, subgrid, explicit row
-          placement. But for the specific problem of &ldquo;twelve columns that
-          stack on mobile and behave at every size in between,&rdquo; flex-wrap
-          with a tiny width calc is quieter, smaller, and &mdash; critically
-          &mdash; actually works on a 390-pixel viewport.
-        </p>
-      </Block>
-
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
         <span>
           By <Link href="https://joohyun.dev">Joohyun Park</Link>
         </span>
         <ThemeToggle />
       </footer>
-    </main>
+    </div>
   )
 }
