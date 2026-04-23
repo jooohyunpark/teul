@@ -6,6 +6,8 @@ import { Block } from "@/components/site/block"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { Grid, GridItem } from "@/components/ui/teul"
 
+import { CssGridOverflowDemo } from "./_components/css-grid-overflow-demo"
+
 export const metadata: Metadata = {
   title: "On twelve columns — Teul",
   description:
@@ -39,32 +41,37 @@ export default function NotesPage() {
           <code>grid-template-columns: repeat(12, 1fr)</code> spells out a
           12-column grid almost literally. So that&rsquo;s where I started.
         </p>
-        <p>
-          It held up on desktop &mdash; twelve tracks, a gap between them, items
-          declaring <code>grid-column: span N</code>. Clean.
-        </p>
-        <p>Then I opened devtools on mobile.</p>
 
-        <figure className="space-y-2">
-          <div className="overflow-x-auto rounded border bg-card p-4">
-            <div className="grid grid-cols-[repeat(12,1fr)] gap-x-8">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="rounded bg-muted p-2 text-center text-xs tabular-nums"
-                >
-                  {i + 1}
-                </div>
-              ))}
-            </div>
-          </div>
-          <figcaption className="text-sm text-muted-foreground">
-            A 12-column CSS Grid (<code>grid-cols-[repeat(12,1fr)]</code>) with
-            twelve <code>col-span-1</code> items. On narrow viewports the
-            items&rsquo; min-content widths force the grid wider than its
-            container — try resizing or open this on a phone.
-          </figcaption>
-        </figure>
+        <p>dummy paragraph</p>
+      </Block>
+
+      <Block>
+        <div className="grid grid-cols-12 gap-6 text-center text-xs font-medium">
+          <div className="col-span-12 h-12 rounded bg-muted" />
+
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="col-span-6 h-12 rounded bg-muted" />
+          ))}
+
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="col-span-3 h-12 rounded bg-muted" />
+          ))}
+        </div>
+      </Block>
+
+      <Block>
+        <h2>Problem</h2>
+
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industrys standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </p>
+      </Block>
+
+      <Block>
+        <CssGridOverflowDemo />
       </Block>
 
       <Block>

@@ -5,7 +5,5 @@ export function Block({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-  return (
-    <section className={cn("py-10 space-y-6", className)} {...props} />
-  )
+  return <section className={cn("space-y-6 py-10", className)} {...props} />
 }
