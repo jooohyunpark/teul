@@ -26,7 +26,7 @@ export function CssGridOverflowDemo({
               ? "grid grid-cols-12 gap-8"
               : "flex flex-wrap gap-8",
             showGrid &&
-              "before:absolute before:top-1/2 before:left-0 before:h-[200%] before:w-px before:-translate-y-1/2 before:bg-blue-500 before:content-[''] after:absolute after:top-1/2 after:right-0 after:h-[200%] after:w-px after:-translate-y-1/2 after:bg-blue-500 after:content-['']",
+              "before:absolute before:top-1/2 before:left-0 before:h-[200%] before:w-px before:-translate-x-1/2 before:-translate-y-1/2 before:bg-blue-500 before:content-[''] after:absolute after:top-1/2 after:right-0 after:h-[200%] after:w-px after:translate-x-1/2 after:-translate-y-1/2 after:bg-blue-500 after:content-['']",
           )}
         >
           {Array.from({ length: 3 }).map((_, i) => (
@@ -40,21 +40,20 @@ export function CssGridOverflowDemo({
               )}
             />
           ))}
+          {showGrid && type === "grid" ? (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 grid grid-cols-12 gap-8"
+            >
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-full border-x border-dashed border-destructive/60 bg-destructive/20"
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
-
-        {showGrid && type === "grid" ? (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 inset-y-12 grid grid-cols-12 gap-8"
-          >
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-full border border-dashed border-destructive/60 bg-destructive/20"
-              />
-            ))}
-          </div>
-        ) : null}
       </div>
 
       <div className="flex items-end justify-center gap-12">

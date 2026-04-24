@@ -91,18 +91,6 @@ export default function NotesPage() {
           can&rsquo;t fit that 352px of gutter, the grid just spills out the
           side.
         </p>
-        <p>
-          The tracks can&rsquo;t rescue the situation either.{" "}
-          <code>1fr</code> doesn&rsquo;t mean &ldquo;one flexible
-          fraction&rdquo; — CSS expands it to{" "}
-          <code>minmax(auto, 1fr)</code>, and that <code>auto</code> is the
-          track&rsquo;s <em>min-content</em> width. A word, a button, an icon
-          inside a cell pushes its track wider than <code>1fr</code> alone
-          would suggest. The usual patch is{" "}
-          <code>repeat(12, minmax(0, 1fr))</code> — force tracks to shrink
-          below their content — but that only fixes the track side. The 352px
-          of gutters stays put, with nowhere for the extra pixels to go.
-        </p>
       </Block>
 
       <Block>
@@ -128,8 +116,9 @@ export default function NotesPage() {
             breakpoint (<code>@sm:col-span-4 @lg:col-span-6</code>).
           </li>
           <li>
-            <strong>The min-content hazard stays.</strong> Fewer tracks means
-            wider tracks, but the same bug is there at every breakpoint.
+            <strong>Gaps still don&rsquo;t shrink.</strong> Fewer tracks means
+            fewer gaps, so the threshold moves down, but the scaffold is still
+            rigid at every breakpoint.
           </li>
         </ul>
         <p>
@@ -164,9 +153,9 @@ export default function NotesPage() {
         </p>
         <p>
           Teul writes the primitive as <code>flex flex-wrap</code>. Each item
-          declares its own percentage width, items that don&rsquo;t fit wrap to
-          the next row, and <code>min-width: 0</code> cuts the min-content issue
-          at the root. No track sizing, no <code>minmax</code> negotiations, no
+          declares its own percentage width, and items that don&rsquo;t fit
+          wrap to the next row — the gap between them moving with them
+          instead of sitting fixed in the container. No rigid scaffold, no
           phantom columns.
         </p>
       </Block>
