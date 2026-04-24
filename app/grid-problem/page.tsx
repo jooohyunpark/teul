@@ -70,10 +70,7 @@ export default function NotesPage() {
         <p>
           On most laptop viewports, a 12-column grid looks fine. Shrink the
           container below, though, and you&rsquo;ll see items push past the
-          right edge around 352px — and that&rsquo;s no coincidence. A
-          12-column grid has 11 gaps; at <code>gap-8</code> (32px each), the
-          gutters alone add up to 32 × 11 = 352px, leaving nothing for the
-          tracks themselves.
+          right edge around 352px.
         </p>
       </Block>
 
@@ -82,69 +79,43 @@ export default function NotesPage() {
       </Block>
 
       <Block>
-        <h2>Why it breaks</h2>
         <p>
           CSS Grid builds a fixed-width scaffold. Gaps are set in concrete —
           they don&rsquo;t shrink when the container gets smaller, they
-          don&rsquo;t wrap to the next row, they don&rsquo;t collapse.
-          Whatever you hand to <code>gap-8</code> is reserved. If the parent
-          can&rsquo;t fit that 352px of gutter, the grid just spills out the
-          side.
+          don&rsquo;t wrap to the next row, they don&rsquo;t collapse. For 12
+          columns, that&rsquo;s 11 gaps × 32px (<code>gap-8</code>) = 352px
+          of gutter, locked in. Narrower than that, and the grid spills.
         </p>
       </Block>
 
       <Block>
         <h2>What about container queries?</h2>
         <p>
-          The obvious refinement: use <code>@container</code> to reduce the
-          column count at smaller sizes — 12 &rarr; 4 &rarr; 2. This is better
-          than viewport media queries, since a grid inside a narrow sidebar
-          shouldn&rsquo;t care about viewport width. And it does raise the
-          threshold at which overflow appears.
+          The obvious refinement: <code>@container</code> queries that swap
+          the column count at smaller widths — 12 &rarr; 4 &rarr; 2. Better
+          than viewport media queries, since a grid inside a sidebar
+          shouldn&rsquo;t care about viewport width. But it doesn&rsquo;t
+          actually solve the problem. The layout snaps at thresholds instead
+          of reflowing continuously, and spans don&rsquo;t translate across
+          breakpoints — half on a 12-col grid is <code>col-span-6</code>, on
+          a 4-col grid it&rsquo;s <code>col-span-2</code>, so every item
+          respells its span per breakpoint.
         </p>
-        <p>But it doesn&rsquo;t actually solve the problem:</p>
-        <ul>
-          <li>
-            <strong>Jumps, not flow.</strong> A 380px container lays out the
-            same as a 480px one until it crosses a threshold; resize through it
-            and the layout snaps.
-          </li>
-          <li>
-            <strong>Spans don&rsquo;t translate.</strong>{" "}
-            <code>col-span-6</code> is half on a 12-col grid but the whole row
-            on a 4-col one. Each call site ends up respelling its span per
-            breakpoint (<code>@sm:col-span-4 @lg:col-span-6</code>).
-          </li>
-          <li>
-            <strong>Gaps still don&rsquo;t shrink.</strong> Fewer tracks means
-            fewer gaps, so the threshold moves down, but the scaffold is still
-            rigid at every breakpoint.
-          </li>
-        </ul>
         <p>
           <code>grid-template-columns: repeat(auto-fit, minmax(MIN, 1fr))</code>{" "}
-          skips the breakpoint dance — items reflow continuously and wrap when
-          they can&rsquo;t be at least <code>MIN</code> wide. But it only
-          produces uniform-width rows. You can&rsquo;t say &ldquo;this card is a
-          third, this one is two-thirds.&rdquo;
+          skips the breakpoint dance, but it only produces uniform-width rows
+          — you can&rsquo;t say &ldquo;this one is a third, this one is
+          two-thirds.&rdquo;
         </p>
       </Block>
 
       <Block>
         <h2>Why flex, not CSS Grid</h2>
-        <p>A grid primitive needs three things:</p>
-        <ol>
-          <li>
-            <strong>Continuous reflow</strong> as the container changes, not in
-            discrete steps.
-          </li>
-          <li>
-            <strong>Per-item widths</strong> — a third here, a half there.
-          </li>
-          <li>
-            <strong>No overflow</strong> at any container size.
-          </li>
-        </ol>
+        <p>
+          A grid primitive needs three things: continuous reflow as the
+          container changes, per-item widths (a third here, a half there),
+          and no overflow at any container size.
+        </p>
         <p>
           CSS Grid gives you per-item widths but fights the other two;{" "}
           <code>auto-fit</code> gives you reflow and safety but locks you into
