@@ -71,16 +71,17 @@ export default function Page() {
         </div>
 
         <p className="text-muted-foreground">
-          The result is a 12-column grid component{" "}
+          The result is a 12-column grid system built on flexbox:{" "}
+          <code>Grid</code> for containers, <code>GridItem</code> for items.
+          Type-safe responsive props, plain Tailwind output, copy-paste install
+          — no runtime, no dependencies, no config. (
           <Link
             href="/grid-problem"
             className="underline underline-offset-4 hover:text-foreground"
           >
-            built on flexbox
+            Why flexbox and not CSS grid?
           </Link>
-          : <code>Grid</code> for containers, <code>GridItem</code> for items.
-          Type-safe responsive props, plain Tailwind output, copy-paste install
-          — no runtime, no dependencies, no config.
+          )
         </p>
       </Block>
 
