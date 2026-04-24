@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@/components/ui/teul-grid"
+import { Grid, GridItem } from "@/components/ui/teul"
 import { CodeBlock } from "@/components/site/code-block"
 import { CodePreview } from "@/components/site/code-preview"
 import { Block } from "@/components/site/block"
