@@ -18,21 +18,15 @@ export function CssGridOverflowDemo({
 
   return (
     <figure className="space-y-4">
-      <div
-        className={cn(
-          "relative mx-auto rounded border p-8",
-          showGrid && "bg-blue-400/20",
-        )}
-        style={{ width }}
-      >
+      <div className={"relative mx-auto py-12"} style={{ width }}>
         <div
           className={cn(
-            "relative bg-background",
+            "relative",
             type === "grid"
-              ? "grid grid-cols-12 gap-6"
-              : "flex flex-wrap gap-6",
+              ? "grid grid-cols-12 gap-8"
+              : "flex flex-wrap gap-8",
             showGrid &&
-              "before:absolute before:top-1/2 before:left-0 before:h-[300%] before:w-px before:-translate-y-1/2 before:bg-blue-500 before:content-[''] after:absolute after:top-1/2 after:right-0 after:h-[300%] after:w-px after:-translate-y-1/2 after:bg-blue-500 after:content-['']",
+              "before:absolute before:top-1/2 before:left-0 before:h-[200%] before:w-px before:-translate-y-1/2 before:bg-blue-500 before:content-[''] after:absolute after:top-1/2 after:right-0 after:h-[200%] after:w-px after:-translate-y-1/2 after:bg-blue-500 after:content-['']",
           )}
         >
           {Array.from({ length: 3 }).map((_, i) => (
@@ -42,7 +36,7 @@ export function CssGridOverflowDemo({
                 "h-12 rounded bg-muted-foreground/50",
                 type === "grid"
                   ? "col-span-4"
-                  : "w-[calc((100%-3rem)/3)] min-w-0",
+                  : "w-[calc((100%-4rem)/3)] min-w-0",
               )}
             />
           ))}
@@ -51,7 +45,7 @@ export function CssGridOverflowDemo({
         {showGrid && type === "grid" ? (
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-8 grid grid-cols-12 gap-6"
+            className="pointer-events-none absolute inset-x-0 inset-y-12 grid grid-cols-12 gap-8"
           >
             {Array.from({ length: 12 }).map((_, i) => (
               <div

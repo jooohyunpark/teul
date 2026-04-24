@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react"
 
 import { Block } from "@/components/site/block"
 import { ThemeToggle } from "@/components/site/theme-toggle"
-import { Grid, GridItem } from "@/components/ui/teul"
 
 import { CssGridOverflowDemo } from "./_components/css-grid-overflow-demo"
 
@@ -28,51 +27,53 @@ export default function NotesPage() {
       </Link>
 
       <Block>
-        <h1>Why CSS Grid does’t work for conventional layout system</h1>
+        <h1>Why CSS Grid doesn&rsquo;t work for a 12-column layout system</h1>
         <p className="text-muted-foreground">
-          Why Teul uses flex, not CSS grid.
+          Why Teul uses flex-wrap with percentage widths instead of CSS Grid.
         </p>
       </Block>
 
       <Block>
         <p>
-          Every design system I&rsquo;ve worked on eventually needs a 12-column
-          grid, and CSS Grid seems made for the job.{" "}
-          <code>grid-template-columns: repeat(12, 1fr)</code> spells out a
-          12-column grid almost literally. So that&rsquo;s where I started.
+          Every design system I&rsquo;ve built eventually needs a 12-column
+          grid, and CSS Grid looks made for the job.{" "}
+          <code>grid-template-columns: repeat(12, 1fr)</code> spells out the
+          shape literally. So that&rsquo;s where I started.
         </p>
-
-        <p>dummy paragraph</p>
       </Block>
 
       <Block>
-        <div className="grid grid-cols-12 gap-6 text-center text-xs font-medium">
-          <div className="col-span-12 h-12 rounded bg-muted-foreground/50" />
-
-          {Array.from({ length: 2 }).map((_, i) => (
-            <div
-              key={i}
-              className="col-span-6 h-12 rounded bg-muted-foreground/50"
-            />
-          ))}
-
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i}
-              className="col-span-3 h-12 rounded bg-muted-foreground/50"
-            />
-          ))}
-        </div>
+        <figure className="space-y-2">
+          <div className="grid grid-cols-12 gap-8 text-center text-xs font-medium">
+            <div className="col-span-12 h-12 rounded bg-muted-foreground/50" />
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div
+                key={i}
+                className="col-span-6 h-12 rounded bg-muted-foreground/50"
+              />
+            ))}
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="col-span-4 h-12 rounded bg-muted-foreground/50"
+              />
+            ))}
+          </div>
+          <figcaption className="text-sm text-muted-foreground">
+            A 12-column grid with full, half, and third-width items.
+          </figcaption>
+        </figure>
       </Block>
 
       <Block>
-        <h2>Problem</h2>
-
+        <h2>Where it breaks</h2>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          On most laptop viewports, a 12-column grid looks fine. Shrink the
+          container below, though, and you&rsquo;ll see items push past the
+          right edge around 352px — and that&rsquo;s no coincidence. A
+          12-column grid has 11 gaps; at <code>gap-8</code> (32px each), the
+          gutters alone add up to 32 × 11 = 352px, leaving nothing for the
+          tracks themselves.
         </p>
       </Block>
 
@@ -81,58 +82,97 @@ export default function NotesPage() {
       </Block>
 
       <Block>
-        <h2>Why it happens</h2>
+        <h2>Why it breaks</h2>
         <p>
-          Every item overflows horizontally. You can see the twelve tracks in
-          the inspector, and the items &mdash; sized to span twelve &mdash; are
-          wider than the container they live inside.
+          CSS Grid builds a fixed-width scaffold. Gaps are set in concrete —
+          they don&rsquo;t shrink when the container gets smaller, they
+          don&rsquo;t wrap to the next row, they don&rsquo;t collapse.
+          Whatever you hand to <code>gap-8</code> is reserved. If the parent
+          can&rsquo;t fit that 352px of gutter, the grid just spills out the
+          side.
         </p>
         <p>
-          The cause is a quiet detail of <code>1fr</code>. It doesn&rsquo;t mean
-          &ldquo;one flexible fraction.&rdquo; It expands to{" "}
-          <code>minmax(auto, 1fr)</code>, and that <code>auto</code> minimum is
-          the track&rsquo;s <em>min-content</em> width. On a 390px viewport
-          divided into twelve tracks, each track nominally gets ~32px. But any
-          item whose min-content is wider than 32px pushes its track wider
-          &mdash; and the sum of those tracks runs past the container.
-        </p>
-        <p>
-          The usual patch is <code>repeat(12, minmax(0, 1fr))</code>: force the
-          tracks to shrink below their content. That stops the overflow, but
-          items still get crushed and their content spills out anyway.
+          The tracks can&rsquo;t rescue the situation either.{" "}
+          <code>1fr</code> doesn&rsquo;t mean &ldquo;one flexible
+          fraction&rdquo; — CSS expands it to{" "}
+          <code>minmax(auto, 1fr)</code>, and that <code>auto</code> is the
+          track&rsquo;s <em>min-content</em> width. A word, a button, an icon
+          inside a cell pushes its track wider than <code>1fr</code> alone
+          would suggest. The usual patch is{" "}
+          <code>repeat(12, minmax(0, 1fr))</code> — force tracks to shrink
+          below their content — but that only fixes the track side. The 352px
+          of gutters stays put, with nowhere for the extra pixels to go.
         </p>
       </Block>
 
       <Block>
-        <h2>The fix</h2>
+        <h2>What about container queries?</h2>
         <p>
-          Teul rewrites the primitive with <code>flex-wrap</code> and percentage
-          widths. Each item declares its own width; items that don&rsquo;t fit
-          wrap to the next row. <code>min-width: 0</code> cuts the min-content
-          problem at the root. No intrinsic track sizing, no <code>minmax</code>{" "}
-          negotiations, no twelve phantom columns.
+          The obvious refinement: use <code>@container</code> to reduce the
+          column count at smaller sizes — 12 &rarr; 4 &rarr; 2. This is better
+          than viewport media queries, since a grid inside a narrow sidebar
+          shouldn&rsquo;t care about viewport width. And it does raise the
+          threshold at which overflow appears.
         </p>
+        <p>But it doesn&rsquo;t actually solve the problem:</p>
+        <ul>
+          <li>
+            <strong>Jumps, not flow.</strong> A 380px container lays out the
+            same as a 480px one until it crosses a threshold; resize through it
+            and the layout snaps.
+          </li>
+          <li>
+            <strong>Spans don&rsquo;t translate.</strong>{" "}
+            <code>col-span-6</code> is half on a 12-col grid but the whole row
+            on a 4-col one. Each call site ends up respelling its span per
+            breakpoint (<code>@sm:col-span-4 @lg:col-span-6</code>).
+          </li>
+          <li>
+            <strong>The min-content hazard stays.</strong> Fewer tracks means
+            wider tracks, but the same bug is there at every breakpoint.
+          </li>
+        </ul>
+        <p>
+          <code>grid-template-columns: repeat(auto-fit, minmax(MIN, 1fr))</code>{" "}
+          skips the breakpoint dance — items reflow continuously and wrap when
+          they can&rsquo;t be at least <code>MIN</code> wide. But it only
+          produces uniform-width rows. You can&rsquo;t say &ldquo;this card is a
+          third, this one is two-thirds.&rdquo;
+        </p>
+      </Block>
 
+      <Block>
+        <h2>Why flex, not CSS Grid</h2>
+        <p>A grid primitive needs three things:</p>
+        <ol>
+          <li>
+            <strong>Continuous reflow</strong> as the container changes, not in
+            discrete steps.
+          </li>
+          <li>
+            <strong>Per-item widths</strong> — a third here, a half there.
+          </li>
+          <li>
+            <strong>No overflow</strong> at any container size.
+          </li>
+        </ol>
+        <p>
+          CSS Grid gives you per-item widths but fights the other two;{" "}
+          <code>auto-fit</code> gives you reflow and safety but locks you into
+          uniform columns. Flex-wrap with percentage widths is the only approach
+          that delivers all three.
+        </p>
+        <p>
+          Teul writes the primitive as <code>flex flex-wrap</code>. Each item
+          declares its own percentage width, items that don&rsquo;t fit wrap to
+          the next row, and <code>min-width: 0</code> cuts the min-content issue
+          at the root. No track sizing, no <code>minmax</code> negotiations, no
+          phantom columns.
+        </p>
+      </Block>
+
+      <Block>
         <CssGridOverflowDemo type="flex" />
-
-        <figure className="space-y-2">
-          <div className="rounded border bg-card p-4">
-            <Grid>
-              {Array.from({ length: 12 }).map((_, i) => (
-                <GridItem key={i} size={1}>
-                  <div className="rounded bg-muted p-2 text-center text-xs tabular-nums">
-                    {i + 1}
-                  </div>
-                </GridItem>
-              ))}
-            </Grid>
-          </div>
-          <figcaption className="text-sm text-muted-foreground">
-            The same twelve items under Teul. The container stays honest at
-            every viewport — items that don&rsquo;t fit wrap to the next row
-            instead of overflowing.
-          </figcaption>
-        </figure>
       </Block>
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
