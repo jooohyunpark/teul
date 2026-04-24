@@ -28,7 +28,7 @@ export default function NotesPage() {
       </Link>
 
       <Block>
-        <h1>Why CSS Grid does not work for conventional grid system</h1>
+        <h1>Why CSS Grid does’t work for conventional layout system</h1>
         <p className="text-muted-foreground">
           Why Teul uses flex, not CSS grid.
         </p>
@@ -47,14 +47,20 @@ export default function NotesPage() {
 
       <Block>
         <div className="grid grid-cols-12 gap-6 text-center text-xs font-medium">
-          <div className="col-span-12 h-12 rounded bg-muted" />
+          <div className="col-span-12 h-12 rounded bg-muted-foreground/50" />
 
           {Array.from({ length: 2 }).map((_, i) => (
-            <div key={i} className="col-span-6 h-12 rounded bg-muted" />
+            <div
+              key={i}
+              className="col-span-6 h-12 rounded bg-muted-foreground/50"
+            />
           ))}
 
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="col-span-3 h-12 rounded bg-muted" />
+            <div
+              key={i}
+              className="col-span-3 h-12 rounded bg-muted-foreground/50"
+            />
           ))}
         </div>
       </Block>
@@ -106,6 +112,8 @@ export default function NotesPage() {
           problem at the root. No intrinsic track sizing, no <code>minmax</code>{" "}
           negotiations, no twelve phantom columns.
         </p>
+
+        <CssGridOverflowDemo type="flex" />
 
         <figure className="space-y-2">
           <div className="rounded border bg-card p-4">
