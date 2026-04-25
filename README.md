@@ -63,10 +63,10 @@ import { Grid, GridItem } from "@/components/ui/teul"
 
 ### `<GridItem>`
 
-| Prop     | Type                            | Default | Notes                                  |
-| -------- | ------------------------------- | ------- | -------------------------------------- |
-| `size`   | `ResponsiveValue<GridItemSize>` | —       | Columns to span (1–12)                 |
-| `offset` | `ResponsiveValue<GridItemSize>` | —       | Shifts the column by N leading columns |
+| Prop     | Type                            | Default | Notes                                          |
+| -------- | ------------------------------- | ------- | ---------------------------------------------- |
+| `size`   | `ResponsiveValue<GridItemSize>` | —       | Columns to span (1–12). Use `0` to hide.       |
+| `offset` | `ResponsiveValue<GridItemSize>` | —       | Shifts the column by N leading columns         |
 
 Where:
 
@@ -74,7 +74,7 @@ Where:
 type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>
 type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ```
 
 `base` is the unprefixed default — values apply until `sm` (640px) takes over. `size` defaults to `12`, so `size={{ md: 6 }}` means full width on mobile, half from `md` up.

@@ -42,8 +42,8 @@ export default function Page() {
 
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            When Tailwind for responsive layouts, a few patterns keep getting in
-            the way:
+            When using Tailwind for responsive layouts, a few patterns keep
+            getting in the way:
           </p>
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
