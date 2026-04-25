@@ -33,7 +33,7 @@ export default function Page() {
       <Block>
         <h1>Teul</h1>
         <p className="text-muted-foreground">
-          An opinionated grid system for React and Tailwind.
+          An opinionated grid system for React and Tailwind
         </p>
       </Block>
 
@@ -42,7 +42,8 @@ export default function Page() {
 
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            Three things Tailwind makes harder than it should:
+            When Tailwind for responsive layouts, a few patterns keep getting in
+            the way:
           </p>
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
@@ -57,16 +58,15 @@ export default function Page() {
                 Offsets don’t read like offsets.
               </strong>{" "}
               To shift an item two columns in, you write{" "}
-              <code>col-start-3</code> — doing arithmetic every time you
-              offset.
+              <code>col-start-3</code> — doing arithmetic every time you offset.
             </li>
             <li>
               <strong className="font-medium text-foreground">
                 Containers and items look the same.
               </strong>{" "}
-              A grid is two things — a container and its items — but in
-              Tailwind they&rsquo;re both just <code>&lt;div&gt;</code>s with
-              class strings, with nothing to tell them apart.
+              A grid is two things — a container and its items — but in Tailwind
+              they&rsquo;re both just <code>&lt;div&gt;</code> with class
+              strings, with nothing to tell them apart.
             </li>
           </ul>
         </div>
@@ -74,8 +74,8 @@ export default function Page() {
         <p className="text-muted-foreground">
           The result is a 12-column grid system built on flexbox:{" "}
           <code>Grid</code> for containers, <code>GridItem</code> for items.
-          Type-safe responsive props, plain Tailwind under the hood,
-          copy-paste install — no runtime, no dependencies, no config. (
+          Type-safe responsive props, plain Tailwind under the hood, copy-paste
+          install — no runtime, no dependencies, no config. (
           <Link
             href="/grid-problem"
             className="underline underline-offset-4 hover:text-foreground"

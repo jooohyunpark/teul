@@ -18,15 +18,21 @@ export function CssGridOverflowDemo({
 
   return (
     <figure className="space-y-4">
-      <div className={"relative mx-auto py-12"} style={{ width }}>
+      <div
+        className={"relative mx-auto rounded border px-6 py-12"}
+        style={{ width }}
+      >
         <div
           className={cn(
             "relative",
             type === "grid"
               ? "grid grid-cols-12 gap-8"
               : "flex flex-wrap gap-8",
-            showGrid &&
-              "before:absolute before:top-1/2 before:left-0 before:h-[200%] before:w-px before:-translate-x-1/2 before:-translate-y-1/2 before:bg-blue-500 before:content-[''] after:absolute after:top-1/2 after:right-0 after:h-[200%] after:w-px after:translate-x-1/2 after:-translate-y-1/2 after:bg-blue-500 after:content-['']",
+            "before:absolute before:top-1/2 before:left-0 before:h-[200%] before:w-px before:-translate-x-1/2 before:-translate-y-1/2 before:bg-blue-500 before:transition-opacity before:duration-100 before:ease-out before:content-['']",
+            "after:absolute after:top-1/2 after:right-0 after:h-[200%] after:w-px after:translate-x-1/2 after:-translate-y-1/2 after:bg-blue-500 after:transition-opacity after:duration-100 after:ease-out after:content-['']",
+            showGrid
+              ? "before:opacity-100 after:opacity-100"
+              : "before:opacity-0 after:opacity-0",
           )}
         >
           {Array.from({ length: 3 }).map((_, i) => (
@@ -40,10 +46,13 @@ export function CssGridOverflowDemo({
               )}
             />
           ))}
-          {showGrid && type === "grid" ? (
+          {type === "grid" ? (
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 grid grid-cols-12 gap-8"
+              className={cn(
+                "pointer-events-none absolute inset-0 grid grid-cols-12 gap-8 transition-opacity duration-100 ease-out",
+                showGrid ? "opacity-100" : "opacity-0",
+              )}
             >
               {Array.from({ length: 12 }).map((_, i) => (
                 <div

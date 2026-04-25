@@ -60,18 +60,15 @@ export default function NotesPage() {
               />
             ))}
           </div>
-          <figcaption className="text-sm text-muted-foreground">
-            A 12-column grid with full, half, and third-width items.
-          </figcaption>
         </figure>
       </Block>
 
       <Block>
         <h2>Where it breaks</h2>
         <p>
-          On most laptop viewports, a 12-column grid looks fine. Drag the
-          demo below narrower, though, and you&rsquo;ll see items push past
-          the right edge around 352px.
+          On most laptop viewports, a 12-column grid looks fine. Drag the demo
+          below narrower, though, and you&rsquo;ll see items push past the right
+          edge around 352px.
         </p>
       </Block>
 
@@ -84,28 +81,28 @@ export default function NotesPage() {
           CSS grid builds a fixed-width scaffold. Gaps are set in concrete —
           they don&rsquo;t shrink when the container gets smaller, they
           don&rsquo;t wrap to the next row, they don&rsquo;t collapse. For 12
-          columns, that&rsquo;s 11 gaps × 32px (<code>gap-8</code>) = 352px
-          of gutter. Narrower than that, and the grid spills.
+          columns, that&rsquo;s 11 gaps × 32px (<code>gap-8</code>) = 352px of
+          gutter. Narrower than that, and the grid spills.
         </p>
       </Block>
 
       <Block>
         <h2>What about container queries?</h2>
         <p>
-          The obvious refinement: <code>@container</code> queries that swap
-          the column count at smaller widths — 12 &rarr; 4 &rarr; 2. Better
-          than viewport media queries, since a grid inside a sidebar
-          shouldn&rsquo;t care about viewport width. But it doesn&rsquo;t
-          actually solve the problem. The layout snaps at thresholds instead
-          of reflowing continuously, and spans don&rsquo;t translate across
-          breakpoints — half on a 12-col grid is <code>col-span-6</code>, on
-          a 4-col grid it&rsquo;s <code>col-span-2</code>, so every item has
-          to restate its span at every breakpoint.
+          The obvious refinement: <code>@container</code> queries that swap the
+          column count at smaller widths — 12 &rarr; 4 &rarr; 2. Better than
+          viewport media queries, since a grid inside a sidebar shouldn&rsquo;t
+          care about viewport width. But it doesn&rsquo;t actually solve the
+          problem. The layout snaps at thresholds instead of reflowing
+          continuously, and spans don&rsquo;t translate across breakpoints —
+          half on a 12-col grid is <code>col-span-6</code>, on a 4-col grid
+          it&rsquo;s <code>col-span-2</code>, so every item has to restate its
+          span at every breakpoint.
         </p>
         <p>
           <code>grid-template-columns: repeat(auto-fit, minmax(MIN, 1fr))</code>{" "}
-          skips the breakpoint dance, but it only produces uniform-width rows
-          — you can&rsquo;t say &ldquo;this one is a third, this one is
+          skips the breakpoint dance, but it only produces uniform-width rows —
+          you can&rsquo;t say &ldquo;this one is a third, this one is
           two-thirds.&rdquo;
         </p>
       </Block>
@@ -114,8 +111,8 @@ export default function NotesPage() {
         <h2>Why flex, not CSS grid</h2>
         <p>
           A grid primitive needs three things: continuous reflow as the
-          container changes, per-item widths (a third here, a half there),
-          and no overflow at any container size.
+          container changes, per-item widths (a third here, a half there), and
+          no overflow at any container size.
         </p>
         <p>
           CSS grid gives you per-item widths but fights the other two;{" "}
@@ -124,10 +121,9 @@ export default function NotesPage() {
           that delivers all three.
         </p>
         <p>
-          Teul builds on <code>flex flex-wrap</code>. Each item declares its
-          own percentage width; items that don&rsquo;t fit wrap to the next
-          row, and the gaps wrap with them instead of sitting fixed in the
-          container. No rigid scaffold, no phantom columns.
+          Teul builds on <code>flex flex-wrap</code>. Each item declares its own
+          percentage width; items that don&rsquo;t fit wrap to the next row, and
+          the gaps wrap with them instead of sitting fixed in the container.
         </p>
       </Block>
 
