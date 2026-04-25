@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation"
+
 import {
   Grid,
   GridItem,
@@ -24,6 +26,8 @@ export default async function PlaywrightGridFixture({
 }: {
   searchParams: Promise<{ cfg?: string }>
 }) {
+  if (process.env.NODE_ENV === "production") notFound()
+
   const { cfg } = await searchParams
   if (!cfg) {
     return <div data-testid="missing-cfg">missing cfg</div>
