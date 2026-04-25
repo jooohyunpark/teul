@@ -56,16 +56,17 @@ export default function Page() {
               <strong className="font-medium text-foreground">
                 Offsets don’t read like offsets.
               </strong>{" "}
-              <code>col-start-*</code> is 1-indexed and describes a position,
-              not a shift — so intent gets lost in the math.
+              To shift an item two columns in, you write{" "}
+              <code>col-start-3</code> — doing arithmetic every time you
+              offset.
             </li>
             <li>
               <strong className="font-medium text-foreground">
                 Containers and items look the same.
               </strong>{" "}
-              A grid is two concepts — structure and contents — but in Tailwind,
-              both are just <code>&lt;div&gt;</code>s with class strings — no
-              component boundary to signal which is which.
+              A grid is two things — a container and its items — but in
+              Tailwind they&rsquo;re both just <code>&lt;div&gt;</code>s with
+              class strings, with nothing to tell them apart.
             </li>
           </ul>
         </div>
@@ -73,8 +74,8 @@ export default function Page() {
         <p className="text-muted-foreground">
           The result is a 12-column grid system built on flexbox:{" "}
           <code>Grid</code> for containers, <code>GridItem</code> for items.
-          Type-safe responsive props, plain Tailwind output, copy-paste install
-          — no runtime, no dependencies, no config. (
+          Type-safe responsive props, plain Tailwind under the hood,
+          copy-paste install — no runtime, no dependencies, no config. (
           <Link
             href="/grid-problem"
             className="underline underline-offset-4 hover:text-foreground"
@@ -105,7 +106,7 @@ export default function Page() {
             </TabsContent>
           ))}
         </Tabs>
-        <p className="text-muted-foreground">Then import and start building.</p>
+        <p className="text-muted-foreground">Then import it:</p>
         <CodeBlock
           code={`import { Grid, GridItem } from "@/components/ui/teul"`}
           lang="tsx"
@@ -217,9 +218,9 @@ export default function Page() {
         <h3>Reordering</h3>
         <p className="text-muted-foreground">
           Teul leaves visual order to Tailwind&rsquo;s <code>order-*</code>{" "}
-          utilities. Pass them via <code>className</code> — they accept the same
+          utilities. Pass them via <code>className</code> — they take the same
           responsive prefixes (<code>sm:</code>, <code>md:</code>, &hellip;) as
-          everything else.
+          any other Tailwind class.
         </p>
         <CodePreview>
           <Grid rowGap={4}>
@@ -250,7 +251,7 @@ export default function Page() {
       </Block>
 
       <Block>
-        <h3>Offset / centered content</h3>
+        <h3>Offsets</h3>
         <CodePreview>
           <Grid rowGap={4}>
             <GridItem size={{ sm: 6 }} offset={{ sm: 3 }}>

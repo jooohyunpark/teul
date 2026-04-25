@@ -10,11 +10,11 @@ import { CssGridOverflowDemo } from "./_components/css-grid-overflow-demo"
 export const metadata: Metadata = {
   title: "On twelve columns — Teul",
   description:
-    "Why Teul uses flex-wrap with percentage widths instead of CSS Grid, and what breaks on mobile when you don’t.",
+    "Why Teul uses flex-wrap with percentage widths instead of CSS grid, and what breaks on mobile when you don’t.",
   openGraph: {
     title: "On twelve columns — Teul",
     description:
-      "Why Teul uses flex-wrap with percentage widths instead of CSS Grid, and what breaks on mobile when you don’t.",
+      "Why Teul uses flex-wrap with percentage widths instead of CSS grid, and what breaks on mobile when you don’t.",
     type: "article",
   },
 }
@@ -27,18 +27,19 @@ export default function NotesPage() {
       </Link>
 
       <Block>
-        <h1>Why CSS Grid doesn&rsquo;t work for a 12-column layout system</h1>
+        <h1>Why CSS grid doesn&rsquo;t work for a 12-column layout system</h1>
         <p className="text-muted-foreground">
-          Why Teul uses flex-wrap with percentage widths instead of CSS Grid.
+          Gaps are fixed-width, and 11 of them is all it takes to overflow a
+          phone.
         </p>
       </Block>
 
       <Block>
         <p>
           Every design system I&rsquo;ve built eventually needs a 12-column
-          grid, and CSS Grid looks made for the job.{" "}
+          grid, and CSS grid looks made for the job.{" "}
           <code>grid-template-columns: repeat(12, 1fr)</code> spells out the
-          shape literally. So that&rsquo;s where I started.
+          shape directly. So that&rsquo;s where I started.
         </p>
       </Block>
 
@@ -68,9 +69,9 @@ export default function NotesPage() {
       <Block>
         <h2>Where it breaks</h2>
         <p>
-          On most laptop viewports, a 12-column grid looks fine. Shrink the
-          container below, though, and you&rsquo;ll see items push past the
-          right edge around 352px.
+          On most laptop viewports, a 12-column grid looks fine. Drag the
+          demo below narrower, though, and you&rsquo;ll see items push past
+          the right edge around 352px.
         </p>
       </Block>
 
@@ -80,11 +81,11 @@ export default function NotesPage() {
 
       <Block>
         <p>
-          CSS Grid builds a fixed-width scaffold. Gaps are set in concrete —
+          CSS grid builds a fixed-width scaffold. Gaps are set in concrete —
           they don&rsquo;t shrink when the container gets smaller, they
           don&rsquo;t wrap to the next row, they don&rsquo;t collapse. For 12
           columns, that&rsquo;s 11 gaps × 32px (<code>gap-8</code>) = 352px
-          of gutter, locked in. Narrower than that, and the grid spills.
+          of gutter. Narrower than that, and the grid spills.
         </p>
       </Block>
 
@@ -98,8 +99,8 @@ export default function NotesPage() {
           actually solve the problem. The layout snaps at thresholds instead
           of reflowing continuously, and spans don&rsquo;t translate across
           breakpoints — half on a 12-col grid is <code>col-span-6</code>, on
-          a 4-col grid it&rsquo;s <code>col-span-2</code>, so every item
-          respells its span per breakpoint.
+          a 4-col grid it&rsquo;s <code>col-span-2</code>, so every item has
+          to restate its span at every breakpoint.
         </p>
         <p>
           <code>grid-template-columns: repeat(auto-fit, minmax(MIN, 1fr))</code>{" "}
@@ -110,24 +111,23 @@ export default function NotesPage() {
       </Block>
 
       <Block>
-        <h2>Why flex, not CSS Grid</h2>
+        <h2>Why flex, not CSS grid</h2>
         <p>
           A grid primitive needs three things: continuous reflow as the
           container changes, per-item widths (a third here, a half there),
           and no overflow at any container size.
         </p>
         <p>
-          CSS Grid gives you per-item widths but fights the other two;{" "}
+          CSS grid gives you per-item widths but fights the other two;{" "}
           <code>auto-fit</code> gives you reflow and safety but locks you into
           uniform columns. Flex-wrap with percentage widths is the only approach
           that delivers all three.
         </p>
         <p>
-          Teul writes the primitive as <code>flex flex-wrap</code>. Each item
-          declares its own percentage width, and items that don&rsquo;t fit
-          wrap to the next row — the gap between them moving with them
-          instead of sitting fixed in the container. No rigid scaffold, no
-          phantom columns.
+          Teul builds on <code>flex flex-wrap</code>. Each item declares its
+          own percentage width; items that don&rsquo;t fit wrap to the next
+          row, and the gaps wrap with them instead of sitting fixed in the
+          container. No rigid scaffold, no phantom columns.
         </p>
       </Block>
 
