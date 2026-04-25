@@ -4,7 +4,6 @@ An opinionated 12-column grid system for React and Tailwind.
 
 ```bash
 pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
-# or: npx / yarn dlx / bunx
 ```
 
 ## Why Teul
