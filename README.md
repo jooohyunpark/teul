@@ -8,10 +8,13 @@ pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 
 ## Why Teul
 
-- **Type-safe responsive props.** Autocomplete for every breakpoint, no template strings.
-- **No config changes.** Drop it in any Tailwind project and it just works.
-- **Zero runtime cost.** Static class maps compile to plain Tailwind utilities.
-- **You own the code.** Copy-paste once, modify freely, ship without a dependency.
+Tailwind responsive grids hit three recurring problems:
+
+- **Column sizing gets lost in the utility string.** Span and start classes pile up alongside every other utility, multiplied by each breakpoint.
+- **Offsets don't read like offsets.** Shifting an item two columns in means writing `col-start-3` — arithmetic on every offset.
+- **Containers and items look the same.** Both are `<div>` with class strings; nothing distinguishes them.
+
+Teul is a 12-column grid built on flexbox. `Grid` is the container, `GridItem` is the item. Type-safe responsive props, plain Tailwind output, copy-paste install. No runtime, no dependencies, no config.
 
 ## Prerequisites
 
@@ -63,10 +66,12 @@ import { Grid, GridItem } from "@/components/ui/teul"
 
 ### `<GridItem>`
 
-| Prop     | Type                            | Default | Notes                                          |
-| -------- | ------------------------------- | ------- | ---------------------------------------------- |
-| `size`   | `ResponsiveValue<GridItemSize>` | —       | Columns to span (1–12). Use `0` to hide.       |
-| `offset` | `ResponsiveValue<GridItemSize>` | —       | Shifts the column by N leading columns         |
+| Prop     | Type                            | Default | Notes                                              |
+| -------- | ------------------------------- | ------- | -------------------------------------------------- |
+| `size`   | `ResponsiveValue<GridItemSize>` | `12`    | Columns to span (1–12). Use `0` to hide at a breakpoint. |
+| `offset` | `ResponsiveValue<GridItemSize>` | —       | Empty columns before the item                      |
+
+For visual reordering, pass Tailwind's `order-*` utilities via `className` (e.g. `className="md:order-1"`).
 
 Where:
 
@@ -77,7 +82,7 @@ type GapScale = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
 type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ```
 
-`base` is the unprefixed default — values apply until `sm` (640px) takes over. `size` defaults to `12`, so `size={{ md: 6 }}` means full width on mobile, half from `md` up.
+`base` is the unprefixed default — values apply until `sm` (640px) takes over. So `size={{ md: 6 }}` is full width on mobile, half from `md` up. When both `gap` and `rowGap`/`colGap` are set at the same breakpoint, the per-axis value wins.
 
 ## License
 
