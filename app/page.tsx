@@ -77,7 +77,7 @@ export default function Page() {
           Type-safe responsive props, plain Tailwind under the hood, copy-paste
           install — no runtime, no dependencies, no config. (
           <Link
-            href="/grid-problem"
+            href="/why-not-css-grid"
             className="underline underline-offset-4 hover:text-foreground"
           >
             Why flexbox and not CSS grid?

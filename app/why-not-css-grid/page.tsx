@@ -8,18 +8,18 @@ import { ThemeToggle } from "@/components/site/theme-toggle"
 import { CssGridOverflowDemo } from "./_components/css-grid-overflow-demo"
 
 export const metadata: Metadata = {
-  title: "On twelve columns — Teul",
+  title: "Why CSS grid doesn’t work for 12-column layouts",
   description:
-    "Why Teul uses flex-wrap with percentage widths instead of CSS grid, and what breaks on mobile when you don’t.",
+    "Gaps are fixed-width, and 11 of them is all it takes to overflow.",
   openGraph: {
-    title: "On twelve columns — Teul",
+    title: "Why CSS grid doesn’t work for 12-column layouts",
     description:
-      "Why Teul uses flex-wrap with percentage widths instead of CSS grid, and what breaks on mobile when you don’t.",
+      "Gaps are fixed-width, and 11 of them is all it takes to overflow.",
     type: "article",
   },
 }
 
-export default function NotesPage() {
+export default function Page() {
   return (
     <div>
       <Link href="/">
@@ -100,13 +100,12 @@ export default function NotesPage() {
           span at every breakpoint.
         </p>
         <p>
-          There&rsquo;s also{" "}
-          <code>repeat(auto-fit, minmax(MIN, 1fr))</code> — a CSS grid pattern
-          that fits as many equal columns as the container has room for, and
-          drops one when it runs out. No breakpoints, no overflow. The catch:
-          every column is the same width. You can&rsquo;t put a one-third
-          card next to a two-thirds card in the same row, which is the whole
-          point of a 12-column grid.
+          There&rsquo;s also <code>repeat(auto-fit, minmax(MIN, 1fr))</code> — a
+          CSS grid pattern that fits as many equal columns as the container has
+          room for, and drops one when it runs out. No breakpoints, no overflow.
+          The catch: every column is the same width. You can&rsquo;t put a
+          one-third card next to a two-thirds card in the same row, which is the
+          whole point of a 12-column grid.
         </p>
       </Block>
 
