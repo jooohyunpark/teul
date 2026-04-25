@@ -12,8 +12,7 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-const SITE_DESCRIPTION =
-  "An opinionated grid system for React and Tailwind."
+const SITE_DESCRIPTION = "An opinionated grid system for React and Tailwind."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://teul.joohyun.dev"),

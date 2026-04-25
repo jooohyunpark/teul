@@ -66,9 +66,9 @@ export default function Page() {
       <Block>
         <h2>Where it breaks</h2>
         <p>
-          On most laptop viewports, a 12-column grid looks fine. Pull the
-          slider below to shrink the container, though, and you&rsquo;ll see
-          items push past the right edge around 352px.
+          On most laptop viewports, a 12-column grid looks fine. Pull the slider
+          below to shrink the container, though, and you&rsquo;ll see items push
+          past the right edge around 352px.
         </p>
       </Block>
 
