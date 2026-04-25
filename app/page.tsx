@@ -17,6 +17,7 @@ import {
   TabsTrigger,
 } from "@/components/site/tabs"
 import { ThemeToggle } from "@/components/site/theme-toggle"
+import { Button } from "@/components/site/button"
 import Link from "next/link"
 
 const REGISTRY_URL = "https://teul.joohyun.dev/registry/teul.json"
@@ -35,6 +36,13 @@ export default function Page() {
         <p className="text-muted-foreground">
           An opinionated grid system for React and Tailwind
         </p>
+        <Button
+          variant="outline"
+          size="sm"
+          render={<Link href="https://github.com/jooohyunpark/teul" />}
+        >
+          GitHub
+        </Button>
       </Block>
 
       <Block>
