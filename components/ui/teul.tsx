@@ -31,7 +31,7 @@ const DEFAULT_ROW_GAP: GapScale = 12
 const DEFAULT_COL_GAP: GapScale = 8
 
 const WIDTH_CALC =
-  "w-[calc(var(--grid-size,0)/12*(100%+var(--grid-col-gap,0px))-var(--grid-col-gap,0px))]"
+  "w-[calc(var(--grid-size,12)/12*(100%+var(--grid-col-gap,0px))-var(--grid-col-gap,0px))]"
 const OFFSET_CALC =
   "ml-[calc(var(--grid-offset,0)/12*(100%+var(--grid-col-gap,0px)))]"
 

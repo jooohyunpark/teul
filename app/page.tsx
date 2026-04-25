@@ -51,31 +51,31 @@ export default function Page() {
 
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            When using Tailwind for responsive layouts, a few patterns keep
-            getting in the way:
+            I started with <code>grid-cols-12</code> and{" "}
+            <code>col-span-*</code>. The math worked, the JSX didn&rsquo;t —
+            three things kept getting in the way:
           </p>
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
               <strong className="font-medium text-foreground">
                 Column sizing gets lost in the utility string.
               </strong>{" "}
-              Span and start classes pile up next to every other utility, and
-              each breakpoint multiplies them.
+              Span and start classes pile up alongside every other utility, and
+              the breakpoint prefixes pile on top.
             </li>
             <li>
               <strong className="font-medium text-foreground">
-                Offsets don’t read like offsets.
+                Offsets require arithmetic.
               </strong>{" "}
-              To shift an item two columns in, you write{" "}
-              <code>col-start-3</code> — doing arithmetic every time you offset.
+              Shifting an item two columns in means writing{" "}
+              <code>col-start-3</code> — a small calculation every time.
             </li>
             <li>
               <strong className="font-medium text-foreground">
                 Containers and items look the same.
               </strong>{" "}
-              A grid is two things — a container and its items — but in Tailwind
-              they&rsquo;re both just <code>&lt;div&gt;</code> with class
-              strings, with nothing to tell them apart.
+              A grid is two things — a container and its items — but both are
+              just <code>&lt;div&gt;</code> with class strings.
             </li>
           </ul>
         </div>
@@ -377,7 +377,9 @@ type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
                 <TableCell>
                   <code>GridItemSize</code>
                 </TableCell>
-                <TableCell className="text-muted-foreground">—</TableCell>
+                <TableCell>
+                  <code>12</code>
+                </TableCell>
                 <TableCell>
                   Columns to span (1–12). Use <code>0</code> to hide at a
                   breakpoint.
@@ -396,11 +398,6 @@ type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
             </TableBody>
           </Table>
         </div>
-        <p className="text-muted-foreground">
-          For visual reordering, pass Tailwind&rsquo;s <code>order-*</code>{" "}
-          utilities via <code>className</code> (e.g.{" "}
-          <code>className=&quot;md:order-1&quot;</code>).
-        </p>
       </Block>
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">

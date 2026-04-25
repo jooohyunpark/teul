@@ -13,7 +13,7 @@ const fontMono = Geist_Mono({
 })
 
 const SITE_DESCRIPTION =
-  "A copy-paste 12-column grid for React and Tailwind. Type-safe responsive props, no runtime, no dependencies."
+  "An opinionated grid system for React and Tailwind."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://teul.joohyun.dev"),

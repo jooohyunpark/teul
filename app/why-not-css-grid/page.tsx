@@ -66,9 +66,9 @@ export default function Page() {
       <Block>
         <h2>Where it breaks</h2>
         <p>
-          On most laptop viewports, a 12-column grid looks fine. Drag the demo
-          below narrower, though, and you&rsquo;ll see items push past the right
-          edge around 352px.
+          On most laptop viewports, a 12-column grid looks fine. Pull the
+          slider below to shrink the container, though, and you&rsquo;ll see
+          items push past the right edge around 352px.
         </p>
       </Block>
 
@@ -126,6 +126,14 @@ export default function Page() {
           Teul builds on <code>flex flex-wrap</code>. Each item declares its own
           percentage width; items that don&rsquo;t fit wrap to the next row, and
           the gaps wrap with them instead of sitting fixed in the container.
+        </p>
+        <p>
+          The width formula falls out of that:{" "}
+          <code>calc(size/12 × (100% + colGap) − colGap)</code>. The{" "}
+          <code>+ colGap</code> term reserves a gap-sized chunk for each 1/12
+          slot; the <code>− colGap</code> term subtracts the trailing gap that
+          the last item in a row doesn&rsquo;t need. When items wrap, the gaps
+          wrap with them, and the formula doesn&rsquo;t change.
         </p>
       </Block>
 
