@@ -176,3 +176,117 @@ test.describe("Grid + GridItem widths", () => {
     expect(await widthOf(page, "item-0")).toBeCloseTo(W(6, 500, 32), 0)
   })
 })
+
+test.describe("Exhaustive size sweep", () => {
+  for (const size of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const) {
+    test(`size=${size} at colGap=0 → size/12 of container`, async ({ page }) => {
+      await loadFixture(page, {
+        containerWidth: 1200,
+        colGap: 0,
+        items: [{ size }],
+      })
+      expect(await widthOf(page, "item-0")).toBeCloseTo(size * 100, 0)
+    })
+  }
+})
+
+test.describe("Exhaustive colGap sweep", () => {
+  for (const scale of [0, 1, 2, 3, 4, 5, 6, 8, 10, 12] as const) {
+    test(`colGap=${scale} (${scale * 4}px) on two size=6 items`, async ({
+      page,
+    }) => {
+      await loadFixture(page, {
+        containerWidth: 600,
+        colGap: scale,
+        items: [{ size: 6 }, { size: 6 }],
+      })
+      expect(await widthOf(page, "item-0")).toBeCloseTo(W(6, 600, scale * 4), 0)
+    })
+  }
+})
+
+test.describe("Exhaustive offset sweep", () => {
+  for (const offset of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const) {
+    test(`offset=${offset} at colGap=0 → offset/12 of container`, async ({
+      page,
+    }) => {
+      await loadFixture(page, {
+        containerWidth: 1200,
+        colGap: 0,
+        items: [{ size: 1, offset }],
+      })
+      const containerLeft = await leftOf(page, "grid-container")
+      const itemLeft = await leftOf(page, "item-0")
+      expect(itemLeft - containerLeft).toBeCloseTo(offset * 100, 0)
+    })
+  }
+})
+
+test.describe("Breakpoint activation", () => {
+  const cases = [
+    { bp: "sm", viewport: 700 },
+    { bp: "md", viewport: 800 },
+    { bp: "lg", viewport: 1100 },
+    { bp: "xl", viewport: 1300 },
+    { bp: "2xl", viewport: 1600 },
+  ] as const
+
+  for (const { bp, viewport } of cases) {
+    test(`${bp}: { base: 12, ${bp}: 6 } resolves to half at viewport=${viewport}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: viewport, height: 800 })
+      await loadFixture(page, {
+        containerWidth: 400,
+        items: [{ size: { base: 12, [bp]: 6 } }],
+      })
+      expect(await widthOf(page, "item-0")).toBeCloseTo(W(6, 400, 32), 0)
+    })
+  }
+})
+
+test.describe("Gap shorthand vs axis precedence", () => {
+  test("colGap overrides shorthand gap for column axis", async ({ page }) => {
+    await loadFixture(page, {
+      containerWidth: 600,
+      gap: 4,
+      colGap: 8,
+      items: [{ size: 6 }, { size: 6 }],
+    })
+    expect(await widthOf(page, "item-0")).toBeCloseTo(W(6, 600, 32), 0)
+  })
+
+  test("colGap=0 overrides shorthand gap=8", async ({ page }) => {
+    await loadFixture(page, {
+      containerWidth: 600,
+      gap: 8,
+      colGap: 0,
+      items: [{ size: 6 }, { size: 6 }],
+    })
+    expect(await widthOf(page, "item-0")).toBeCloseTo(300, 0)
+  })
+
+  test("shorthand gap applies to both axes (row spacing)", async ({ page }) => {
+    await loadFixture(page, {
+      containerWidth: 600,
+      gap: 4,
+      items: [{ size: 12 }, { size: 12 }],
+    })
+    const top0 = await topOf(page, "item-0")
+    const top1 = await topOf(page, "item-1")
+    expect(top1 - top0).toBeCloseTo(56, 0)
+  })
+})
+
+test.describe("Responsive dedup", () => {
+  test("re-emits class when responsive value reverts to an earlier one", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1100, height: 800 })
+    await loadFixture(page, {
+      containerWidth: 600,
+      items: [{ size: { base: 6, md: 4, lg: 6 } }],
+    })
+    expect(await widthOf(page, "item-0")).toBeCloseTo(W(6, 600, 32), 0)
+  })
+})
