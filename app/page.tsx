@@ -287,7 +287,7 @@ export default function Page() {
           lang="ts"
           code={`type Breakpoint  = "base" | "sm" | "md" | "lg" | "xl" | "2xl"
 type GapScale    = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
-type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
+type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
         />
 
         <p className="text-muted-foreground">
@@ -369,7 +369,10 @@ type GridItemSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
                   <code>GridItemSize</code>
                 </TableCell>
                 <TableCell className="text-muted-foreground">—</TableCell>
-                <TableCell>Columns to span (1–12)</TableCell>
+                <TableCell>
+                  Columns to span (1–12). Use <code>0</code> to hide at a
+                  breakpoint.
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
