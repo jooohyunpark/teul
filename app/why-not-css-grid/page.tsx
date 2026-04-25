@@ -27,7 +27,7 @@ export default function Page() {
       </Link>
 
       <Block>
-        <h1>Why CSS grid doesn&rsquo;t work for a 12-column layout system</h1>
+        <h1>Why CSS grid doesn’t work for a 12-column layout system</h1>
         <p className="text-muted-foreground">
           Gaps are fixed-width, and 11 of them is all it takes to overflow a
           phone.
@@ -36,10 +36,10 @@ export default function Page() {
 
       <Block>
         <p>
-          Every design system I&rsquo;ve built eventually needs a 12-column
-          grid, and CSS grid looks made for the job.{" "}
+          Every design system I’ve built eventually needs a 12-column grid, and
+          CSS grid looks made for the job.{" "}
           <code>grid-template-columns: repeat(12, 1fr)</code> spells out the
-          shape directly. So that&rsquo;s where I started.
+          shape directly. So that’s where I started.
         </p>
       </Block>
 
@@ -67,8 +67,8 @@ export default function Page() {
         <h2>Where it breaks</h2>
         <p>
           On most laptop viewports, a 12-column grid looks fine. Pull the slider
-          below to shrink the container, though, and you&rsquo;ll see items push
-          past the right edge around 352px.
+          below to shrink the container, though, and you’ll see items push past
+          the right edge around 352px.
         </p>
       </Block>
 
@@ -79,10 +79,10 @@ export default function Page() {
       <Block>
         <p>
           CSS grid builds a fixed-width scaffold. Gaps are set in concrete —
-          they don&rsquo;t shrink when the container gets smaller, they
-          don&rsquo;t wrap to the next row, they don&rsquo;t collapse. For 12
-          columns, that&rsquo;s 11 gaps × 32px (<code>gap-8</code>) = 352px of
-          gutter. Narrower than that, and the grid spills.
+          they don’t shrink when the container gets smaller, they don’t wrap to
+          the next row, they don’t collapse. For 12 columns, that’s 11 gaps ×
+          32px (<code>gap-8</code>) = 352px of gutter. Narrower than that, and
+          the grid spills.
         </p>
       </Block>
 
@@ -91,21 +91,20 @@ export default function Page() {
         <p>
           The obvious refinement: <code>@container</code> queries that swap the
           column count at smaller widths — 12 &rarr; 4 &rarr; 2. Better than
-          viewport media queries, since a grid inside a sidebar shouldn&rsquo;t
-          care about viewport width. But it doesn&rsquo;t actually solve the
-          problem. The layout snaps at thresholds instead of reflowing
-          continuously, and spans don&rsquo;t translate across breakpoints —
-          half on a 12-col grid is <code>col-span-6</code>, on a 4-col grid
-          it&rsquo;s <code>col-span-2</code>, so every item has to restate its
-          span at every breakpoint.
+          viewport media queries, since a grid inside a sidebar shouldn’t care
+          about viewport width. But it doesn’t actually solve the problem. The
+          layout snaps at thresholds instead of reflowing continuously, and
+          spans don’t translate across breakpoints — half on a 12-col grid is{" "}
+          <code>col-span-6</code>, on a 4-col grid it’s <code>col-span-2</code>,
+          so every item has to restate its span at every breakpoint.
         </p>
         <p>
-          There&rsquo;s also <code>repeat(auto-fit, minmax(MIN, 1fr))</code> — a
-          CSS grid pattern that fits as many equal columns as the container has
-          room for, and drops one when it runs out. No breakpoints, no overflow.
-          The catch: every column is the same width. You can&rsquo;t put a
-          one-third card next to a two-thirds card in the same row, which is the
-          whole point of a 12-column grid.
+          There’s also <code>repeat(auto-fit, minmax(MIN, 1fr))</code> — a CSS
+          grid pattern that fits as many equal columns as the container has room
+          for, and drops one when it runs out. No breakpoints, no overflow. The
+          catch: every column is the same width. You can’t put a one-third card
+          next to a two-thirds card in the same row, which is the whole point of
+          a 12-column grid.
         </p>
       </Block>
 
@@ -124,16 +123,16 @@ export default function Page() {
         </p>
         <p>
           Teul builds on <code>flex flex-wrap</code>. Each item declares its own
-          percentage width; items that don&rsquo;t fit wrap to the next row, and
-          the gaps wrap with them instead of sitting fixed in the container.
+          percentage width; items that don’t fit wrap to the next row, and the
+          gaps wrap with them instead of sitting fixed in the container.
         </p>
         <p>
           The width formula falls out of that:{" "}
           <code>calc(size/12 × (100% + colGap) − colGap)</code>. The{" "}
           <code>+ colGap</code> term reserves a gap-sized chunk for each 1/12
           slot; the <code>− colGap</code> term subtracts the trailing gap that
-          the last item in a row doesn&rsquo;t need. When items wrap, the gaps
-          wrap with them, and the formula doesn&rsquo;t change.
+          the last item in a row doesn’t need. When items wrap, the gaps wrap
+          with them, and the formula doesn’t change.
         </p>
       </Block>
 

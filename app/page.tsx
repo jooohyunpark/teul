@@ -74,8 +74,8 @@ export default function Page() {
                 Containers and items look the same.
               </strong>{" "}
               A grid is two things — a container and its items — but in Tailwind
-              they&rsquo;re both just <code>&lt;div&gt;</code> with class
-              strings, with nothing to tell them apart.
+              they’re both just <code>&lt;div&gt;</code> with class strings,
+              with nothing to tell them apart.
             </li>
           </ul>
         </div>
@@ -226,10 +226,10 @@ export default function Page() {
       <Block>
         <h3>Reordering</h3>
         <p className="text-muted-foreground">
-          Teul leaves visual order to Tailwind&rsquo;s <code>order-*</code>{" "}
-          utilities. Pass them via <code>className</code> — they take the same
-          responsive prefixes (<code>sm:</code>, <code>md:</code>, &hellip;) as
-          any other Tailwind class.
+          Teul leaves visual order to Tailwind’s <code>order-*</code> utilities.
+          Pass them via <code>className</code> — they take the same responsive
+          prefixes (<code>sm:</code>, <code>md:</code>, &hellip;) as any other
+          Tailwind class.
         </p>
         <CodePreview>
           <Grid rowGap={4}>
