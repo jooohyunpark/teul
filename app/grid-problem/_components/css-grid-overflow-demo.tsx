@@ -87,9 +87,9 @@ export function CssGridOverflowDemo({
           <Switch
             checked={showGrid}
             onCheckedChange={setShowGrid}
-            aria-label="Toggle grid outline"
+            aria-label="Toggle column overlay"
           />
-          Show grid
+          Show columns
         </label>
       </div>
     </figure>
