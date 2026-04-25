@@ -37,7 +37,7 @@ export default function Page() {
           An opinionated grid system for React and Tailwind
         </p>
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
           render={<Link href="https://github.com/jooohyunpark/teul" />}
           nativeButton={false}
@@ -51,31 +51,31 @@ export default function Page() {
 
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            I started with <code>grid-cols-12</code> and{" "}
-            <code>col-span-*</code>. The math worked, the JSX didn&rsquo;t —
-            three things kept getting in the way:
+            When using Tailwind for responsive layouts, a few patterns keep
+            getting in the way:
           </p>
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
               <strong className="font-medium text-foreground">
                 Column sizing gets lost in the utility string.
               </strong>{" "}
-              Span and start classes pile up alongside every other utility, and
-              the breakpoint prefixes pile on top.
+              Span and start classes pile up next to every other utility, and
+              each breakpoint multiplies them.
             </li>
             <li>
               <strong className="font-medium text-foreground">
-                Offsets require arithmetic.
+                Offsets don’t read like offsets.
               </strong>{" "}
-              Shifting an item two columns in means writing{" "}
-              <code>col-start-3</code> — a small calculation every time.
+              To shift an item two columns in, you write{" "}
+              <code>col-start-3</code> — doing arithmetic every time you offset.
             </li>
             <li>
               <strong className="font-medium text-foreground">
                 Containers and items look the same.
               </strong>{" "}
-              A grid is two things — a container and its items — but both are
-              just <code>&lt;div&gt;</code> with class strings.
+              A grid is two things — a container and its items — but in Tailwind
+              they&rsquo;re both just <code>&lt;div&gt;</code> with class
+              strings, with nothing to tell them apart.
             </li>
           </ul>
         </div>

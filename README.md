@@ -8,11 +8,11 @@ pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 
 ## Why Teul
 
-I started with `grid-cols-12` and `col-span-*`. The math worked, the JSX didn't — three things kept getting in the way:
+Tailwind responsive grids hit three recurring problems:
 
-- **Column sizing gets lost in the utility string.** Span and start classes pile up alongside every other utility, and the breakpoint prefixes pile on top.
-- **Offsets require arithmetic.** Shifting an item two columns in means writing `col-start-3` — a small calculation every time.
-- **Containers and items look the same.** A grid is two things — a container and its items — but both are just `<div>` with class strings.
+- **Column sizing gets lost in the utility string.** Span and start classes pile up alongside every other utility, multiplied by each breakpoint.
+- **Offsets don't read like offsets.** Shifting an item two columns in means writing `col-start-3` — arithmetic on every offset.
+- **Containers and items look the same.** Both are `<div>` with class strings; nothing distinguishes them.
 
 Teul is a 12-column grid built on flexbox. `Grid` is the container, `GridItem` is the item. Type-safe responsive props, plain Tailwind output, copy-paste install. No runtime, no dependencies, no config.
 
