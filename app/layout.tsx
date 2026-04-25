@@ -12,24 +12,27 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+const SITE_DESCRIPTION =
+  "A copy-paste 12-column grid for React and Tailwind. Type-safe responsive props, no runtime, no dependencies."
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://teul.joohyun.dev"),
-  title: "Teul — an opinionated grid system for React and Tailwind",
-  description:
-    "A copy-paste 12-column grid for React and Tailwind. Type-safe, responsive, zero dependencies.",
+  title: {
+    default: "Teul",
+    template: "%s — Teul",
+  },
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: "Teul — an opinionated grid system for React and Tailwind",
-    description:
-      "A copy-paste 12-column grid for React and Tailwind. Type-safe, responsive, zero dependencies.",
+    title: "Teul",
+    description: SITE_DESCRIPTION,
     url: "https://teul.joohyun.dev",
     siteName: "Teul",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Teul — an opinionated grid system for React and Tailwind",
-    description:
-      "A copy-paste 12-column grid for React and Tailwind. Type-safe, responsive, zero dependencies.",
+    title: "Teul",
+    description: SITE_DESCRIPTION,
   },
 }
 

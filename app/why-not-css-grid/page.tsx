@@ -4,17 +4,17 @@ import { ArrowLeft } from "lucide-react"
 
 import { Block } from "@/components/site/block"
 import { ThemeToggle } from "@/components/site/theme-toggle"
+import { CssGridOverflowDemo } from "@/components/site/css-grid-overflow-demo"
 
-import { CssGridOverflowDemo } from "./_components/css-grid-overflow-demo"
+const ARTICLE_DESCRIPTION =
+  "Why CSS grid doesn’t work as a 12-column layout system."
 
 export const metadata: Metadata = {
-  title: "Why CSS grid doesn’t work for 12-column layouts",
-  description:
-    "Gaps are fixed-width, and 11 of them is all it takes to overflow.",
+  title: "Why not CSS grid",
+  description: ARTICLE_DESCRIPTION,
   openGraph: {
-    title: "Why CSS grid doesn’t work for 12-column layouts",
-    description:
-      "Gaps are fixed-width, and 11 of them is all it takes to overflow.",
+    title: "Why not CSS grid",
+    description: ARTICLE_DESCRIPTION,
     type: "article",
   },
 }

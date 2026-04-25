@@ -21,7 +21,7 @@ type FixtureConfig = {
   items: ItemConfig[]
 }
 
-export default async function PlaywrightGridFixture({
+export default async function Page({
   searchParams,
 }: {
   searchParams: Promise<{ cfg?: string }>
