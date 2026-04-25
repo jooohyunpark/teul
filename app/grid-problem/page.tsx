@@ -100,10 +100,13 @@ export default function NotesPage() {
           span at every breakpoint.
         </p>
         <p>
-          <code>grid-template-columns: repeat(auto-fit, minmax(MIN, 1fr))</code>{" "}
-          skips the breakpoint dance, but it only produces uniform-width rows —
-          you can&rsquo;t say &ldquo;this one is a third, this one is
-          two-thirds.&rdquo;
+          There&rsquo;s also{" "}
+          <code>repeat(auto-fit, minmax(MIN, 1fr))</code> — a CSS grid pattern
+          that fits as many equal columns as the container has room for, and
+          drops one when it runs out. No breakpoints, no overflow. The catch:
+          every column is the same width. You can&rsquo;t put a one-third
+          card next to a two-thirds card in the same row, which is the whole
+          point of a 12-column grid.
         </p>
       </Block>
 
