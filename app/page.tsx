@@ -40,6 +40,7 @@ export default function Page() {
           variant="outline"
           size="sm"
           render={<Link href="https://github.com/jooohyunpark/teul" />}
+          nativeButton={false}
         >
           GitHub
         </Button>
