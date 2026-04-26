@@ -37,7 +37,7 @@ export default function Page() {
           An opinionated grid system for React and Tailwind
         </p>
         <Button
-          variant="secondary"
+          variant="outline"
           size="sm"
           render={<Link href="https://github.com/jooohyunpark/teul" />}
           nativeButton={false}
@@ -51,16 +51,17 @@ export default function Page() {
 
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            When using Tailwind for responsive layouts, a few patterns keep
-            getting in the way:
+            Responsive layouts and Tailwind are everyday tools for building
+            modern websites. Combining them isn’t — a few patterns keep getting
+            in the way:
           </p>
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
               <strong className="font-medium text-foreground">
-                Column sizing gets lost in the utility string.
+                Layout classes get lost in the utility string.
               </strong>{" "}
-              Span and start classes pile up next to every other utility, and
-              each breakpoint multiplies them.
+              Column widths, gaps, and alignment pile up next to every other
+              utility, and each breakpoint multiplies them.
             </li>
             <li>
               <strong className="font-medium text-foreground">
@@ -74,14 +75,14 @@ export default function Page() {
                 Containers and items look the same.
               </strong>{" "}
               A grid is two things — a container and its items — but in Tailwind
-              they’re both just <code>&lt;div&gt;</code> with class strings,
-              with nothing to tell them apart.
+              they look identical: just <code>{`<div>`}</code> with class
+              strings.
             </li>
           </ul>
         </div>
 
         <p className="text-muted-foreground">
-          The result is a 12-column grid system built on flexbox:{" "}
+          Teul brings a 12-column grid system to Tailwind, built on flexbox:{" "}
           <code>Grid</code> for containers, <code>GridItem</code> for items.
           Type-safe responsive props, plain Tailwind under the hood, copy-paste
           install — no runtime, no dependencies, no config. (
