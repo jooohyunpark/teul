@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import { ThemeProvider } from "next-themes"
 import "./globals.css"
-import { ThemeProvider } from "@/components/site/theme-provider"
 import { cn } from "@/lib/utils"
 import { Analytics } from "@vercel/analytics/next"
 
@@ -52,7 +52,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="system"
+          storageKey="teul-theme"
+          enableSystem
+          disableTransitionOnChange
+        >
           <main className="mx-auto min-h-svh max-w-3xl overflow-x-hidden px-6 py-10">
             {children}
           </main>
