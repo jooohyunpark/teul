@@ -67,8 +67,8 @@ export default function Page() {
         <h2>Where it breaks</h2>
         <p>
           On most laptop viewports, a 12-column grid looks fine. Pull the slider
-          below to shrink the container, though, and you’ll see items push past
-          the right edge around 352px.
+          below to shrink the container, and you’ll see items push past the
+          right edge around 352px.
         </p>
       </Block>
 
@@ -79,9 +79,9 @@ export default function Page() {
       <Block>
         <p>
           CSS grid builds a fixed-width scaffold. Gaps are set in concrete —
-          they don’t shrink when the container gets smaller, they don’t wrap to
-          the next row, they don’t collapse. For 12 columns, that’s 11 gaps ×
-          32px (<code>gap-8</code>) = 352px of gutter. Narrower than that, and
+          they don’t shrink when the container gets smaller, they don’t wrap,
+          they don’t collapse. For 12 columns, that’s 11 gaps × 32px (
+          <code>gap-8</code>) = 352px of pure gutter. Narrower than that, and
           the grid spills.
         </p>
       </Block>
@@ -100,8 +100,8 @@ export default function Page() {
         </p>
         <p>
           There’s also <code>repeat(auto-fit, minmax(MIN, 1fr))</code> — a CSS
-          grid pattern that fits as many equal columns as the container has room
-          for, and drops one when it runs out. No breakpoints, no overflow. The
+          grid pattern that fits as many equal columns as the container allows
+          and drops one when it runs out. No breakpoints, no overflow. The
           catch: every column is the same width. You can’t put a one-third card
           next to a two-thirds card in the same row, which is the whole point of
           a 12-column grid.
@@ -116,7 +116,7 @@ export default function Page() {
           no overflow at any container size.
         </p>
         <p>
-          CSS grid gives you per-item widths but fights the other two;{" "}
+          CSS grid gives you per-item widths but fights the other two.{" "}
           <code>auto-fit</code> gives you reflow and safety but locks you into
           uniform columns. Flex-wrap with percentage widths is the only approach
           that delivers all three.
@@ -132,7 +132,7 @@ export default function Page() {
           <code>+ colGap</code> term reserves a gap-sized chunk for each 1/12
           slot; the <code>− colGap</code> term subtracts the trailing gap that
           the last item in a row doesn’t need. When items wrap, the gaps wrap
-          with them, and the formula doesn’t change.
+          with them, and the formula stays the same.
         </p>
       </Block>
 
