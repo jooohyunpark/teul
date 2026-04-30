@@ -58,25 +58,28 @@ export default function Page() {
           <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
             <li>
               <strong className="font-medium text-foreground">
-                Layout classes get lost in the utility string.
+                Layout classes get buried in the utility string.
               </strong>{" "}
-              Column widths, gaps, and alignment pile up next to every other
-              utility, and each breakpoint multiplies them.
+              Column widths, gaps, and alignment sit next to every other
+              utility, breakpoints multiply them, and offsets feel off-by-one —
+              shifting two columns in means writing <code>col-start-3</code>.
             </li>
             <li>
               <strong className="font-medium text-foreground">
-                Offsets don’t read like offsets.
+                Containers and items look identical.
               </strong>{" "}
-              To shift an item two columns in, you write{" "}
-              <code>col-start-3</code> — doing arithmetic every time you offset.
+              A grid has two roles — the container and its items — but in
+              Tailwind they’re both just <code>{`<div>`}</code> with a class
+              string.
             </li>
             <li>
               <strong className="font-medium text-foreground">
-                Containers and items look the same.
+                Tailwind’s breakpoints stop at the component boundary.
               </strong>{" "}
-              A grid is two things — a container and its items — but in Tailwind
-              they look identical: just <code>{`<div>`}</code> with class
-              strings.
+              Pair Tailwind with a responsive component from another library —
+              MUI’s <code>Grid</code>, for example — and you’ll redeclare
+              breakpoints in its theme. Two configs to keep in sync, plus
+              another provider wrapping your app.
             </li>
           </ul>
         </div>
@@ -85,7 +88,7 @@ export default function Page() {
           Teul brings a 12-column grid system to Tailwind, built on flexbox:{" "}
           <code>Grid</code> for containers, <code>GridItem</code> for items.
           Type-safe responsive props, plain Tailwind under the hood, copy-paste
-          install — no runtime, no dependencies, no config. (
+          install. No runtime, no dependencies, no config. (
           <Link
             href="/why-not-css-grid"
             className="underline underline-offset-4 hover:text-foreground"
