@@ -23,7 +23,7 @@ export async function CodeBlock({
         <CodeBlockCopyButton text={code} />
       </div>
       <div
-        className="rounded border bg-card p-4 text-sm leading-relaxed [&_code]:font-mono [&_pre]:overflow-x-auto [&_pre]:bg-transparent!"
+        className="rounded border bg-card p-4 pr-12 text-sm leading-relaxed [&_code]:font-mono [&_pre]:overflow-x-auto [&_pre]:bg-transparent!"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
