@@ -162,7 +162,7 @@
   }
 }
 
-@utility tap-target {
+@utility touch-hitbox {
   position: relative;
 
   &::after {
