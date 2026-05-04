@@ -3,13 +3,18 @@
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useSyncExternalStore } from "react"
-import { Button } from "@/components/site/button"
+
+import { Tabs, TabsList, TabsTrigger } from "@/components/site/tabs"
+
+const OPTIONS = [
+  { value: "light", label: "Light", icon: Sun },
+  { value: "dark", label: "Dark", icon: Moon },
+] as const
 
 const noopSubscribe = () => () => {}
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
 
   // next-themes only knows the real theme on the client, so we must render
   // a neutral placeholder for SSR + first paint to avoid hydration mismatch.
@@ -24,17 +29,18 @@ export function ThemeToggle() {
   )
 
   if (!mounted) {
-    return <div className="h-8 w-[104px] rounded-lg bg-muted" />
+    return null
   }
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-    >
-      {isDark ? <Sun /> : <Moon />}
-    </Button>
+    <Tabs value={resolvedTheme} onValueChange={(v) => setTheme(String(v))}>
+      <TabsList aria-label="Theme">
+        {OPTIONS.map(({ value, label, icon: Icon }) => (
+          <TabsTrigger key={value} value={value} aria-label={label}>
+            <Icon className="size-3.5" />
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   )
 }
