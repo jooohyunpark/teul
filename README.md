@@ -8,13 +8,13 @@ pnpm dlx shadcn@latest add https://teul.joohyun.dev/registry/teul.json
 
 ## Why Teul
 
-Tailwind responsive grids hit three recurring problems:
+Responsive layouts and Tailwind are everyday tools for building modern websites. Combining them isn't — a few patterns keep getting in the way:
 
-- **Column sizing gets lost in the utility string.** Span and start classes pile up alongside every other utility, multiplied by each breakpoint.
-- **Offsets don't read like offsets.** Shifting an item two columns in means writing `col-start-3` — arithmetic on every offset.
-- **Containers and items look the same.** Both are `<div>` with class strings; nothing distinguishes them.
+- **Layout classes get buried in the utility string.** Column widths, gaps, and alignment sit next to every other utility, breakpoints multiply them, and offsets feel off-by-one — shifting two columns in means writing `col-start-3`.
+- **Containers and items look identical.** A grid has two roles — the container and its items — but in Tailwind they're both just `<div>` with a class string.
+- **Tailwind's breakpoints stop at the component boundary.** Pair Tailwind with a responsive component from another library — MUI's `Grid`, for example — and you'll redeclare breakpoints in its theme. Two configs to keep in sync, plus another provider wrapping your app.
 
-Teul is a 12-column grid built on flexbox. `Grid` is the container, `GridItem` is the item. Type-safe responsive props, plain Tailwind output, copy-paste install. No runtime, no dependencies, no config.
+Teul brings a 12-column grid system to Tailwind, built on flexbox: `Grid` for containers, `GridItem` for items. Type-safe responsive props, plain Tailwind under the hood, copy-paste install. No runtime, no dependencies, no config. ([Why flexbox and not CSS grid?](https://teul.joohyun.dev/why-not-css-grid))
 
 ## Prerequisites
 
