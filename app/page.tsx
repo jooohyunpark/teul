@@ -406,7 +406,10 @@ type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
         <span>
-          By <Link href="https://joohyun.dev">Joohyun Park</Link>
+          By{" "}
+          <Link href="https://joohyun.dev" className="hover:underline">
+            Joohyun Park
+          </Link>
         </span>
         <ThemeToggle />
       </footer>
