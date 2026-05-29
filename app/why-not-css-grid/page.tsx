@@ -22,7 +22,11 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <Link href="/">
+      <Link
+        href="/"
+        aria-label="Back to home"
+        className="inline-flex text-muted-foreground hover:text-foreground"
+      >
         <ArrowLeft className="size-4" />
       </Link>
 

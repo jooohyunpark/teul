@@ -236,7 +236,7 @@ export default function Page() {
           Tailwind class.
         </p>
         <CodePreview>
-          <Grid rowGap={4}>
+          <Grid gap={4}>
             <GridItem size={{ base: 12, md: 4 }} className="md:order-3">
               <div className="rounded bg-muted p-4 text-center text-sm">
                 1st in DOM · 3rd on md
@@ -266,7 +266,7 @@ export default function Page() {
       <Block>
         <h3>Offsets</h3>
         <CodePreview>
-          <Grid rowGap={4}>
+          <Grid gap={4}>
             <GridItem size={{ sm: 6 }} offset={{ sm: 3 }}>
               <div className="rounded bg-muted p-4 text-center text-sm">
                 sm offset: 3
