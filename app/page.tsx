@@ -50,7 +50,7 @@ export default function Page() {
         <h2>Why Teul</h2>
 
         <div className="space-y-4">
-          <p className="text-muted-foreground">
+          <p>
             Responsive layouts and Tailwind are everyday tools for building
             modern websites. Combining them isn’t — a few patterns keep getting
             in the way:
@@ -84,7 +84,7 @@ export default function Page() {
           </ul>
         </div>
 
-        <p className="text-muted-foreground">
+        <p>
           Teul brings a 12-column grid system to Tailwind, built on flexbox:{" "}
           <code>Grid</code> for containers, <code>GridItem</code> for items.
           Type-safe responsive props, plain Tailwind under the hood, copy-paste
@@ -102,9 +102,7 @@ export default function Page() {
       {/* Installation */}
       <Block>
         <h2>Installation</h2>
-        <p className="text-muted-foreground">
-          Add Teul to your project via the shadcn CLI.
-        </p>
+        <p>Add Teul to your project via the shadcn CLI.</p>
         <Tabs defaultValue="pnpm">
           <TabsList variant="line">
             {INSTALL_COMMANDS.map(({ name }) => (
@@ -229,7 +227,7 @@ export default function Page() {
 
       <Block>
         <h3>Reordering</h3>
-        <p className="text-muted-foreground">
+        <p>
           Teul leaves visual order to Tailwind’s <code>order-*</code> utilities.
           Pass them via <code>className</code> — they take the same responsive
           prefixes (<code>sm:</code>, <code>md:</code>, &hellip;) as any other
@@ -303,7 +301,7 @@ type GapScale    = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12
 type GridItemSize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`}
         />
 
-        <p className="text-muted-foreground">
+        <p>
           Every prop accepts a single value or a per-breakpoint object (e.g.{" "}
           <code>{`{ md: 4, lg: 6 }`}</code>). <code>GapScale</code> follows
           Tailwind’s spacing scale.
