@@ -238,17 +238,17 @@ export default function Page() {
         <CodePreview>
           <Grid gap={4}>
             <GridItem size={{ base: 12, md: 4 }} className="md:order-3">
-              <div className="rounded bg-muted p-4 text-center text-sm">
+              <div className="flex h-full items-center justify-center rounded bg-muted p-4 text-center text-sm">
                 1st in DOM · 3rd on md
               </div>
             </GridItem>
             <GridItem size={{ base: 12, md: 4 }} className="md:order-1">
-              <div className="rounded bg-muted p-4 text-center text-sm">
+              <div className="flex h-full items-center justify-center rounded bg-muted p-4 text-center text-sm">
                 2nd in DOM · 1st on md
               </div>
             </GridItem>
             <GridItem size={{ base: 12, md: 4 }} className="md:order-2">
-              <div className="rounded bg-muted p-4 text-center text-sm">
+              <div className="flex h-full items-center justify-center rounded bg-muted p-4 text-center text-sm">
                 3rd in DOM · 2nd on md
               </div>
             </GridItem>

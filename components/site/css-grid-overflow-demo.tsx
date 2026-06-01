@@ -13,7 +13,7 @@ type CssGridOverflowDemoProps = {
 export function CssGridOverflowDemo({
   type = "grid",
 }: CssGridOverflowDemoProps = {}) {
-  const [width, setWidth] = useState(700)
+  const [width, setWidth] = useState(600)
   const [showGrid, setShowGrid] = useState(false)
 
   return (
@@ -78,7 +78,7 @@ export function CssGridOverflowDemo({
               setWidth(Array.isArray(value) ? value[0] : value)
             }
             min={300}
-            max={700}
+            max={600}
             aria-label="Container width"
           />
         </div>

@@ -59,7 +59,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="mx-auto min-h-svh max-w-3xl overflow-x-hidden px-6 py-10">
+          <main className="mx-auto min-h-svh max-w-2xl overflow-x-hidden px-6 py-10">
             {children}
           </main>
         </ThemeProvider>
