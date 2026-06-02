@@ -36,53 +36,54 @@ export default function Page() {
         <p className="text-muted-foreground">
           An opinionated grid system for React and Tailwind
         </p>
-        <Button
-          variant="outline"
-          size="sm"
-          render={<Link href="https://github.com/jooohyunpark/teul" />}
-          nativeButton={false}
-        >
-          GitHub
-        </Button>
+
+        <div>
+          <Button
+            variant="outline"
+            size="sm"
+            render={<Link href="https://github.com/jooohyunpark/teul" />}
+            nativeButton={false}
+          >
+            GitHub
+          </Button>
+        </div>
       </Block>
 
       <Block>
         <h2>Why Teul</h2>
 
-        <div className="space-y-4">
-          <p>
-            Responsive layouts and Tailwind are everyday tools for building
-            modern websites. Combining them isn’t — a few patterns keep getting
-            in the way:
-          </p>
-          <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
-            <li>
-              <strong className="font-medium text-foreground">
-                Layout classes get buried in the utility string.
-              </strong>{" "}
-              Column widths, gaps, and alignment sit next to every other
-              utility, breakpoints multiply them, and offsets feel off-by-one —
-              shifting two columns in means writing <code>col-start-3</code>.
-            </li>
-            <li>
-              <strong className="font-medium text-foreground">
-                Containers and items look identical.
-              </strong>{" "}
-              A grid has two roles — the container and its items — but in
-              Tailwind they’re both just <code>{`<div>`}</code> with a class
-              string.
-            </li>
-            <li>
-              <strong className="font-medium text-foreground">
-                Tailwind’s breakpoints stop at the component boundary.
-              </strong>{" "}
-              Pair Tailwind with a responsive component from another library —
-              MUI’s <code>Grid</code>, for example — and you’ll redeclare
-              breakpoints in its theme. Two configs to keep in sync, plus
-              another provider wrapping your app.
-            </li>
-          </ul>
-        </div>
+        <p>
+          Responsive layouts and Tailwind are everyday tools for building modern
+          websites. Combining them isn’t — a few patterns keep getting in the
+          way:
+        </p>
+
+        <ul className="list-disc space-y-2 pl-6 text-muted-foreground">
+          <li>
+            <strong className="font-medium text-foreground">
+              Layout classes get buried in the utility string.
+            </strong>{" "}
+            Column widths, gaps, and alignment sit next to every other utility,
+            breakpoints multiply them, and offsets feel off-by-one — shifting
+            two columns in means writing <code>col-start-3</code>.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">
+              Containers and items look identical.
+            </strong>{" "}
+            A grid has two roles — the container and its items — but in Tailwind
+            they’re both just <code>{`<div>`}</code> with a class string.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">
+              Tailwind’s breakpoints stop at the component boundary.
+            </strong>{" "}
+            Pair Tailwind with a responsive component from another library —
+            MUI’s <code>Grid</code>, for example — and you’ll redeclare
+            breakpoints in its theme. Two configs to keep in sync, plus another
+            provider wrapping your app.
+          </li>
+        </ul>
 
         <p>
           Teul brings a 12-column grid system to Tailwind, built on flexbox:{" "}

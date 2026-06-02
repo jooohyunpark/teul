@@ -45,9 +45,7 @@ export default function Page() {
           <code>grid-template-columns: repeat(12, 1fr)</code> spells out the
           shape directly. So that’s where I started.
         </p>
-      </Block>
 
-      <Block>
         <figure className="space-y-2">
           <div className="grid grid-cols-12 gap-8 text-center text-xs font-medium">
             <div className="col-span-12 h-12 rounded bg-muted-foreground/50" />
@@ -74,13 +72,9 @@ export default function Page() {
           below to shrink the container, and you’ll see items push past the
           right edge around 352px.
         </p>
-      </Block>
 
-      <Block>
-        <CssGridOverflowDemo />
-      </Block>
+        <CssGridOverflowDemo className="my-4" />
 
-      <Block>
         <p>
           CSS grid builds a fixed-width scaffold. Gaps are set in concrete —
           they don’t shrink when the container gets smaller, they don’t wrap,
@@ -138,10 +132,8 @@ export default function Page() {
           the last item in a row doesn’t need. When items wrap, the gaps wrap
           with them, and the formula stays the same.
         </p>
-      </Block>
 
-      <Block>
-        <CssGridOverflowDemo type="flex" />
+        <CssGridOverflowDemo type="flex" className="my-4" />
       </Block>
 
       <footer className="mt-24 flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">

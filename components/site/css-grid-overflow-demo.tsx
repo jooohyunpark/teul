@@ -8,16 +8,18 @@ import { cn } from "@/lib/utils"
 
 type CssGridOverflowDemoProps = {
   type?: "grid" | "flex"
+  className?: string
 }
 
 export function CssGridOverflowDemo({
   type = "grid",
+  className,
 }: CssGridOverflowDemoProps = {}) {
   const [width, setWidth] = useState(600)
   const [showGrid, setShowGrid] = useState(false)
 
   return (
-    <figure className="space-y-4">
+    <figure className={cn("space-y-4", className)}>
       <div
         className={"relative mx-auto rounded border px-6 py-12"}
         style={{ width }}
