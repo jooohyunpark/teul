@@ -7,7 +7,7 @@ export function Block({
 }: React.HTMLAttributes<HTMLElement>) {
   return (
     <section
-      className={cn("flex flex-col gap-8 py-10", className)}
+      className={cn("flex flex-col gap-6 py-10", className)}
       {...props}
     />
   )

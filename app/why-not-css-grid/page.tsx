@@ -46,7 +46,7 @@ export default function Page() {
           shape directly. So that’s where I started.
         </p>
 
-        <figure className="space-y-2">
+        <figure className="my-4">
           <div className="grid grid-cols-12 gap-8 text-center text-xs font-medium">
             <div className="col-span-12 h-12 rounded bg-muted-foreground/50" />
             {Array.from({ length: 2 }).map((_, i) => (
