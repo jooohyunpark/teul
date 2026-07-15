@@ -11,6 +11,12 @@ import {
 type ItemConfig = {
   size?: ResponsiveValue<GridItemSize>
   offset?: ResponsiveValue<GridItemSize>
+  nested?: {
+    gap?: ResponsiveValue<GapScale>
+    rowGap?: ResponsiveValue<GapScale>
+    colGap?: ResponsiveValue<GapScale>
+    items: ItemConfig[]
+  }
 }
 
 type FixtureConfig = {
@@ -55,8 +61,27 @@ export default async function Page({
             size={item.size}
             offset={item.offset}
             data-testid={`item-${i}`}
-            style={{ height: 40, background: "#888" }}
-          />
+            style={item.nested ? undefined : { height: 40, background: "#888" }}
+          >
+            {item.nested && (
+              <Grid
+                gap={item.nested.gap}
+                rowGap={item.nested.rowGap}
+                colGap={item.nested.colGap}
+                data-testid={`item-${i}-grid`}
+              >
+                {item.nested.items.map((inner, j) => (
+                  <GridItem
+                    key={j}
+                    size={inner.size}
+                    offset={inner.offset}
+                    data-testid={`item-${i}-${j}`}
+                    style={{ height: 40, background: "#666" }}
+                  />
+                ))}
+              </Grid>
+            )}
+          </GridItem>
         ))}
       </Grid>
     </div>

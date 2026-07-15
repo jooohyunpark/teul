@@ -1,15 +1,23 @@
 import { expect, test, type Page } from "@playwright/test"
 
+type ResponsiveNumber = number | Record<string, number>
+
 type ItemConfig = {
-  size?: number | Record<string, number>
-  offset?: number | Record<string, number>
+  size?: ResponsiveNumber
+  offset?: ResponsiveNumber
+  nested?: {
+    gap?: ResponsiveNumber
+    rowGap?: ResponsiveNumber
+    colGap?: ResponsiveNumber
+    items: ItemConfig[]
+  }
 }
 
 type FixtureConfig = {
   containerWidth: number
-  gap?: number
-  rowGap?: number
-  colGap?: number
+  gap?: ResponsiveNumber
+  rowGap?: ResponsiveNumber
+  colGap?: ResponsiveNumber
   items: ItemConfig[]
 }
 
@@ -275,6 +283,47 @@ test.describe("Gap shorthand vs axis precedence", () => {
     const top0 = await topOf(page, "item-0")
     const top1 = await topOf(page, "item-1")
     expect(top1 - top0).toBeCloseTo(56, 0)
+  })
+})
+
+test.describe("Nested grids", () => {
+  test("inner default-size item does not inherit outer item's responsive size", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1024, height: 800 })
+    await loadFixture(page, {
+      containerWidth: 600,
+      colGap: 0,
+      items: [
+        {
+          size: { md: 6 },
+          nested: { colGap: 0, items: [{}] },
+        },
+      ],
+    })
+    // Outer item is 300px at md; the inner item has no size prop, so it must
+    // resolve to the default 12 (300px), not the outer item's md size of 6.
+    expect(await widthOf(page, "item-0-0")).toBeCloseTo(300, 0)
+  })
+
+  test("inner grid does not inherit outer grid's responsive colGap", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1024, height: 800 })
+    await loadFixture(page, {
+      containerWidth: 600,
+      colGap: { md: 12 },
+      items: [
+        {
+          size: 6,
+          nested: { colGap: 0, items: [{ size: 6 }, { size: 6 }] },
+        },
+      ],
+    })
+    // Outer: W(6, 600, 48) = 276. Inner colGap=0 → 138 each; inheriting the
+    // outer md colGap (48px) would give W(6, 276, 48) = 114 instead.
+    expect(await widthOf(page, "item-0-0")).toBeCloseTo(W(6, 276, 0), 0)
+    expect(await widthOf(page, "item-0-1")).toBeCloseTo(W(6, 276, 0), 0)
   })
 })
 
